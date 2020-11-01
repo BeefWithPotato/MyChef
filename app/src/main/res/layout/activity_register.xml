@@ -35,32 +35,32 @@
             android:layout_marginTop="10dp"/>
 
         <EditText
-            android:id="@+id/et_1"
+            android:id="@+id/set_username"
             android:layout_width="350dp"
             android:layout_height="60dp"
             android:textSize="20sp"
             android:textColor="#ffffff"
             android:textColorHint="#bfbfbf"
-            android:hint="Username"
+            android:hint="Enter your Username"
             android:background="@drawable/bg_username"
             android:maxLines="1"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:drawablePadding="5dp"
             android:drawableLeft="@drawable/user_white"/>
 
         <EditText
-            android:id="@+id/et_2"
+            android:id="@+id/set_password"
             android:layout_width="350dp"
             android:layout_height="60dp"
             android:textSize="20sp"
             android:textColor="#fff"
             android:inputType="textPassword"
-            android:hint="Password"
+            android:hint="Set your Password"
             android:textColorHint="#bfbfbf"
             android:maxLines="1"
-            android:layout_below="@id/et_1"
+            android:layout_below="@id/set_username"
             android:layout_marginTop="10dp"
             android:background="@drawable/bg_username"
             android:drawableLeft="@drawable/password"
@@ -68,43 +68,54 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"/>
 
-        <Button
-            android:id="@+id/btn_login"
-            android:layout_width="300dp"
-            android:layout_height="40dp"
-            android:layout_below="@id/et_2"
-            android:layout_marginTop="40dp"
-            android:text="Login"
-            android:textSize="18sp"
+        <EditText
+            android:id="@+id/retype_password"
+            android:layout_width="350dp"
+            android:layout_height="60dp"
+            android:textSize="20sp"
             android:textColor="#fff"
-            android:background="@drawable/btn_login"
-            android:layout_gravity="center_horizontal"/>
+            android:inputType="textPassword"
+            android:hint="Retype your Password"
+            android:textColorHint="#bfbfbf"
+            android:maxLines="1"
+            android:layout_below="@id/set_password"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_username"
+            android:drawableLeft="@drawable/password"
+            android:drawablePadding="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"/>
+
+        <EditText
+            android:id="@+id/set_phone"
+            android:layout_width="350dp"
+            android:layout_height="60dp"
+            android:textSize="20sp"
+            android:textColor="#fff"
+            android:inputType="number"
+            android:hint="Enter your Phone Number"
+            android:textColorHint="#bfbfbf"
+            android:maxLines="1"
+            android:layout_below="@id/retype_password"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_username"
+            android:drawableLeft="@drawable/phone"
+            android:drawablePadding="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"/>
 
         <Button
             android:id="@+id/btn_register"
             android:layout_width="300dp"
             android:layout_height="40dp"
-            android:layout_below="@id/btn_register"
+            android:layout_below="@id/set_phone"
             android:layout_marginTop="10dp"
-            android:text="Register Now"
+            android:text="Register"
             android:textAllCaps="false"
             android:textSize="18sp"
             android:textColor="#fff"
             android:background="@drawable/btn_register"
             android:layout_gravity="center_horizontal"/>
-
-        <Button
-            android:id="@+id/btn_forget"
-            android:layout_width="300dp"
-            android:layout_height="40dp"
-            android:layout_below="@id/btn_register"
-            android:layout_marginTop="10dp"
-            android:text="Forget your password?"
-            android:textAllCaps="false"
-            android:textColor="@drawable/textbtn_color"
-            android:textSize="16sp"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/btn_no_stroke"/>
     </LinearLayout>
 
 </RelativeLayout>

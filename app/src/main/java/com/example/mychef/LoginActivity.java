@@ -2,6 +2,7 @@ package com.example.mychef;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
@@ -18,6 +19,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText ed2;
     private Button btnLogin;
     private EditText mEtUsername;
+    private Button btn_forget;
+    private Button btn_register;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,24 +42,30 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(LoginActivity.this, "Login Successfully!", Toast.LENGTH_SHORT).show();
+
+                //jump to home
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
 
-        mEtUsername = (EditText) findViewById(R.id.et_1);
-        mEtUsername.addTextChangedListener(new TextWatcher() {
+        btn_register = (Button) findViewById(R.id.btn_register);
+        btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public void onClick(View v) {
+                Toast.makeText(LoginActivity.this, "Register Button Pressed!", Toast.LENGTH_SHORT).show();
 
+                //jump to register
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
             }
+        });
 
+        btn_forget = (Button) findViewById(R.id.btn_forget);
+        btn_forget.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Log.d("Login", s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
+            public void onClick(View v) {
+                Toast.makeText(LoginActivity.this, "Forget Button Pressed!", Toast.LENGTH_SHORT).show();
             }
         });
     }

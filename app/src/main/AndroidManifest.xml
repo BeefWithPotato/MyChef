@@ -13,6 +13,8 @@
         android:theme="@style/Theme.MyChef">
         <activity android:name=".ShopCarActivity"></activity>
         <activity android:name=".CategoryPageActivity" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".RegisterActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

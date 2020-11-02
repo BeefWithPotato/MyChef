@@ -4,17 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".SubscribePageActivity">
 
     <Button
         android:id="@+id/Subscribe_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="16dp"
         android:background="@android:color/transparent"
         android:text="Subscribe"
-        android:textColor="#8c8c8c"
+        android:textColor="@color/black"
         android:textColorLink="#FFFFFF"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,7 +30,7 @@
         android:layout_marginEnd="10dp"
         android:background="@android:color/transparent"
         android:text="Recommend"
-        android:textColor="@color/black"
+        android:textColor="#8c8c8c"
         android:textSize="14sp"
         app:layout_constraintEnd_toStartOf="@+id/Category_button"
         app:layout_constraintStart_toEndOf="@+id/Subscribe_button"

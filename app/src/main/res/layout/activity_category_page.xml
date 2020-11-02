@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".CategoryPageActivity">
 
     <Button
         android:id="@+id/Subscribe_button"
@@ -30,7 +30,7 @@
         android:layout_marginEnd="10dp"
         android:background="@android:color/transparent"
         android:text="Recommend"
-        android:textColor="@color/black"
+        android:textColor="#8c8c8c"
         android:textSize="14sp"
         app:layout_constraintEnd_toStartOf="@+id/Category_button"
         app:layout_constraintStart_toEndOf="@+id/Subscribe_button"
@@ -44,7 +44,7 @@
         android:layout_marginEnd="40dp"
         android:background="@android:color/transparent"
         android:text="Category"
-        android:textColor="#8c8c8c"
+        android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
 
-public class MainActivity extends AppCompatActivity {
+public class SubscribePageActivity extends AppCompatActivity {
 
     private GridView mGv;
 
@@ -22,9 +22,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_subscribe_page);
         mGv = (GridView) findViewById(R.id.home_gv);
-        mGv.setAdapter(new HomeGridViewAdapter(MainActivity.this));
+        mGv.setAdapter(new SubscribeGridViewAdapter(SubscribePageActivity.this));
 
         //Button control
         mBanSubscribe = (Button) findViewById(R.id.Subscribe_button);
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setListeners(){
-        OnClick onClick = new OnClick();
+        SubscribePageActivity.OnClick onClick = new SubscribePageActivity.OnClick();
         mBanSubscribe.setOnClickListener(onClick);
         mBanRecommend.setOnClickListener(onClick);
         mBanCategory.setOnClickListener(onClick);
@@ -51,17 +51,17 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = null;
             switch (v.getId()){
                 case R.id.ShopCarButton:
-                    intent = new Intent(MainActivity.this, ShopCarActivity.class);
+                    intent = new Intent(SubscribePageActivity.this, ShopCarActivity.class);
                     break;
                 case R.id.Category_button:
-                    intent = new Intent(MainActivity.this, CategoryPageActivity.class);
+                    intent = new Intent(SubscribePageActivity.this, CategoryPageActivity.class);
                     break;
                 case R.id.Home_Button:
                 case R.id.Recommend_button:
-                    intent = new Intent(MainActivity.this, MainActivity.class);
+                    intent = new Intent(SubscribePageActivity.this, MainActivity.class);
                     break;
                 case R.id.Subscribe_button:
-                    intent = new Intent(MainActivity.this, SubscribePageActivity.class);
+                    intent = new Intent(SubscribePageActivity.this, SubscribePageActivity.class);
                     break;
             }
             startActivity(intent);

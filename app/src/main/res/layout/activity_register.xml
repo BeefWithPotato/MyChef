@@ -87,13 +87,13 @@
             android:paddingRight="10dp"/>
 
         <EditText
-            android:id="@+id/set_phone"
+            android:id="@+id/set_email"
             android:layout_width="350dp"
             android:layout_height="60dp"
             android:textSize="20sp"
             android:textColor="#fff"
-            android:inputType="number"
-            android:hint="Enter your Phone Number"
+            android:inputType="textEmailAddress"
+            android:hint="Enter your Email Address"
             android:textColorHint="#bfbfbf"
             android:maxLines="1"
             android:layout_below="@id/retype_password"
@@ -108,7 +108,7 @@
             android:id="@+id/btn_register"
             android:layout_width="300dp"
             android:layout_height="40dp"
-            android:layout_below="@id/set_phone"
+            android:layout_below="@id/set_email"
             android:layout_marginTop="10dp"
             android:text="Register"
             android:textAllCaps="false"

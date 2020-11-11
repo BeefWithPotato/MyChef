@@ -5,13 +5,22 @@ public class User {
     private String username;
     private String password;
     private Integer phone_number;
-    private Integer id;
+    private String id;
+    private String email;
 
-    public Integer getId() {
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

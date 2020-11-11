@@ -14,7 +14,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private EditText phone, username, password;
+    private EditText email, username, password;
     private Button register;
 
     private DatabaseReference ref;
@@ -24,10 +24,10 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        phone = (EditText) findViewById(R.id.set_phone);
+        email = (EditText) findViewById(R.id.set_email);
         Drawable drawable1 =  getResources().getDrawable(R.drawable.phone);
         drawable1.setBounds(0, 0, 70, 70);
-        phone.setCompoundDrawables(drawable1,null, null, null);
+        email.setCompoundDrawables(drawable1,null, null, null);
 
         username = (EditText) findViewById(R.id.set_username);
         password = (EditText) findViewById(R.id.set_password);
@@ -37,15 +37,13 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                //get data in the inputs
-                int phone_number = Integer.parseInt(phone.getText().toString());
-
                 //Firebase
                 ref = FirebaseDatabase.getInstance().getReference().child("User");
                 user = new User();
                 user.setUsername(username.getText().toString());
                 user.setPassword(password.getText().toString());
-                user.setId(1);
+                user.setEmail(email.getText().toString());
+                user.setId("1");
                 //reff.push().setValue(user);
                 ref.child("user1").setValue(user);
 

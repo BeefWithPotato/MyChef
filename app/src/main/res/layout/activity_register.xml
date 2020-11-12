@@ -99,10 +99,10 @@
             android:layout_below="@id/retype_password"
             android:layout_marginTop="10dp"
             android:background="@drawable/bg_username"
-            android:drawableLeft="@drawable/phone"
-            android:drawablePadding="5dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"/>
+            android:drawableLeft="@drawable/email"
+            android:drawablePadding="10dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="10dp" />
 
         <Button
             android:id="@+id/btn_register"

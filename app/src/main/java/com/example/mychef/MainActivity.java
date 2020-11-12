@@ -11,6 +11,8 @@ import android.widget.ImageButton;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -71,7 +73,8 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case R.id.ProfileButton:
                     GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(MainActivity.this);
-                    if(acct == null){
+                    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                    if(acct == null && currentUser == null){
                         intent = new Intent(MainActivity.this, LoginActivity.class);
                     }
                     else {

@@ -25,17 +25,14 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private EditText ed1;
-    private EditText ed2;
+    private EditText email;
+    private EditText password;
     private Button btnLogin;
-    private EditText mEtUsername;
     private Button btn_forget;
     private Button btn_register;
     private SignInButton google_signin;
@@ -46,25 +43,40 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        ed1 = (EditText) findViewById(R.id.et_1);
-        Drawable drawable1 =  getResources().getDrawable(R.drawable.user_white);
-        drawable1.setBounds(0, 0, 70, 70);
-        ed1.setCompoundDrawables(drawable1,null, null, null);
+        email = (EditText) findViewById(R.id.et_1);
+        Drawable drawable1 =  getResources().getDrawable(R.drawable.email);
+        drawable1.setBounds(0, 0, 55, 55);
+        email.setCompoundDrawables(drawable1,null, null, null);
 
-        ed1 = (EditText) findViewById(R.id.et_2);
+        password = (EditText) findViewById(R.id.et_2);
         Drawable drawable2 =  getResources().getDrawable(R.drawable.password);
         drawable2.setBounds(0, 0, 70, 70);
-        ed1.setCompoundDrawables(drawable2,null, null, null);
+        password.setCompoundDrawables(drawable2,null, null, null);
 
         btnLogin = (Button) findViewById(R.id.btn_login);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(LoginActivity.this, "Login Successfully!", Toast.LENGTH_SHORT).show();
-                //jump to home
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
+                //Normal sign in
+                FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                mAuth.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString())
+                        .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    // Sign in success, update UI with the signed-in user's information
+                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    Toast.makeText(LoginActivity.this, "Login Successfully!", Toast.LENGTH_SHORT).show();
+                                    // Signed in successfully, show authenticated UI.
+                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                    startActivity(intent);
+                                } else {
+                                    // If sign in fails, display a message to the user.
+                                    Toast.makeText(LoginActivity.this, "Login failed.", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
             }
         });
 
@@ -72,7 +84,6 @@ public class LoginActivity extends AppCompatActivity {
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Toast.makeText(LoginActivity.this, "Register Button Pressed!", Toast.LENGTH_SHORT).show();
                 //jump to register
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
@@ -121,33 +132,18 @@ public class LoginActivity extends AppCompatActivity {
 
         // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
         if (requestCode == 1) {
-            // The Task returned from this call is always completed, no need to attach
-            // a listener.
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
         }
     }
 
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
-        DatabaseReference ref;
-        User user;
+
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-            //send info to database
-
-            ref = FirebaseDatabase.getInstance().getReference().child("User");
-            user = new User();
-            user.setUsername(account.getDisplayName());
-            user.setId(account.getId());
-            user.setEmail(account.getEmail());
-            ref.child("user1").setValue(user);
-
-            //firebase authentication
+            //Firebase authentication
             firebaseAuthWithGoogle(account);
 
-            // Signed in successfully, show authenticated UI.
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
@@ -157,9 +153,10 @@ public class LoginActivity extends AppCompatActivity {
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
         AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
-        // Initialize Firebase Auth
 
+        // Initialize Firebase Auth
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -167,7 +164,17 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            //send info to database
+                            DatabaseReference ref;
+                            User newUser;
+                            ref = FirebaseDatabase.getInstance().getReference().child("User");
+                            newUser = new User();
+                            newUser.setUsername(account.getDisplayName());
+                            newUser.setEmail(account.getEmail());
+                            ref.child(user.getUid()).setValue(newUser);
+
+                            // Signed in successfully, show authenticated UI.
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
 
                         } else {

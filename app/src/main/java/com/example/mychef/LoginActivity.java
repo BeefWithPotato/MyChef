@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -25,8 +26,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -165,17 +169,33 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = mAuth.getCurrentUser();
                             //send info to database
-                            DatabaseReference ref;
-                            User newUser;
-                            ref = FirebaseDatabase.getInstance().getReference().child("User");
-                            newUser = new User();
-                            newUser.setUsername(account.getDisplayName());
-                            newUser.setEmail(account.getEmail());
-                            ref.child(user.getUid()).setValue(newUser);
+                            DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("User");
+                            ref.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    User userInfo = dataSnapshot.getValue(User.class);
+                                    if(userInfo == null){
+                                        User newUser;
+                                        newUser = new User();
+                                        newUser.setUsername(account.getDisplayName());
+                                        newUser.setEmail(account.getEmail());
+                                        ref.child(user.getUid()).setValue(newUser);
 
-                            // Signed in successfully, show authenticated UI.
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            startActivity(intent);
+                                        // Signed in successfully, show authenticated UI.
+                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                        startActivity(intent);
+                                    }
+                                    else{
+                                        // Signed in successfully, show authenticated UI.
+                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                        startActivity(intent);
+                                    }
+                                }
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
 
                         } else {
                             // If sign in fails, display a message to the user.

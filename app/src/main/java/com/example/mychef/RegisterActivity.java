@@ -18,8 +18,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -64,18 +67,37 @@ public class RegisterActivity extends AppCompatActivity {
                                     if (task.isSuccessful()) {
                                         // Sign in success, update UI with the signed-in user's information
                                         FirebaseUser user = mAuth.getCurrentUser();
-                                        //send info to database
+                                        // send info to database
+                                        // check if the user registed before or not
                                         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("User");
-                                        User newUser = new User();
-                                        newUser.setUsername(username.getText().toString());
-                                        newUser.setPassword(password.getText().toString());
-                                        newUser.setEmail(email.getText().toString());
-                                        ref.child(user.getUid()).setValue(newUser);
-                                        Toast.makeText(RegisterActivity.this, "Authentication succeed.", Toast.LENGTH_SHORT).show();
+                                        ref.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                User userInfo = dataSnapshot.getValue(User.class);
+                                                if (userInfo == null) {
+                                                    User newUser = new User();
+                                                    newUser.setUsername(username.getText().toString());
+                                                    newUser.setPassword(password.getText().toString());
+                                                    newUser.setEmail(email.getText().toString());
+                                                    ref.child(user.getUid()).setValue(newUser);
+                                                    Toast.makeText(RegisterActivity.this, "Authentication succeed.", Toast.LENGTH_SHORT).show();
 
-                                        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-                                        startActivity(intent);
-                                    } else {
+                                                    Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                                                    startActivity(intent);
+                                                }
+                                                else {
+                                                    // Signed in successfully, show authenticated UI.
+                                                    Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                                                    startActivity(intent);
+                                                }
+                                            }
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+
+                                            }
+                                        });
+                                    }
+                                    else {
                                         // If sign in fails, display a message to the user.
                                         Toast.makeText(RegisterActivity.this, "Register failed.", Toast.LENGTH_LONG).show();
                                     }

@@ -1,5 +1,7 @@
 package com.example.mychef;
 
+import android.net.Uri;
+
 public class User {
 
     private String username;
@@ -7,6 +9,15 @@ public class User {
     private Integer phone_number;
     private String id;
     private String email;
+    private String profileBg;
+
+    public String getProfileBg() {
+        return profileBg;
+    }
+
+    public void setProfileBg(String profileBg) {
+        this.profileBg = profileBg;
+    }
 
     public String getEmail() {
         return email;

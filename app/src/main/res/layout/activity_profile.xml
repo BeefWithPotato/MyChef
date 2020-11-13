@@ -12,9 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/profile_bg"/>
-
-
+            android:src="@drawable/bg_grey"/>
 
         <Button
             android:id="@+id/btn_logout"

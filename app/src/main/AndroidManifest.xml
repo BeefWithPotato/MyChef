@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyChef">
+
         <activity android:name=".ProfileActivity"></activity>
         <activity android:name=".ShopCarActivity" />
         <activity android:name=".CategoryPageActivity" />

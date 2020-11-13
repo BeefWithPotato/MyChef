@@ -4,11 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -20,8 +17,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -33,8 +28,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
-import java.io.File;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -58,7 +51,11 @@ public class ProfileActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User userInfo = dataSnapshot.getValue(User.class);
                 if(userInfo.getProfileBg() != null){
-                    Glide.with(getApplicationContext()).load(userInfo.getProfileBg()).into(bg);
+                    Glide.with(ProfileActivity.this).load(userInfo.getProfileBg()).into(bg);
+                }
+                //if not use default
+                else{
+                    bg.setImageResource(R.drawable.profile_bg);
                 }
             }
             @Override
@@ -108,7 +105,6 @@ public class ProfileActivity extends AppCompatActivity {
             //update bg ImageView
             bg.setImageURI(data.getData());
             Uri file = data.getData();
-
             // Upload image to Firebase
             // Create a storage reference from our app
             mStorageRef = FirebaseStorage.getInstance().getReference();
@@ -143,5 +139,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         }
     }
+
+
 
 }

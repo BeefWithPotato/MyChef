@@ -9,6 +9,11 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class MainActivity extends AppCompatActivity {
 
     private GridView mGv;
@@ -70,7 +75,14 @@ public class MainActivity extends AppCompatActivity {
                     intent = new Intent(MainActivity.this, SubscribePageActivity.class);
                     break;
                 case R.id.ProfileButton:
-                    intent = new Intent(MainActivity.this, LoginActivity.class);
+                    GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(MainActivity.this);
+                    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                    if(acct == null && currentUser == null){
+                        intent = new Intent(MainActivity.this, LoginActivity.class);
+                    }
+                    else {
+                        intent = new Intent(MainActivity.this, ProfileActivity.class);
+                    }
                     break;
                 case R.id.FavoritesButton:
                     intent = new Intent(MainActivity.this, FavoritesActivity.class);

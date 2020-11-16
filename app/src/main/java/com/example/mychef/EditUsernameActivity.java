@@ -1,0 +1,116 @@
+package com.example.mychef;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.text.Editable;
+import android.text.Html;
+import android.text.TextWatcher;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+
+public class EditUsernameActivity extends AppCompatActivity {
+
+    private ImageView btn_back;
+    private Button save;
+    private EditText username;
+    private TextView wc;
+    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_edit_username);
+
+        btn_back = findViewById(R.id.edit_username_back);
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EditUsernameActivity.this, DetailProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+        username = findViewById(R.id.edit_username);
+        wc = findViewById(R.id.wc_username);
+        //word max
+        Integer maxNum = 20;
+        username.addTextChangedListener(new TextWatcher() {
+
+            private CharSequence wordNum;
+            private int selectionStart;
+            private int selectionEnd;
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                wordNum = s;
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                wc.setText("" + (maxNum - s.length()) +"/" + maxNum);
+                selectionStart = username.getSelectionStart();
+                selectionEnd = username.getSelectionEnd();
+                //判断大于最大值
+                if (wordNum.length() > maxNum) {
+                    //删除多余输入的字（不会显示出来）
+                    s.delete(selectionStart - 1, selectionEnd);
+                    int tempSelection = selectionEnd;
+                    username.setText(s);
+                    username.setSelection(tempSelection);
+                    Toast toast = Toast.makeText(EditUsernameActivity.this, Html.fromHtml("<font color='#FF0000' ><b>" + "Maximum 20 words!" + "</b></font>"), Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            }
+        });
+
+        save = findViewById(R.id.save);
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("User");
+                ref.child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        User userInfo = dataSnapshot.getValue(User.class);
+                        if (username.getText().toString() != null) {
+                            ref.child(currentUser.getUid()).child("username").setValue(username.getText().toString());
+                            Toast.makeText(EditUsernameActivity.this, "Change succeed.", Toast.LENGTH_SHORT).show();
+
+                            Intent intent = new Intent(EditUsernameActivity.this, DetailProfileActivity.class);
+                            startActivity(intent);
+                        }
+                        else {
+                            Intent intent = new Intent(EditUsernameActivity.this, DetailProfileActivity.class);
+                            startActivity(intent);
+                        }
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        });
+    }
+}

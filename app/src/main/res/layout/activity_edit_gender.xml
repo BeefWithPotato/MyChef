@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#DDDDDD">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:minHeight="?attr/actionBarSize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:background="#DDDDDD">
+
+        <ImageView
+            android:id="@+id/edit_gender_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/back"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit Gender"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:layout_gravity="center"/>
+
+        <Button
+            android:id="@+id/gender_save"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
+            android:text="Save"
+            android:textColor="#000000"
+            android:gravity="center"
+            android:layout_gravity="right"
+            android:background="@drawable/btn_save"
+            android:layout_marginRight="10dp"/>
+    </androidx.appcompat.widget.Toolbar>
+
+    <RadioGroup
+        android:id="@+id/rg_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="60dp">
+
+        <RadioButton
+            android:id="@+id/male"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Male"
+            android:textSize="30sp"
+            android:textColor="#000000"
+            android:drawablePadding="5dp"
+            android:drawableRight="@drawable/male"
+            android:layout_marginLeft="15dp"/>
+
+        <RadioButton
+            android:id="@+id/female"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Female"
+            android:textSize="30sp"
+            android:textColor="#000000"
+            android:drawablePadding="5dp"
+            android:drawableRight="@drawable/female"
+            android:layout_marginLeft="50dp"/>
+    </RadioGroup>
+</RelativeLayout>

@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton mBanHome;
     private ImageButton mBanShopCar;
     private ImageButton btn_profile;
+    private ImageButton mBanFavorites;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         mBanHome = (ImageButton) findViewById(R.id.Home_Button);
         mBanShopCar = (ImageButton) findViewById(R.id.ShopCarButton);
         btn_profile = (ImageButton) findViewById(R.id.ProfileButton);
+        mBanFavorites = (ImageButton) findViewById(R.id.FavoritesButton);
         setListeners();
     }
 
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         mBanHome.setOnClickListener(onClick);
         mBanShopCar.setOnClickListener(onClick);
         btn_profile.setOnClickListener(onClick);
+        mBanFavorites.setOnClickListener(onClick);
     }
 
     private class OnClick implements View.OnClickListener {
@@ -68,6 +71,9 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case R.id.ProfileButton:
                     intent = new Intent(MainActivity.this, LoginActivity.class);
+                    break;
+                case R.id.FavoritesButton:
+                    intent = new Intent(MainActivity.this, FavoritesActivity.class);
                     break;
             }
             startActivity(intent);

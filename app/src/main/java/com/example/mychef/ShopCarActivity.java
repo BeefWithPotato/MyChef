@@ -35,12 +35,7 @@ public class ShopCarActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-            Intent intent = null;
-            switch (v.getId()){
-                case R.id.Back_Button:
-                    intent = new Intent(ShopCarActivity.this, MainActivity.class);
-                    break;
-            }
+            Intent intent = new Intent(ShopCarActivity.this, MainActivity.class);
             startActivity(intent);
         }
     }

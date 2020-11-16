@@ -24,6 +24,7 @@
         <activity
             android:name=".DetailProfileActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".FavoritesActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".ShopCarActivity" />
         <activity android:name=".CategoryPageActivity" />

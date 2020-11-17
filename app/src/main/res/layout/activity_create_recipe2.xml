@@ -39,210 +39,85 @@
                 android:textColor="#000000"
                 android:gravity="center"
                 android:layout_gravity="right"
-                android:layout_marginRight="10dp"/>
+                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp" />
 
         </androidx.appcompat.widget.Toolbar>
 
-        <ImageButton
-            android:id="@+id/cover_image"
-            android:layout_width="300dp"
-            android:layout_height="200dp"
-            android:layout_below="@+id/toolbar"
-            android:layout_marginLeft="55dp"
-            android:background="@color/black"/>
-
-
         <TextView
-            android:id="@+id/recipe_name"
-            android:layout_width="95dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/cover_image"
-            android:layout_gravity="center"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="10dp"
-            android:text="Recipe name:"
-            android:textAllCaps="false"
-            android:textColor="#000000"
-            android:textSize="15sp" />
-
-        <EditText
-            android:layout_width="95dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/cover_image"
-            android:layout_toRightOf="@+id/recipe_name"
-            android:background="@drawable/edit_profile_edit_text"
-            android:layout_marginTop="10dp"
-            android:textAllCaps="false"
-            android:textColor="#000000"
-            android:textSize="15sp" />
-
-
-        <TextView
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/recipe_name"
-            android:layout_marginLeft="90dp"
-            android:layout_marginTop="10dp"
-            android:text="The story behind this delicacy:"
-            android:textAllCaps="false"
-            android:textColor="#000000"
-            android:textSize="15sp" />
-
-        <EditText
-            android:id="@+id/user_story"
-            android:layout_width="206dp"
-            android:layout_height="125dp"
-            android:layout_below="@+id/recipe_name"
-            android:layout_marginLeft="90dp"
-            android:layout_marginTop="40dp"
-            android:background="@drawable/edit_profile_edit_text"
-            android:gravity="start"
-            android:hint="Enter your story here"
-            android:maxLines="10"
-            android:textAlignment="viewStart"
-            android:textSize="15sp" />
-
-        <TextView
-            android:id="@+id/ingredients"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/user_story"
-            android:layout_marginLeft="70dp"
-            android:layout_marginTop="10dp"
-            android:text="Ingredients:"
-            android:textAllCaps="false"
-            android:textColor="#000000"
-            android:textSize="15sp" />
-
-
-        <TextView
-            android:id="@+id/name1"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/ingredients"
-            android:layout_marginLeft="70dp"
-            android:layout_marginTop="10dp"
-            android:text="1.Name:"
-            android:textAllCaps="false"
-            android:textColor="#000000"
-            android:textSize="15sp" />
-
-        <EditText
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/ingredients"
-            android:layout_marginLeft="2dp"
-            android:layout_marginTop="10dp"
-            android:layout_toRightOf="@+id/name1"
-            android:background="@drawable/edit_profile_edit_text"
-            android:gravity="start"
-            android:maxLines="10"
-            android:textAlignment="viewStart"
-            android:textSize="15sp" />
-
-        <TextView
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/ingredients"
-            android:layout_marginLeft="190dp"
-            android:layout_marginTop="10dp"
-            android:text="Dosage:"
-            android:textAllCaps="false"
-            android:textColor="#000000"
-            android:textSize="15sp" />
-
-        <EditText
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/ingredients"
-            android:layout_marginLeft="120dp"
-            android:layout_marginTop="10dp"
-            android:layout_toRightOf="@+id/name1"
-            android:background="@drawable/edit_profile_edit_text"
-            android:gravity="start"
-            android:maxLines="10"
-            android:textAlignment="viewStart"
-            android:textSize="15sp" />
-
-        <TextView
-            android:id="@+id/name2"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/ingredients"
-            android:layout_marginLeft="70dp"
-            android:layout_marginTop="40dp"
-            android:text="2.Name:"
-            android:textAllCaps="false"
-            android:textColor="#000000"
-            android:textSize="15sp" />
-
-        <EditText
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/ingredients"
-            android:layout_marginLeft="2dp"
-            android:layout_marginTop="40dp"
-            android:layout_toRightOf="@+id/name1"
-            android:background="@drawable/edit_profile_edit_text"
-            android:gravity="start"
-            android:maxLines="10"
-            android:textAlignment="viewStart"
-            android:textSize="15sp" />
-
-        <TextView
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/ingredients"
-            android:layout_marginLeft="190dp"
-            android:layout_marginTop="40dp"
-            android:text="Dosage:"
-            android:textAllCaps="false"
-            android:textColor="#000000"
-            android:textSize="15sp" />
-
-        <EditText
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/ingredients"
-            android:layout_marginLeft="120dp"
-            android:layout_marginTop="40dp"
-            android:layout_toRightOf="@+id/name1"
-            android:background="@drawable/edit_profile_edit_text"
-            android:gravity="start"
-            android:maxLines="10"
-            android:textAlignment="viewStart"
-            android:textSize="15sp" />
-
-        <LinearLayout
-            android:id="@+id/add_ingredients_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@color/black"
-            android:layout_below="@+id/ingredients"
-            android:layout_marginTop="70dp">
+            android:text="Practice:"
+            android:textStyle="bold"
+            android:layout_marginTop="60dp"
+            android:layout_marginLeft="40dp"
+            android:textColor="@color/black"
+            android:layout_marginStart="40dp" />
 
+
+        <LinearLayout
+            android:id="@+id/add_stepsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="90dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/step1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
+                    android:text="Step 1:"
+                    android:textColor="@color/black"
+                    android:layout_marginStart="40dp" />
+
+                <ImageButton
+                    android:id="@+id/step_image1"
+                    android:layout_width="300dp"
+                    android:layout_height="200dp"
+                    android:layout_below="@+id/step1"
+                    android:layout_marginLeft="50dp"
+                    android:background="@color/black"
+                    android:layout_marginStart="55dp" />
+
+                <TextView
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:text="Step description:"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@+id/step_image1"
+                    android:textColor="@color/black"
+                    android:layout_marginStart="40dp" />
+
+                <EditText
+                    android:layout_width="195dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/step_image1"
+                    android:layout_marginLeft="160dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/edit_profile_edit_text"
+                    android:textAllCaps="false"
+                    android:textColor="#000000"
+                    android:textSize="15sp"
+                    android:layout_marginStart="160dp" />
+
+            </RelativeLayout>
 
         </LinearLayout>
-
-
         <Button
-            android:id="@+id/add_ingredients"
-            android:layout_width="120dp"
-            android:layout_height="40dp"
-            android:layout_below="@+id/add_ingredients_layout"
-            android:layout_marginLeft="260dp"
-            android:layout_marginTop="-1dp"
-            android:text="Add new line"
-            android:textColor="@color/black" />
-
-        <TextView
-            android:layout_width="95dp"
+            android:id="@+id/add_new_step"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
-            android:text="Scroll test"
-            android:textColor="#000000"
-            android:textSize="15sp"
-            android:textAllCaps="false"
-            android:layout_marginTop="1000dp" />
+            android:layout_marginLeft="260dp"
+            android:layout_below="@+id/add_stepsLayout"
+            android:text="add new step"
+            android:layout_marginStart="260dp">
+        </Button>
+
+
     </RelativeLayout>
 </ScrollView>

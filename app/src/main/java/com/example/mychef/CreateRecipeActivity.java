@@ -15,6 +15,7 @@ import android.widget.TextView;
 public class CreateRecipeActivity extends AppCompatActivity {
 
     private Button btnAddRecipe;
+    private Button btnNext;
     private LinearLayout lltAddIngredients;
     private int ingredientNumber = 3;
 
@@ -24,10 +25,22 @@ public class CreateRecipeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_recipe);
 
+        //next on click
+        btnNext = (Button) findViewById(R.id.next);
+        btnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CreateRecipeActivity.this, CreateRecipeActivity2.class);
+                startActivity(intent);
+            }
+        });
+
+
+
+
+        //add new line on click
         btnAddRecipe = (Button) findViewById(R.id.add_ingredients);
         lltAddIngredients = (LinearLayout) findViewById(R.id.add_ingredientsLayout);
-
-
 
         btnAddRecipe.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,7 +57,7 @@ public class CreateRecipeActivity extends AppCompatActivity {
 
                 //create textView
                 TextView ingredientName = new TextView(v.getContext());
-                ingredientName.setLayoutParams(new LinearLayout.LayoutParams(160,
+                ingredientName.setLayoutParams(new LinearLayout.LayoutParams(180,
                         LinearLayout.LayoutParams.WRAP_CONTENT));
                 String name = String.valueOf(ingredientNumber) + ".Name:";
                 ingredientName.setText(name);

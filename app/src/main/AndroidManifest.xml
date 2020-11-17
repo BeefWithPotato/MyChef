@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyChef">
-        <activity android:name=".CreateRecipeActivity"></activity>
+        <activity android:name=".CreateRecipeActivity2"></activity>
+        <activity android:name=".CreateRecipeActivity" />
         <activity android:name=".EditAgeActivity" />
         <activity
             android:name=".EditGenderActivity"

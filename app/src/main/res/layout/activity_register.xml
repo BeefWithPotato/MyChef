@@ -41,17 +41,17 @@
                     android:id="@+id/set_username"
                     android:layout_width="350dp"
                     android:layout_height="60dp"
-                    android:textSize="20sp"
-                    android:textColor="#ffffff"
-                    android:textColorHint="#bfbfbf"
-                    android:hint="Enter your Username"
-                    android:background="@drawable/bg_username"
-                    android:maxLines="1"
                     android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_username"
+                    android:drawableLeft="@drawable/user_white"
+                    android:drawablePadding="5dp"
+                    android:hint="Enter your Username"
+                    android:maxLines="1"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:drawablePadding="5dp"
-                    android:drawableLeft="@drawable/user_white"/>
+                    android:textColor="#ffffff"
+                    android:textColorHint="#bfbfbf"
+                    android:textSize="20sp" />
 
                 <EditText
                     android:id="@+id/set_password"

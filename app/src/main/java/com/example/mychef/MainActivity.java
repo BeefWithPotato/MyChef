@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton mBanHome;
     private ImageButton mBanShopCar;
     private ImageButton btn_profile;
+    private ImageButton btn_createRecipe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         mBanHome = (ImageButton) findViewById(R.id.Home_Button);
         mBanShopCar = (ImageButton) findViewById(R.id.ShopCarButton);
         btn_profile = (ImageButton) findViewById(R.id.ProfileButton);
+        btn_createRecipe = (ImageButton) findViewById(R.id.NewRecipeButton);
         setListeners();
     }
 
@@ -50,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         mBanHome.setOnClickListener(onClick);
         mBanShopCar.setOnClickListener(onClick);
         btn_profile.setOnClickListener(onClick);
+        btn_createRecipe.setOnClickListener(onClick);
     }
 
     private class OnClick implements View.OnClickListener {
@@ -81,6 +84,9 @@ public class MainActivity extends AppCompatActivity {
                         intent = new Intent(MainActivity.this, ProfileActivity.class);
                     }
                     break;
+                case R.id.NewRecipeButton:
+                    intent = new Intent(MainActivity.this, CreateRecipeActivity.class);
+
             }
             startActivity(intent);
         }

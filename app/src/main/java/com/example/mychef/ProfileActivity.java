@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -63,7 +62,6 @@ public class ProfileActivity extends AppCompatActivity {
         bio = findViewById(R.id.profile_bio);
         btn_edit = findViewById(R.id.btn_edit_profile);
         setListeners();
-
 
         //get current user object from Firebase
         ref.child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {

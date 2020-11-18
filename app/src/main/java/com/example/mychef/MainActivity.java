@@ -24,11 +24,8 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton mBanHome;
     private ImageButton mBanShopCar;
     private ImageButton btn_profile;
-<<<<<<< HEAD
     private ImageButton btn_createRecipe;
-=======
     private ImageButton mBanFavorites;
->>>>>>> 8ca20bbe8ded1bb5e37dab37030d9e3694af8f3b
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +41,8 @@ public class MainActivity extends AppCompatActivity {
         mBanHome = (ImageButton) findViewById(R.id.Home_Button);
         mBanShopCar = (ImageButton) findViewById(R.id.ShopCarButton);
         btn_profile = (ImageButton) findViewById(R.id.ProfileButton);
-<<<<<<< HEAD
         btn_createRecipe = (ImageButton) findViewById(R.id.NewRecipeButton);
-=======
         mBanFavorites = (ImageButton) findViewById(R.id.FavoritesButton);
->>>>>>> 8ca20bbe8ded1bb5e37dab37030d9e3694af8f3b
         setListeners();
     }
 
@@ -60,11 +54,8 @@ public class MainActivity extends AppCompatActivity {
         mBanHome.setOnClickListener(onClick);
         mBanShopCar.setOnClickListener(onClick);
         btn_profile.setOnClickListener(onClick);
-<<<<<<< HEAD
         btn_createRecipe.setOnClickListener(onClick);
-=======
         mBanFavorites.setOnClickListener(onClick);
->>>>>>> 8ca20bbe8ded1bb5e37dab37030d9e3694af8f3b
     }
 
     private class OnClick implements View.OnClickListener {
@@ -80,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
                     intent = new Intent(MainActivity.this, CategoryPageActivity.class);
                     break;
                 case R.id.Home_Button:
+                    break;
                 case R.id.Recommend_button:
                     intent = new Intent(MainActivity.this, MainActivity.class);
                     break;
@@ -96,15 +88,12 @@ public class MainActivity extends AppCompatActivity {
                         intent = new Intent(MainActivity.this, ProfileActivity.class);
                     }
                     break;
-<<<<<<< HEAD
                 case R.id.NewRecipeButton:
                     intent = new Intent(MainActivity.this, CreateRecipeActivity.class);
-
-=======
+                    break;
                 case R.id.FavoritesButton:
                     intent = new Intent(MainActivity.this, FavoritesActivity.class);
                     break;
->>>>>>> 8ca20bbe8ded1bb5e37dab37030d9e3694af8f3b
             }
             startActivity(intent);
         }

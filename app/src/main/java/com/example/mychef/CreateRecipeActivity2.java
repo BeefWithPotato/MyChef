@@ -19,6 +19,8 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
     private Button btnAddStep;
     private LinearLayout lltAddSteps;
     private int stepNum = 2;
+    private Button btnAddKitchenware;
+    private LinearLayout lltAddKitchenware;
 
 
     @Override
@@ -26,9 +28,31 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_recipe2);
 
+        //add kitchenware button control
+        btnAddKitchenware = (Button) findViewById(R.id.add_new_kitchenware);
+        lltAddKitchenware = (LinearLayout) findViewById(R.id.add_kitchenwareLayout);
+        btnAddKitchenware.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //create a EditText to store text
+                EditText kitchenwareText = new EditText(v.getContext());
+                kitchenwareText.setBackground(ResourcesCompat.getDrawable(v.getResources(), R.drawable.edit_profile_edit_text, null));
+                kitchenwareText.setTextSize(15);
+                RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(470, 55);
+                lp.setMargins(0,10,0,0);
+
+                lltAddKitchenware.addView(kitchenwareText, lp);
+
+
+            }
+        });
+
+
+
+
+        //add steps button control
         btnAddStep = (Button) findViewById(R.id.add_new_step);
         lltAddSteps = (LinearLayout) findViewById(R.id.add_stepsLayout);
-
         btnAddStep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

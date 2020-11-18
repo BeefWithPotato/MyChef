@@ -1,23 +1,46 @@
 package com.example.mychef;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
-
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.util.ArrayList;
 
 public class CreateRecipeActivity extends AppCompatActivity {
 
     private Button btnAddRecipe;
     private Button btnNext;
+    private ImageButton btnChangeCover;
     private LinearLayout lltAddIngredients;
     private int ingredientNumber = 3;
+    private Recipe recipe;
+    private EditText etRecipeName;
+    private EditText etStory;
+    private EditText etName1;
+    private EditText etDosage1;
+    private EditText etName2;
+    private EditText etDosage2;
+    private ArrayList<EditText> ingredientsArray;
+
+    public static final int PICK_COVER = 1;
 
 
     @Override
@@ -25,12 +48,63 @@ public class CreateRecipeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_recipe);
 
+        //initiate the recipe class
+        recipe = new Recipe();
+        recipe.initIngredients();
+        recipe.initStepDescriptions();
+        recipe.initStepImages();
+        recipe.initKitchenWares();
+        ingredientsArray = new ArrayList<EditText>(30);
+        //set the ingredients
+        etName1 = (EditText) findViewById(R.id.nameText);
+        ingredientsArray.add(etName1);
+        etDosage1 = (EditText) findViewById(R.id.dosage1);
+        ingredientsArray.add(etDosage1);
+        etName2 = (EditText) findViewById(R.id.nameText2);
+        ingredientsArray.add(etName2);
+        etDosage2 = (EditText) findViewById(R.id.dosage2);
+
+
+
+        //change cover image
+        btnChangeCover = (ImageButton) findViewById(R.id.cover_image);
+        btnChangeCover.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_COVER);
+            }
+        });
+
+
+
         //next on click
         btnNext = (Button) findViewById(R.id.next);
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //modify the user class according to the layout data
+                //set recipe name
+                etRecipeName = (EditText) findViewById(R.id.recipe_name_text);
+                recipe.setRecipeName(etRecipeName.getText().toString());
+                //set the story
+                etStory = (EditText) findViewById(R.id.user_story);
+                recipe.setStory(etStory.getText().toString());
+                //modify the recipe ingredients
+                for(int i = 0; i <ingredientsArray.size();i++) {
+                    EditText ediText = ingredientsArray.get(i);
+                    recipe.addIngredient(ediText.getText().toString());
+                }
+
                 Intent intent = new Intent(CreateRecipeActivity.this, CreateRecipeActivity2.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("coverImage", recipe.getCoverImage());
+                bundle.putStringArrayList("ingredients", recipe.getIngredients());
+                bundle.putString("recipeName", recipe.getRecipeName());
+                bundle.putString("story", recipe.getStory());
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
@@ -70,6 +144,7 @@ public class CreateRecipeActivity extends AppCompatActivity {
                 nameText.setBackground(ResourcesCompat.getDrawable(v.getResources(), R.drawable.edit_profile_edit_text, null));
                 nameText.setTextSize(15);
                 nameText.setPadding(10,0,0,0);
+                ingredientsArray.add(nameText);
                 //create dosage textView
                 TextView dosage = new TextView(v.getContext());
                 dosage.setLayoutParams(new LinearLayout.LayoutParams(190,
@@ -85,6 +160,7 @@ public class CreateRecipeActivity extends AppCompatActivity {
                 dosageText.setBackground(ResourcesCompat.getDrawable(v.getResources(), R.drawable.edit_profile_edit_text, null));
                 dosageText.setTextSize(15);
                 dosageText.setPadding(0,0,0,0);
+                ingredientsArray.add(dosageText);
 
 
 
@@ -104,5 +180,16 @@ public class CreateRecipeActivity extends AppCompatActivity {
         });
     }
 
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //if user choose an image complete
+        if (requestCode == PICK_COVER) {
+            //update bg ImageView
+            btnChangeCover.setImageURI(data.getData());
+            recipe.setCoverImage(data.getData().toString());
 
+        }
     }
+
+
+}

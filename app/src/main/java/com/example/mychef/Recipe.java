@@ -45,7 +45,7 @@ public class Recipe {
 
     public void addIngredient(String ingredient) { this.ingredients.add(ingredient); }
 
-    public ArrayList<String> getStepImages() { return stepImages; }
+    public String getStepImage(int index) { return this.stepImages.get(index); }
 
     public void initStepImages() { this.stepImages = new ArrayList<String>(30); }
 
@@ -65,7 +65,7 @@ public class Recipe {
 
     public void setStepDescriptions(ArrayList<String> descriptions) { this.stepDescriptions = descriptions; }
 
-    public void addStepDescription(String stepDescription) { this.stepImages.add(stepDescription); }
+    public void addStepDescription(String stepDescription) { this.stepDescriptions.add(stepDescription); }
 
     public String getTips() { return tips; }
 
@@ -77,6 +77,6 @@ public class Recipe {
 
     public void setKitchenWares(ArrayList<String> kitchenWares) { this.kitchenWares = kitchenWares; }
 
-    public void addKitchenWare(String KitchenWare) { this.stepImages.add(KitchenWare); }
+    public void addKitchenWare(String KitchenWare) { this.kitchenWares.add(KitchenWare); }
 
 }

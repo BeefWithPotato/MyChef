@@ -94,6 +94,7 @@
                     android:layout_marginStart="40dp" />
 
                 <EditText
+                    android:id="@+id/description1"
                     android:layout_width="195dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/step_image1"
@@ -155,6 +156,7 @@
             android:layout_marginLeft="175dp"
             android:layout_marginTop="10dp">
             <EditText
+                android:id="@+id/kitchenware1"
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/edit_profile_edit_text"

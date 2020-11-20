@@ -49,7 +49,7 @@
             android:layout_height="200dp"
             android:layout_below="@+id/toolbar"
             android:layout_marginLeft="55dp"
-            android:scaleType="centerCrop"
+            android:scaleType="fitXY"
             android:background="@color/black"/>
 
 

@@ -1,6 +1,7 @@
 package com.example.mychef;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 
@@ -13,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -83,6 +85,14 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
         publish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //set up an alert dialog
+                AlertDialog.Builder alert = new AlertDialog.Builder(v.getContext());
+                alert.setMessage("UpLoading......");
+                final AlertDialog alert1 = alert.create();
+                alert1.setCancelable(false);
+                alert1.show();
+
+
                 //modify recipe description
                 for(int i = 0; i <etDescriptionArray.size();i++) {
                     EditText ediText = etDescriptionArray.get(i);
@@ -124,10 +134,6 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
                         }
                     }
                 });
-                //upload all the step images and get it's url back
-
-                //upload User class to the realtime database
-
 
             }
         });
@@ -198,6 +204,7 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
                 lp1.setMargins(90,0,0,0);
                 //create step image button
                 ImageButton stepImage = new ImageButton(v.getContext());
+                stepImage.setScaleType(ImageView.ScaleType.FIT_XY);
                 stepImage.setBackground(ResourcesCompat.getDrawable(v.getResources(), R.drawable.food_tmp, null));
                 RelativeLayout.LayoutParams lp2 = new RelativeLayout.LayoutParams(800, 533);
                 lp2.addRule(RelativeLayout.ALIGN_PARENT_TOP);
@@ -281,7 +288,7 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
                         FirebaseAuth mAuth = FirebaseAuth.getInstance();
                         FirebaseUser user = mAuth.getCurrentUser();
                         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Recipe");
-                        ref.child(user.getUid()).child("recipe1").setValue(recipe);
+                        ref.child(user.getUid()).child("test").setValue(recipe);
                         Toast.makeText(CreateRecipeActivity2.this, "Recipe upload succeed.", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(CreateRecipeActivity2.this, MainActivity.class);
                         startActivity(intent);

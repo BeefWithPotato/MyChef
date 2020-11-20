@@ -78,6 +78,7 @@
                     android:id="@+id/step_image1"
                     android:layout_width="300dp"
                     android:layout_height="200dp"
+                    android:scaleType="centerCrop"
                     android:layout_below="@+id/step1"
                     android:layout_marginLeft="50dp"
                     android:background="@color/black"

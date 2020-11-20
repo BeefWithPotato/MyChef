@@ -49,6 +49,7 @@
             android:layout_height="200dp"
             android:layout_below="@+id/toolbar"
             android:layout_marginLeft="55dp"
+            android:scaleType="centerCrop"
             android:background="@color/black"/>
 
 
@@ -79,7 +80,7 @@
 
 
         <TextView
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/recipe_name"
             android:layout_marginLeft="90dp"
@@ -98,7 +99,6 @@
             android:layout_marginTop="40dp"
             android:background="@drawable/edit_profile_edit_text"
             android:gravity="start"
-            android:hint="Enter your story here"
             android:maxLines="10"
             android:textAlignment="viewStart"
             android:textSize="15sp" />

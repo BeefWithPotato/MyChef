@@ -117,7 +117,7 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             //upload download url to Firebase
                             String downloadUri = task.getResult().toString();
-                            recipe.setCoverImage("what the fuck??");
+                            recipe.setCoverImage(downloadUri);
                             uploadStepImage(recipe, 0);
                         } else {
                             Toast.makeText(CreateRecipeActivity2.this, "Cover Image Upload failed.", Toast.LENGTH_LONG).show();
@@ -281,10 +281,10 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
                         FirebaseAuth mAuth = FirebaseAuth.getInstance();
                         FirebaseUser user = mAuth.getCurrentUser();
                         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Recipe");
-                        ref.child(user.getUid()).child("test").setValue(recipe);
+                        ref.child(user.getUid()).child("recipe1").setValue(recipe);
                         Toast.makeText(CreateRecipeActivity2.this, "Recipe upload succeed.", Toast.LENGTH_SHORT).show();
-                        //Intent intent = new Intent(CreateRecipeActivity2.this, MainActivity.class);
-                        //startActivity(intent);
+                        Intent intent = new Intent(CreateRecipeActivity2.this, MainActivity.class);
+                        startActivity(intent);
                     }
                 } else {
                     Toast.makeText(CreateRecipeActivity2.this, "Cover Image Upload failed.", Toast.LENGTH_LONG).show();

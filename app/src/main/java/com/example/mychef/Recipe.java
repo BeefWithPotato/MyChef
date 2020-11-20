@@ -10,7 +10,7 @@ public class Recipe {
 
     private String recipeName;
     private String coverImage;
-    private String story;
+    public String story;
     private ArrayList<String> ingredients;
     public ArrayList<String> stepImages;
     private ArrayList<String> stepDescriptions;
@@ -34,7 +34,7 @@ public class Recipe {
         this.coverImage = coverImage;
     }
 
-    public String getStory() { return coverImage; }
+    public String getStory() { return story; }
 
     public void setStory(String story) { this.story = story; }
 

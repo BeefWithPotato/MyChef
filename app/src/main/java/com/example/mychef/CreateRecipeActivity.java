@@ -63,6 +63,7 @@ public class CreateRecipeActivity extends AppCompatActivity {
         etName2 = (EditText) findViewById(R.id.nameText2);
         ingredientsArray.add(etName2);
         etDosage2 = (EditText) findViewById(R.id.dosage2);
+        ingredientsArray.add(etDosage2);
 
 
 

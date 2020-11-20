@@ -12,10 +12,11 @@ public class Recipe {
     private String coverImage;
     private String story;
     private ArrayList<String> ingredients;
-    private ArrayList<String> stepImages;
+    public ArrayList<String> stepImages;
     private ArrayList<String> stepDescriptions;
     private String tips;
     private ArrayList<String> kitchenWares;
+
 
     public String getRecipeName() {
         return recipeName;

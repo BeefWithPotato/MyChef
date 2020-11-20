@@ -46,7 +46,6 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
     private ArrayList<EditText> etDescriptionArray;
     private ArrayList<EditText> etKitchenwareArray;
     private Button publish;
-    int imagePointer;
 
     private FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
     private StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
@@ -118,9 +117,8 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             //upload download url to Firebase
                             String downloadUri = task.getResult().toString();
-                            Log.d("the url is", coverRef.getDownloadUrl().toString());
-                            Log.d("testtestestestestes", "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
-                            recipe.setCoverImage(downloadUri);
+                            recipe.setCoverImage("what the fuck??");
+                            uploadStepImage(recipe, 0);
                         } else {
                             Toast.makeText(CreateRecipeActivity2.this, "Cover Image Upload failed.", Toast.LENGTH_LONG).show();
                         }
@@ -128,54 +126,11 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
                 });
                 //upload all the step images and get it's url back
 
-                for(int i = 0; i <recipe.countImages();i++) {
-                    imagePointer = i;
-                    String file = recipe.getStepImage(i);
-                    Uri stepFile = Uri.parse((String)file);
-                    String name = "coverImage" + String.valueOf(i) + ".jpg";
-                    StorageReference stepRef = mStorageRef.child("images/" + "RecipeImages/" + "stepImages" + currentUser.getUid() + name);
-                    uploadTask = stepRef.putFile(stepFile);
-                    urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                        @Override
-                        public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                            if (!task.isSuccessful()) {
-                                throw task.getException();
-                            }
-
-                            // Continue with the task to get the download URL
-                            Log.d("the url is", stepRef.getDownloadUrl().toString());
-                            Log.d("testtestestestestes", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-                            return stepRef.getDownloadUrl();
-                        }
-                    }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Uri> task) {
-                            if (task.isSuccessful()) {
-                                //upload download url to Firebase
-                                String downloadUri = task.getResult().toString();
-                                recipe.changeImage(imagePointer, downloadUri);
-                            } else {
-                                Toast.makeText(CreateRecipeActivity2.this, "Cover Image Upload failed.", Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    });
-
-
-                }
-
                 //upload User class to the realtime database
-                FirebaseAuth mAuth = FirebaseAuth.getInstance();
-                FirebaseUser user = mAuth.getCurrentUser();
-                DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Recipe");
-                ref.child(user.getUid()).child("recipe1").setValue(recipe);
-                Toast.makeText(CreateRecipeActivity2.this, "Recipe upload succeed.", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(CreateRecipeActivity2.this, MainActivity.class);
-                startActivity(intent);
+
 
             }
         });
-
-
 
 
 
@@ -215,8 +170,6 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
 
             }
         });
-
-
 
 
         //add steps button control
@@ -298,10 +251,54 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
 
 
     }
+    public void uploadStepImage(Recipe recipe, int index){
+        if (recipe.countImages() == index){
+            return;
+        }
+        String file = recipe.getStepImage(index);
+        Uri stepFile = Uri.parse((String)file);
+        String name = "stepImage" + String.valueOf(index) + ".jpg";
+        StorageReference stepRef = mStorageRef.child("images/" + "RecipeImages/" + "stepImages/" + currentUser.getUid() + name);
+        UploadTask uploadTask = stepRef.putFile(stepFile);
+        Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+            @Override
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                if (!task.isSuccessful()) {
+                    throw task.getException();
+                }
+                // Continue with the task to get the download URL
+                return stepRef.getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                if (task.isSuccessful()) {
+                    //upload download url to Firebase
+                    String downloadUri = task.getResult().toString();
+                    recipe.changeImage(index, downloadUri);
+                    uploadStepImage(recipe, index + 1);
+                    if (index == recipe.countImages() - 1){
+                        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Recipe");
+                        ref.child(user.getUid()).child("test").setValue(recipe);
+                        Toast.makeText(CreateRecipeActivity2.this, "Recipe upload succeed.", Toast.LENGTH_SHORT).show();
+                        //Intent intent = new Intent(CreateRecipeActivity2.this, MainActivity.class);
+                        //startActivity(intent);
+                    }
+                } else {
+                    Toast.makeText(CreateRecipeActivity2.this, "Cover Image Upload failed.", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+    }
+
+
+
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        //update bg ImageView
         if (data != null) {
             if (requestCode == recipe.countImages()){
                 recipe.addImage(data.getData().toString());

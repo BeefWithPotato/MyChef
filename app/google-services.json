@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "629310264876-o5agrudrmmkeo9t7h4p5vlkcboc8tes0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mychef",
+            "certificate_hash": "5d411562d9041d00f76c43ee28d6db50046a1d20"
+          }
+        },
+        {
           "client_id": "629310264876-520gdgvbi8m33ib6oiiq9hejnv1mk39a.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -28,7 +36,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "629310264876-520gdgvbi8m33ib6oiiq9hejnv1mk39a.apps.googleusercontent.com",
+              "client_id": "629310264876-c1rf33dq66iu8fl7o9p8ckfds3uge9a0.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

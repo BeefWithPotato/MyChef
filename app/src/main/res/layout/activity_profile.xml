@@ -1,254 +1,276 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ProfileActivity">
-
-    <ImageView
-        android:id="@+id/profile_bg"
+<androidx.drawerlayout.widget.DrawerLayout
+        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:scaleType="centerCrop"
-        android:foreground="#80000000"
-        android:background="@drawable/profile_bg"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btn_logout"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:text="Logout"
-        android:textAllCaps="false"
-        android:textSize="18sp"
-        android:textColor="#000000"
-        android:gravity="center"
-        android:layout_marginTop="380dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <de.hdodenhof.circleimageview.CircleImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/profile_image"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/bg_grey"
-        app:civ_border_width="2dp"
-        app:civ_border_color="#fff"
-        android:layout_marginTop="40dp"
-        android:layout_marginRight="260dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
-        android:id="@+id/profile_username"
-        android:layout_width="240dp"
-        android:layout_height="wrap_content"
-        android:text="Golden Ramsey fake"
-        android:textColor="#fff"
-        android:layout_marginTop="65dp"
-        android:layout_marginLeft="126dp"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        android:gravity="top|left"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
 
-    <TextView
-        android:id="@+id/profile_bio"
-        android:layout_width="230dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:layout_marginLeft="118dp"
-        android:lineSpacingMultiplier="1.2"
-        android:text="Tap to add a bio to your profile!"
-        android:maxLines="3"
-        android:textColor="#fff"
-        android:gravity="top|left"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+<!--    &lt;!&ndash;        tools:openDrawer="right"&ndash;&gt;-->
 
-    <Button
-        android:id="@+id/btn_edit_profile"
-        android:layout_width="100dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="165dp"
-        android:layout_marginLeft="150dp"
-        android:text="Edit Profile"
-        android:gravity="center"
-        android:textSize="10sp"
-        android:textAllCaps="false"
-        android:textColor="#fff"
-        android:background="@drawable/btn_edit_profile"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+<!--    <RelativeLayout-->
+<!--        android:id="@+id/right_drawer"-->
+<!--        android:layout_width="200dp"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:orientation="vertical"-->
+<!--        android:layout_gravity="end">-->
 
-    <ImageButton
-        android:id="@+id/setting"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="40dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/profile"
-        android:layout_marginRight="16dp" />
+<!--        <Button-->
+<!--            android:id="@+id/btn_logout"-->
+<!--            android:layout_width="300dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:text="Logout"-->
+<!--            android:textAllCaps="false"-->
+<!--            android:textSize="18sp"-->
+<!--            android:textColor="#fff"-->
+<!--            android:gravity="center"-->
+<!--            android:background="#000"-->
+<!--            android:layout_marginTop="380dp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"/>-->
+<!--    </RelativeLayout>-->
 
-    <ImageButton
-        android:id="@+id/ProfileButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="40dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/profile"
-        android:layout_marginRight="16dp" />
-
-    <ImageButton
-        android:id="@+id/Home_Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="40dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/home"
-        android:layout_marginLeft="20dp" />
-
-    <ImageButton
-        android:id="@+id/FavoritesButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="40dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/ProfileButton"
-        app:srcCompat="@drawable/favorites_fill"
-        android:layout_marginRight="16dp" />
-
-    <View
-        android:id="@+id/divider2"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginBottom="24dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintBottom_toTopOf="@+id/NewRecipeButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_height="match_parent"
+        tools:context=".ProfileActivity">
 
-    <ImageButton
-        android:id="@+id/NewRecipeButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="40dp"
-        android:background="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/FavoritesButton"
-        app:layout_constraintHorizontal_bias="0.428"
-        app:layout_constraintStart_toEndOf="@+id/ShopCarButton"
-        app:layout_constraintTop_toTopOf="@+id/FavoritesButton"
-        app:srcCompat="@drawable/plus" />
+        <ImageView
+            android:id="@+id/profile_bg"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:foreground="#80000000"
+            android:background="@drawable/profile_bg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
-        android:id="@+id/ShopCarButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="40dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/Home_Button"
-        app:srcCompat="@drawable/shop_car"
-        android:layout_marginLeft="20dp" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/profile_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/bg_grey"
+            app:civ_border_width="2dp"
+            app:civ_border_color="#fff"
+            android:layout_marginTop="40dp"
+            android:layout_marginRight="260dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
-    <View
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="4dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Recommend_button" />
+        <TextView
+            android:id="@+id/profile_username"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:text="Golden Ramsey fake"
+            android:textColor="#fff"
+            android:layout_marginTop="65dp"
+            android:layout_marginLeft="126dp"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:gravity="top|left"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
-    <View
-        android:id="@+id/divider3"
-        android:layout_width="1dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="16dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintBottom_toBottomOf="@+id/Recommend_button"
-        app:layout_constraintEnd_toStartOf="@+id/Recommend_button"
-        app:layout_constraintStart_toEndOf="@+id/Subscribe_button"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/profile_bio"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:layout_marginLeft="118dp"
+            android:lineSpacingMultiplier="1.2"
+            android:text="Tap to add a bio to your profile!"
+            android:maxLines="3"
+            android:textColor="#fff"
+            android:gravity="top|left"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
-    <View
-        android:id="@+id/divider4"
-        android:layout_width="1dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="16dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintBottom_toBottomOf="@+id/Recommend_button"
-        app:layout_constraintEnd_toStartOf="@+id/Category_button"
-        app:layout_constraintStart_toEndOf="@+id/Recommend_button"
-        app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/btn_edit_profile"
+            android:layout_width="100dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="170dp"
+            android:layout_marginLeft="70dp"
+            android:text="Edit Profile"
+            android:gravity="center"
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:background="@drawable/btn_edit_profile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
-    <TextView
-        android:id="@+id/Home_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:text="Home"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/Home_Button"
-        app:layout_constraintStart_toStartOf="@+id/Home_Button"
-        app:layout_constraintTop_toBottomOf="@+id/Home_Button"
-        app:layout_constraintVertical_bias="0.333" />
+        <Button
+            android:id="@+id/btn_logout"
+            android:layout_width="100dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="170dp"
+            android:layout_marginLeft="280dp"
+            android:text="Logout"
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:drawableLeft="@drawable/logout"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:background="@drawable/btn_edit_profile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/ShopCar_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:text="ShopCar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/ShopCarButton"
-        app:layout_constraintStart_toStartOf="@+id/ShopCarButton"
-        app:layout_constraintTop_toBottomOf="@+id/ShopCarButton" />
+        <ImageButton
+            android:id="@+id/setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="40dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/profile"
+            android:layout_marginRight="16dp" />
 
-    <TextView
-        android:id="@+id/Favorites_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:text="Favorites"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/FavoritesButton"
-        app:layout_constraintStart_toStartOf="@+id/FavoritesButton"
-        app:layout_constraintTop_toBottomOf="@+id/FavoritesButton"
-        app:layout_constraintVertical_bias="0.0" />
+        <ImageButton
+            android:id="@+id/ProfileButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="40dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/profile"
+            android:layout_marginRight="16dp" />
 
-    <TextView
-        android:id="@+id/Profile_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:text="Profile"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/ProfileButton"
-        app:layout_constraintStart_toStartOf="@+id/ProfileButton"
-        app:layout_constraintTop_toBottomOf="@+id/ProfileButton"
-        app:layout_constraintVertical_bias="0.523" />
+        <ImageButton
+            android:id="@+id/Home_Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="40dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/home"
+            android:layout_marginLeft="20dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageButton
+            android:id="@+id/FavoritesButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="40dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/ProfileButton"
+            app:srcCompat="@drawable/favorites_fill"
+            android:layout_marginRight="16dp" />
+
+        <View
+            android:id="@+id/divider1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="24dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintBottom_toBottomOf="@+id/profile_bg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="24dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintBottom_toTopOf="@+id/NewRecipeButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageButton
+            android:id="@+id/NewRecipeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="40dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/FavoritesButton"
+            app:layout_constraintHorizontal_bias="0.428"
+            app:layout_constraintStart_toEndOf="@+id/ShopCarButton"
+            app:layout_constraintTop_toTopOf="@+id/FavoritesButton"
+            app:srcCompat="@drawable/plus" />
+
+        <ImageButton
+            android:id="@+id/ShopCarButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="40dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/Home_Button"
+            app:srcCompat="@drawable/shop_car"
+            android:layout_marginLeft="20dp" />
+
+
+        <TextView
+            android:id="@+id/Home_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:text="Home"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/Home_Button"
+            app:layout_constraintStart_toStartOf="@+id/Home_Button"
+            app:layout_constraintTop_toBottomOf="@+id/Home_Button"
+            app:layout_constraintVertical_bias="0.333" />
+
+        <TextView
+            android:id="@+id/ShopCar_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:text="ShopCar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/ShopCarButton"
+            app:layout_constraintStart_toStartOf="@+id/ShopCarButton"
+            app:layout_constraintTop_toBottomOf="@+id/ShopCarButton" />
+
+        <TextView
+            android:id="@+id/Favorites_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:text="Favorites"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/FavoritesButton"
+            app:layout_constraintStart_toStartOf="@+id/FavoritesButton"
+            app:layout_constraintTop_toBottomOf="@+id/FavoritesButton"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/Profile_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:text="Profile"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/ProfileButton"
+            app:layout_constraintStart_toStartOf="@+id/ProfileButton"
+            app:layout_constraintTop_toBottomOf="@+id/ProfileButton"
+            app:layout_constraintVertical_bias="0.523" />
+
+        <include
+            layout="@layout/activity_profile_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            app:layout_constraintBottom_toBottomOf="@id/divider1"
+            app:layout_constraintBottom_toTopOf="@id/divider2" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.drawerlayout.widget.DrawerLayout>

@@ -2,6 +2,7 @@ package com.example.mychef;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -10,6 +11,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +50,7 @@ public class ProfileActivity extends AppCompatActivity {
     private StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
     private User userInfo;
 
+    private ListView profile_lv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +67,9 @@ public class ProfileActivity extends AppCompatActivity {
         bio = findViewById(R.id.profile_bio);
         btn_edit = findViewById(R.id.btn_edit_profile);
         setListeners();
+
+        profile_lv = findViewById(R.id.profile_lv);
+        profile_lv.setAdapter(new ProfileListAdapter(ProfileActivity.this));
 
         //get current user object from Firebase
         ref.child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -118,14 +126,6 @@ public class ProfileActivity extends AppCompatActivity {
         public void onClick(View v) {
             Intent intent = null;
             switch (v.getId()){
-                case R.id.profile_bio:
-                    intent = new Intent(ProfileActivity.this, DetailProfileActivity.class);
-                    startActivity(intent);
-                    break;
-                case R.id.btn_edit_profile:
-                    intent = new Intent(ProfileActivity.this, DetailProfileActivity.class);
-                    startActivity(intent);
-                    break;
                 case R.id.btn_logout:
                     //sign out
                     GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -137,10 +137,17 @@ public class ProfileActivity extends AppCompatActivity {
                     mGoogleSignInClient.signOut();
                     //Firebase sign out
                     FirebaseAuth.getInstance().signOut();
-                    //select images from user album
                     intent = new Intent(ProfileActivity.this, MainActivity.class);
                     startActivity(intent);
                     Toast.makeText(ProfileActivity.this, "Logout Successfully", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.profile_bio:
+                    intent = new Intent(ProfileActivity.this, DetailProfileActivity.class);
+                    startActivity(intent);
+                    break;
+                case R.id.btn_edit_profile:
+                    intent = new Intent(ProfileActivity.this, DetailProfileActivity.class);
+                    startActivity(intent);
                     break;
                 case R.id.profile_bg:
                     intent = new Intent();

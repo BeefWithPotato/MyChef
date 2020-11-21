@@ -1,6 +1,7 @@
 package com.example.mychef;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,19 +9,24 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
+import java.util.ArrayList;
+
 public class HomeGridViewAdapter extends BaseAdapter{
 
     private Context mContext;
     private LayoutInflater mLayoutInflater;
-
-    public HomeGridViewAdapter(Context context){
+    ArrayList<Recipe> recipes;
+    public HomeGridViewAdapter(Context context, ArrayList<Recipe> recipes){
         this.mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
+        this.recipes = recipes;
     }
 
     @Override
     public int getCount() {
-        return 10;
+        return recipes.size();
     }
 
     @Override
@@ -50,7 +56,9 @@ public class HomeGridViewAdapter extends BaseAdapter{
         } else{
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.textView.setText("Chocolate Cake");
+        Log.i("Adapter:", ":" + recipes.size());
+        holder.textView.setText(recipes.get(position).getRecipeName());
+        Glide.with(holder.imageView.getContext()).load(recipes.get(position).getCoverImage()).into(holder.imageView);
         return convertView;
     }
 }

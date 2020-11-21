@@ -25,8 +25,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -75,6 +78,7 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
         recipe.initKitchenWares();
         //take data from bundle
         Bundle bundle = getIntent().getExtras();
+        recipe.setAuthorUid(currentUser.getUid());
         recipe.setCoverImage(bundle.getString("coverImage"));
         recipe.setRecipeName(bundle.getString("recipeName"));
         recipe.setStory(bundle.getString("story"));
@@ -288,10 +292,31 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
                         FirebaseAuth mAuth = FirebaseAuth.getInstance();
                         FirebaseUser user = mAuth.getCurrentUser();
                         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Recipe");
-                        ref.child(user.getUid()).child("test").setValue(recipe);
-                        Toast.makeText(CreateRecipeActivity2.this, "Recipe upload succeed.", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(CreateRecipeActivity2.this, MainActivity.class);
-                        startActivity(intent);
+                        ref.child(user.getUid()).child(user.getUid() + recipe.getRecipeName()).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                User userInfo = dataSnapshot.getValue(User.class);
+                                if (userInfo == null) {
+                                    ref.child(user.getUid()).child(user.getUid() + recipe.getRecipeName()).setValue(recipe);
+                                    Toast.makeText(CreateRecipeActivity2.this, "Recipe upload succeed.", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(CreateRecipeActivity2.this, MainActivity.class);
+                                    startActivity(intent);
+                                }
+                                else {
+                                    // Signed in successfully, show authenticated UI.
+                                    Toast.makeText(CreateRecipeActivity2.this, "Duplicate Recipe title.", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(CreateRecipeActivity2.this, CreateRecipeActivity.class);
+                                    startActivity(intent);
+                                }
+                            }
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+
+
+
                     }
                 } else {
                     Toast.makeText(CreateRecipeActivity2.this, "Cover Image Upload failed.", Toast.LENGTH_LONG).show();

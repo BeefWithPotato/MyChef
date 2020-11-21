@@ -4,21 +4,37 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     private GridView mGv;
+    ArrayList<Recipe> recipes = new ArrayList<Recipe>();
+    private DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+    private FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+    private StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
 
     private Button mBanSubscribe;
     private Button mBanRecommend;
@@ -33,8 +49,38 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // GridView
         mGv = (GridView) findViewById(R.id.home_gv);
-        mGv.setAdapter(new HomeGridViewAdapter(MainActivity.this));
+        // add data
+        ref.child("Recipe").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.getChildren() != null){
+                    for (DataSnapshot ds: dataSnapshot.getChildren()) {
+                        for (DataSnapshot recipeSnapshot: ds.getChildren()) {
+                            Recipe recipe = recipeSnapshot.getValue(Recipe.class);
+                            recipes.add(recipe);
+                        }
+                    }
+                    Log.i("get recipe size:", ":" + recipes.size());
+                    mGv.setAdapter(new HomeGridViewAdapter(MainActivity.this, recipes));
+                }
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+
+//        profile_lv.setAdapter(new ProfileListAdapterTest(ProfileActivity.this, recipes));
+
+        mGv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(MainActivity.this, "pos" + position, Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
         //Button control
         mBanSubscribe = (Button) findViewById(R.id.Subscribe_button);

@@ -24,6 +24,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText email, username, password, retype_password;
@@ -79,6 +81,13 @@ public class RegisterActivity extends AppCompatActivity {
                                                     newUser.setUsername(username.getText().toString());
                                                     newUser.setPassword(password.getText().toString());
                                                     newUser.setEmail(email.getText().toString());
+
+                                                    //test
+                                                    ArrayList<String> follow = new ArrayList<String>();
+                                                    follow.add("1qJtHDyfqnSmAAGXiUXBrfIDGv93");
+                                                    newUser.setFollow(follow);
+
+
                                                     ref.child(user.getUid()).setValue(newUser);
                                                     Toast.makeText(RegisterActivity.this, "Authentication succeed.", Toast.LENGTH_SHORT).show();
 

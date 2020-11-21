@@ -3,6 +3,7 @@ package com.example.mychef;
 import android.net.Uri;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class User implements Serializable {
 
@@ -18,6 +19,15 @@ public class User implements Serializable {
     private Integer followers;
     private String gender;
     private String age;
+    private ArrayList<String> follow = new ArrayList<String>();
+
+    public ArrayList<String> getFollow() {
+        return follow;
+    }
+
+    public void setFollow(ArrayList<String> follow) {
+        this.follow = follow;
+    }
 
     public String getGender() {
         return gender;

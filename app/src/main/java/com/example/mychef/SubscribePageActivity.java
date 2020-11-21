@@ -4,14 +4,36 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.util.ArrayList;
 
 public class SubscribePageActivity extends AppCompatActivity {
 
     private GridView mGv;
+    ArrayList<Recipe> recipes = new ArrayList<Recipe>();
+    ArrayList<String> follow;
+    private DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+    private FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+    private StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
+
 
     private Button mBanSubscribe;
     private Button mBanRecommend;
@@ -23,8 +45,54 @@ public class SubscribePageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subscribe_page);
+
         mGv = (GridView) findViewById(R.id.home_gv);
-        mGv.setAdapter(new SubscribeGridViewAdapter(SubscribePageActivity.this));
+        //get follow users
+        //get current user object from Firebase
+        ref.child("User").child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+               User userInfo = dataSnapshot.getValue(User.class);
+               if(userInfo.getFollow().size() != 0){
+                   follow = userInfo.getFollow();
+                   Log.i("Uid:", ":" + follow.get(0));
+
+                   // add data
+                   for(int i = 0; i < follow.size(); i++){
+                       ref.child("Recipe").child(follow.get(i)).addListenerForSingleValueEvent(new ValueEventListener() {
+                           @Override
+                           public void onDataChange(DataSnapshot dataSnapshot) {
+                               if(dataSnapshot.getChildren() != null){
+                                   for (DataSnapshot recipeSnapshot: dataSnapshot.getChildren()) {
+                                       Recipe recipe = recipeSnapshot.getValue(Recipe.class);
+                                       recipes.add(recipe);
+                                   }
+
+                                   Log.i("get recipe size:", ":" + recipes.size());
+                                   mGv.setAdapter(new SubscribeGridViewAdapter(SubscribePageActivity.this, recipes));
+                               }
+                           }
+                           @Override
+                           public void onCancelled(DatabaseError databaseError) {}
+                       });
+                   }
+               }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+
+        mGv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(SubscribePageActivity.this, "pos" + position, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
+
+
 
         //Button control
         mBanSubscribe = (Button) findViewById(R.id.Subscribe_button);

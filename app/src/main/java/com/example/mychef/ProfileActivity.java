@@ -127,8 +127,8 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.getChildren() != null){
-                    for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                        Recipe recipe = postSnapshot.getValue(Recipe.class);
+                    for (DataSnapshot recipeSnapshot: dataSnapshot.getChildren()) {
+                        Recipe recipe = recipeSnapshot.getValue(Recipe.class);
                         recipes.add(recipe);
                     }
                     Log.i("get recipe size:", ":" + recipes.size());

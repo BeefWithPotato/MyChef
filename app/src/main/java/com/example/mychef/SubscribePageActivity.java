@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
@@ -13,6 +15,8 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -39,7 +43,7 @@ public class SubscribePageActivity extends AppCompatActivity {
     private Button mBanRecommend;
     private Button mBanCategory;
     private ImageButton mBanHome;
-    private ImageButton mBanShopCar;
+    private ImageButton mBanShopCar, btn_profile, btn_createRecipe, mBanFavorites;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +59,6 @@ public class SubscribePageActivity extends AppCompatActivity {
                User userInfo = dataSnapshot.getValue(User.class);
                if(userInfo.getFollow().size() != 0){
                    follow = userInfo.getFollow();
-                   Log.i("Uid:", ":" + follow.get(0));
 
                    // add data
                    for(int i = 0; i < follow.size(); i++){
@@ -67,8 +70,6 @@ public class SubscribePageActivity extends AppCompatActivity {
                                        Recipe recipe = recipeSnapshot.getValue(Recipe.class);
                                        recipes.add(recipe);
                                    }
-
-                                   Log.i("get recipe size:", ":" + recipes.size());
                                    mGv.setAdapter(new SubscribeGridViewAdapter(SubscribePageActivity.this, recipes));
                                }
                            }
@@ -89,17 +90,15 @@ public class SubscribePageActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-
-
         //Button control
         mBanSubscribe = (Button) findViewById(R.id.Subscribe_button);
         mBanRecommend = (Button) findViewById(R.id.Recommend_button);
         mBanCategory = (Button) findViewById(R.id.Category_button);
         mBanHome = (ImageButton) findViewById(R.id.Home_Button);
         mBanShopCar = (ImageButton) findViewById(R.id.ShopCarButton);
+        btn_profile = (ImageButton) findViewById(R.id.ProfileButton);
+        btn_createRecipe = (ImageButton) findViewById(R.id.NewRecipeButton);
+        mBanFavorites = (ImageButton) findViewById(R.id.FavoritesButton);
         setListeners();
     }
 
@@ -108,8 +107,10 @@ public class SubscribePageActivity extends AppCompatActivity {
         mBanSubscribe.setOnClickListener(onClick);
         mBanRecommend.setOnClickListener(onClick);
         mBanCategory.setOnClickListener(onClick);
-        mBanHome.setOnClickListener(onClick);
         mBanShopCar.setOnClickListener(onClick);
+        btn_profile.setOnClickListener(onClick);
+        btn_createRecipe.setOnClickListener(onClick);
+        mBanFavorites.setOnClickListener(onClick);
     }
 
     private class OnClick implements View.OnClickListener {
@@ -124,13 +125,40 @@ public class SubscribePageActivity extends AppCompatActivity {
                 case R.id.Category_button:
                     intent = new Intent(SubscribePageActivity.this, CategoryPageActivity.class);
                     break;
-                case R.id.Home_Button:
                 case R.id.Recommend_button:
                     intent = new Intent(SubscribePageActivity.this, MainActivity.class);
                     break;
                 case R.id.Subscribe_button:
                     intent = new Intent(SubscribePageActivity.this, SubscribePageActivity.class);
                     break;
+                case R.id.NewRecipeButton:
+                    RotateAnimation r = new RotateAnimation(0.0f, 60.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                    r.setDuration((long) 2*500);
+                    r.setRepeatCount(0);
+
+                    GoogleSignInAccount currAccount = GoogleSignIn.getLastSignedInAccount(SubscribePageActivity.this);
+                    FirebaseUser current = FirebaseAuth.getInstance().getCurrentUser();
+                    if(currAccount == null && current == null){
+                        intent = new Intent(SubscribePageActivity.this, LoginActivity.class);
+                    }
+                    else {
+                        intent = new Intent(SubscribePageActivity.this, CreateRecipeActivity.class);
+                    }
+                    break;
+                case R.id.ProfileButton:
+                    GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(SubscribePageActivity.this);
+                    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                    if(acct == null && currentUser == null){
+                        intent = new Intent(SubscribePageActivity.this, LoginActivity.class);
+                    }
+                    else {
+                        intent = new Intent(SubscribePageActivity.this, ProfileActivity.class);
+                    }
+                    break;
+                case R.id.FavoritesButton:
+                    intent = new Intent(SubscribePageActivity.this, FavoritesActivity.class);
+                    break;
+
             }
             startActivity(intent);
         }

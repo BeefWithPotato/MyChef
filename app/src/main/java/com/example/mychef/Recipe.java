@@ -17,6 +17,15 @@ public class Recipe {
     private String tips;
     private ArrayList<String> kitchenWares;
     private String authorUid;
+    private String authorUsername;
+
+    public String getAuthorUsername() {
+        return authorUsername;
+    }
+
+    public void setAuthorUsername(String authorUsername) {
+        this.authorUsername = authorUsername;
+    }
 
     public String getAuthorUid() {
         return authorUid;

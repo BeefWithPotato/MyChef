@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +29,7 @@ public class CreateRecipeActivity extends AppCompatActivity {
 
     private Button btnAddRecipe;
     private Button btnNext;
+    private ImageView btn_back;
     private ImageButton btnChangeCover;
     private LinearLayout lltAddIngredients;
     private int ingredientNumber = 3;
@@ -65,6 +67,15 @@ public class CreateRecipeActivity extends AppCompatActivity {
         etDosage2 = (EditText) findViewById(R.id.dosage2);
         ingredientsArray.add(etDosage2);
 
+        //Go back
+        btn_back = (ImageView) findViewById(R.id.back);
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CreateRecipeActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
         //change cover image

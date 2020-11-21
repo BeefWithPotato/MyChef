@@ -56,7 +56,6 @@ public class HomeGridViewAdapter extends BaseAdapter{
         } else{
             holder = (ViewHolder) convertView.getTag();
         }
-        Log.i("Adapter:", ":" + recipes.size());
         holder.textView.setText(recipes.get(position).getRecipeName());
         Glide.with(holder.imageView.getContext()).load(recipes.get(position).getCoverImage()).into(holder.imageView);
         return convertView;

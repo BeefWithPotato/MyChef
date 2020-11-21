@@ -39,7 +39,6 @@ import java.util.ArrayList;
 
 public class CreateRecipeActivity2 extends AppCompatActivity {
 
-
     private Button btnAddStep;
     private LinearLayout lltAddSteps;
     private int stepNum = 2;
@@ -47,6 +46,7 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
     private LinearLayout lltAddKitchenware;
     private Recipe recipe;
     private ImageButton firstStepImage;
+    private ImageView btn_back;
     private ArrayList<ImageButton> stepImagesBtnArray;
     private ArrayList<EditText> etDescriptionArray;
     private ArrayList<EditText> etKitchenwareArray;
@@ -60,6 +60,16 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_recipe2);
+
+        //go back
+        btn_back = (ImageView) findViewById(R.id.back);
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CreateRecipeActivity2.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
         //initiate the edit text arrays
         etDescriptionArray = new ArrayList<EditText>(30);

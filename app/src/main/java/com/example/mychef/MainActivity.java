@@ -118,8 +118,6 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.Category_button:
                     intent = new Intent(MainActivity.this, CategoryPageActivity.class);
                     break;
-                case R.id.Home_Button:
-                    break;
                 case R.id.Recommend_button:
                     intent = new Intent(MainActivity.this, MainActivity.class);
                     break;
@@ -141,7 +139,14 @@ public class MainActivity extends AppCompatActivity {
                     r.setDuration((long) 2*500);
                     r.setRepeatCount(0);
 
-                    intent = new Intent(MainActivity.this, CreateRecipeActivity.class);
+                    GoogleSignInAccount currAccount = GoogleSignIn.getLastSignedInAccount(MainActivity.this);
+                    FirebaseUser current = FirebaseAuth.getInstance().getCurrentUser();
+                    if(currAccount == null && current == null){
+                        intent = new Intent(MainActivity.this, LoginActivity.class);
+                    }
+                    else {
+                        intent = new Intent(MainActivity.this, CreateRecipeActivity.class);
+                    }
                     break;
                 case R.id.FavoritesButton:
                     intent = new Intent(MainActivity.this, FavoritesActivity.class);

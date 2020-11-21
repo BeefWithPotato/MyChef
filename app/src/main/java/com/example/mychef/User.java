@@ -15,8 +15,8 @@ public class User implements Serializable {
     private String bio;
     private String profileBg;
     private String userIcon;
-    private Integer likes;
-    private Integer followers;
+    private Integer likes = 0;
+    private Integer following = 0;
     private String gender;
     private String age;
     private ArrayList<String> follow = new ArrayList<String>();
@@ -53,12 +53,12 @@ public class User implements Serializable {
         this.likes = likes;
     }
 
-    public Integer getFollowers() {
-        return followers;
+    public Integer getFollowing() {
+        return following;
     }
 
-    public void setFollowers(Integer followers) {
-        this.followers = followers;
+    public void setFollowing(Integer following) {
+        this.following = following;
     }
 
     public String getBio() {

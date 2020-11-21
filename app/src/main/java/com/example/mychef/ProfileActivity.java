@@ -4,10 +4,19 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -36,19 +45,23 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.ArrayList;
+
 public class ProfileActivity extends AppCompatActivity {
 
     private ImageView bg, profile_icon;
-    private ImageButton mBanHome, btn_profile, mBanShopCar;
+    private ImageButton mBanHome, btn_profile, mBanShopCar, btn_createRecipe, mBanFavorites;
     private TextView username, bio;
     private Button logout, btn_edit;
     private GoogleSignInClient mGoogleSignInClient;
     public static final int PICK_IMAGE = 1;
     public static final int PICK_ICON = 2;
-    private DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("User");
+    private DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
     private FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
     private StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
     private User userInfo;
+    ArrayList<Recipe> recipes = new ArrayList<Recipe>();
+
 
     private ListView profile_lv;
     @Override
@@ -60,6 +73,8 @@ public class ProfileActivity extends AppCompatActivity {
         mBanHome = (ImageButton) findViewById(R.id.Home_Button);
         mBanShopCar = (ImageButton) findViewById(R.id.ShopCarButton);
         btn_profile = (ImageButton) findViewById(R.id.ProfileButton);
+        btn_createRecipe = (ImageButton) findViewById(R.id.NewRecipeButton);
+        mBanFavorites = (ImageButton) findViewById(R.id.FavoritesButton);
         bg = findViewById(R.id.profile_bg);
         logout = findViewById(R.id.btn_logout);
         profile_icon = findViewById(R.id.profile_image);
@@ -68,11 +83,10 @@ public class ProfileActivity extends AppCompatActivity {
         btn_edit = findViewById(R.id.btn_edit_profile);
         setListeners();
 
-        profile_lv = findViewById(R.id.profile_lv);
-        profile_lv.setAdapter(new ProfileListAdapter(ProfileActivity.this));
+
 
         //get current user object from Firebase
-        ref.child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+        ref.child("User").child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 userInfo = dataSnapshot.getValue(User.class);
@@ -106,6 +120,35 @@ public class ProfileActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {}
         });
 
+        // ListView
+        profile_lv = findViewById(R.id.profile_lv);
+        //Add data to recipe list
+        ref.child("Recipe").child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.getChildren() != null){
+                    for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                        Recipe recipe = postSnapshot.getValue(Recipe.class);
+                        recipes.add(recipe);
+                    }
+                    Log.i("get recipe size:", ":" + recipes.size());
+                    profile_lv.setAdapter(new ProfileListAdapter(ProfileActivity.this));
+                }
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+
+//        profile_lv.setAdapter(new ProfileListAdapterTest(ProfileActivity.this, recipes));
+
+        profile_lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(ProfileActivity.this, "pos" + position, Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     private void setListeners(){
@@ -113,11 +156,13 @@ public class ProfileActivity extends AppCompatActivity {
         mBanHome.setOnClickListener(onClick);
         mBanShopCar.setOnClickListener(onClick);
         btn_profile.setOnClickListener(onClick);
+        btn_createRecipe.setOnClickListener(onClick);
         bg.setOnClickListener(onClick);
         logout.setOnClickListener(onClick);
         profile_icon.setOnClickListener(onClick);
         btn_edit.setOnClickListener(onClick);
         bio.setOnClickListener(onClick);
+        mBanFavorites.setOnClickListener(onClick);
     }
 
     private class OnClick implements View.OnClickListener {
@@ -169,15 +214,17 @@ public class ProfileActivity extends AppCompatActivity {
                     intent = new Intent(ProfileActivity.this, ShopCarActivity.class);
                     startActivity(intent);
                     break;
-                case R.id.ProfileButton:
-                    GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(ProfileActivity.this);
-                    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                    if(acct == null && currentUser == null){
-                        intent = new Intent(ProfileActivity.this, LoginActivity.class);
-                    }
-                    else {
-                        intent = new Intent(ProfileActivity.this, ProfileActivity.class);
-                    }
+                case R.id.NewRecipeButton:
+                    RotateAnimation r = new RotateAnimation(0.0f, 60.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                    r.setDuration((long) 2*500);
+                    r.setRepeatCount(0);
+                    btn_createRecipe.startAnimation(r);
+
+                    intent = new Intent(ProfileActivity.this, CreateRecipeActivity.class);
+                    startActivity(intent);
+                    break;
+                case R.id.FavoritesButton:
+                    intent = new Intent(ProfileActivity.this, FavoritesActivity.class);
                     startActivity(intent);
                     break;
             }
@@ -212,7 +259,7 @@ public class ProfileActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         //upload download url to Firebase
                         String downloadUri = task.getResult().toString();
-                        ref.child(currentUser.getUid()).child("profileBg").setValue(downloadUri);
+                        ref.child("User").child(currentUser.getUid()).child("profileBg").setValue(downloadUri);
 
                         Toast.makeText(ProfileActivity.this, "Background Upload Succeed.", Toast.LENGTH_SHORT).show();
                     } else {
@@ -247,7 +294,7 @@ public class ProfileActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         //upload download url to Firebase
                         String downloadUri = task.getResult().toString();
-                        ref.child(currentUser.getUid()).child("userIcon").setValue(downloadUri);
+                        ref.child("User").child(currentUser.getUid()).child("userIcon").setValue(downloadUri);
 
                         Toast.makeText(ProfileActivity.this, "Icon Upload Succeed.", Toast.LENGTH_SHORT).show();
                     } else {
@@ -259,5 +306,57 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
 
+
+
+    public class ProfileListAdapter extends BaseAdapter {
+
+        private Context mContext;
+        private LayoutInflater mLayoutInflater;
+        private  ArrayList<Recipe> mRecipes;
+        ViewHolder holder = null;
+        public ProfileListAdapter(Context context){
+            this.mContext = context;
+            mLayoutInflater = LayoutInflater.from(context);
+        }
+
+        @Override
+        public int getCount() {
+            return recipes.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        class ViewHolder{
+            public ImageView imageView;
+            public TextView TitleText;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            if (convertView == null){
+                convertView = mLayoutInflater.inflate(R.layout.profile_list_item, null);
+                holder = new ProfileListAdapter.ViewHolder();
+                holder.imageView = (ImageView) convertView.findViewById(R.id.profile_recipe_cover_image);
+                holder.TitleText = (TextView) convertView.findViewById(R.id.profile_recipe_title);
+                convertView.setTag(holder);
+            } else{
+                holder = (ProfileListAdapter.ViewHolder) convertView.getTag();
+            }
+
+            Log.i("title:", ":" + recipes.size());
+            holder.TitleText.setText(recipes.get(position).getRecipeName());
+            Glide.with(holder.imageView.getContext()).load(recipes.get(position).getCoverImage()).into(holder.imageView);
+            return convertView;
+        }
+    }
 
 }

@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -89,6 +91,10 @@ public class MainActivity extends AppCompatActivity {
                     }
                     break;
                 case R.id.NewRecipeButton:
+                    RotateAnimation r = new RotateAnimation(0.0f, 60.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                    r.setDuration((long) 2*500);
+                    r.setRepeatCount(0);
+
                     intent = new Intent(MainActivity.this, CreateRecipeActivity.class);
                     break;
                 case R.id.FavoritesButton:

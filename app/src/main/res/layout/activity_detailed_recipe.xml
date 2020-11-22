@@ -79,7 +79,7 @@
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
             android:layout_marginTop="40dp"
-            android:textSize="20sp"
+            android:textSize="25sp"
             android:text="Recipe Name"
             android:gravity="center"
             android:textStyle="bold"
@@ -177,13 +177,13 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tips"
             android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:textSize="20sp"
-            android:text="kitchenWares"
             android:layout_marginTop="40dp"
-            android:textColor="@color/black" />
+            android:layout_marginRight="40dp"
+            android:gravity="center"
+            android:text="KitchenWares"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:id="@+id/kitchenWares"

@@ -63,6 +63,8 @@ public class Recipe {
 
     public void addIngredient(String ingredient) { this.ingredients.add(ingredient); }
 
+    public ArrayList<String> getStepImages() { return stepImages; }
+
     public String getStepImage(int index) { return this.stepImages.get(index); }
 
     public void initStepImages() { this.stepImages = new ArrayList<String>(30); }

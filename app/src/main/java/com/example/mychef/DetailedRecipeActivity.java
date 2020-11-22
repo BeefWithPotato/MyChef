@@ -47,7 +47,7 @@ public class DetailedRecipeActivity extends AppCompatActivity {
     private TextView userStory;
     private TextView tips;
     private TextView kitchenWares;
-
+    private Button like;
     private LinearLayout ingredientLayout;
     private LinearLayout stepLayout;
 
@@ -61,6 +61,18 @@ public class DetailedRecipeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed_recipe);
+
+        like = findViewById(R.id.Like);
+        like.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(DetailedRecipeActivity.this, "Like button is under construction", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
+
         //initiate recipe class
         recipe = new Recipe();
         recipe.initIngredients();

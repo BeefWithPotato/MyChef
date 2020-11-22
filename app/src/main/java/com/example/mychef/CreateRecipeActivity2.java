@@ -99,13 +99,6 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
         publish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //set up an alert dialog
-                AlertDialog.Builder alert = new AlertDialog.Builder(v.getContext());
-                alert.setMessage("UpLoading......");
-                final AlertDialog alert1 = alert.create();
-                alert1.setCancelable(false);
-                alert1.show();
-
 
                 //modify recipe description
                 for(int i = 0; i <etDescriptionArray.size();i++) {

@@ -123,7 +123,7 @@ public class SubscribePageActivity extends AppCompatActivity {
                     intent = new Intent(SubscribePageActivity.this, ShopCarActivity.class);
                     break;
                 case R.id.Category_button:
-                    intent = new Intent(SubscribePageActivity.this, CategoryPageActivity.class);
+                    intent = new Intent(SubscribePageActivity.this, ConstructionActivity.class);
                     break;
                 case R.id.Recommend_button:
                     intent = new Intent(SubscribePageActivity.this, MainActivity.class);
@@ -156,7 +156,7 @@ public class SubscribePageActivity extends AppCompatActivity {
                     }
                     break;
                 case R.id.FavoritesButton:
-                    intent = new Intent(SubscribePageActivity.this, FavoritesActivity.class);
+                    intent = new Intent(SubscribePageActivity.this, ConstructionActivity.class);
                     break;
 
             }

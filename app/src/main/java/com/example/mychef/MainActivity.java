@@ -1,5 +1,6 @@
 package com.example.mychef;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -130,26 +131,35 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
+            GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(MainActivity.this);
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
             Intent intent = null;
             switch (v.getId()){
                 case R.id.search_button:
-                    intent = new Intent(MainActivity.this, SearchPageActivity.class);
+                    intent = new Intent(MainActivity.this, ConstructionActivity.class);
                     break;
                 case R.id.ShopCarButton:
                     intent = new Intent(MainActivity.this, ShopCarActivity.class);
                     break;
                 case R.id.Category_button:
-                    intent = new Intent(MainActivity.this, CategoryPageActivity.class);
+                    intent = new Intent(MainActivity.this, ConstructionActivity.class);
                     break;
                 case R.id.Recommend_button:
                     intent = new Intent(MainActivity.this, MainActivity.class);
                     break;
                 case R.id.Subscribe_button:
-                    intent = new Intent(MainActivity.this, SubscribePageActivity.class);
+//                    GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(MainActivity.this);
+//                    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                    if(acct == null && currentUser == null){
+                        intent = new Intent(MainActivity.this, LoginActivity.class);
+                    }
+                    else {
+                        intent = new Intent(MainActivity.this, SubscribePageActivity.class);
+                    }
                     break;
                 case R.id.ProfileButton:
-                    GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(MainActivity.this);
-                    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+//                    GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(MainActivity.this);
+//                    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                     if(acct == null && currentUser == null){
                         intent = new Intent(MainActivity.this, LoginActivity.class);
                     }
@@ -162,9 +172,9 @@ public class MainActivity extends AppCompatActivity {
                     r.setDuration((long) 2*500);
                     r.setRepeatCount(0);
 
-                    GoogleSignInAccount currAccount = GoogleSignIn.getLastSignedInAccount(MainActivity.this);
-                    FirebaseUser current = FirebaseAuth.getInstance().getCurrentUser();
-                    if(currAccount == null && current == null){
+//                    GoogleSignInAccount currAccount = GoogleSignIn.getLastSignedInAccount(MainActivity.this);
+//                    FirebaseUser current = FirebaseAuth.getInstance().getCurrentUser();
+                    if(acct == null && currentUser == null){
                         intent = new Intent(MainActivity.this, LoginActivity.class);
                     }
                     else {
@@ -172,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     break;
                 case R.id.FavoritesButton:
-                    intent = new Intent(MainActivity.this, FavoritesActivity.class);
+                    intent = new Intent(MainActivity.this, ConstructionActivity.class);
                     break;
             }
             startActivity(intent);

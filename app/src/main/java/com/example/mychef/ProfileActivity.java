@@ -223,7 +223,7 @@ public class ProfileActivity extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 case R.id.FavoritesButton:
-                    intent = new Intent(ProfileActivity.this, FavoritesActivity.class);
+                    intent = new Intent(ProfileActivity.this, ConstructionActivity.class);
                     startActivity(intent);
                     break;
             }

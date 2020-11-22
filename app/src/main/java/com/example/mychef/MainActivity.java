@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton btn_profile;
     private ImageButton btn_createRecipe;
     private ImageButton mBanFavorites;
+    private ImageButton mBanSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +78,25 @@ public class MainActivity extends AppCompatActivity {
         mGv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //put recipe class in bundle
+                Recipe recipe = recipes.get(position);
+                Intent intent = new Intent(MainActivity.this, DetailedRecipeActivity.class);
+                Bundle bundle = new Bundle();
+
+                bundle.putString("recipeName", recipe.getRecipeName());
+                bundle.putString("coverImage", recipe.getCoverImage());
+                bundle.putString("story", recipe.getStory());
+                bundle.putStringArrayList("ingredients", recipe.getIngredients());
+                bundle.putStringArrayList("stepImages", recipe.getStepImages());
+                bundle.putStringArrayList("stepDescriptions", recipe.getStepDescriptions());
+                bundle.putString("tips", recipe.getTips());
+                bundle.putStringArrayList("kitchenWares", recipe.getKitchenWares());
+                bundle.putString("authorUid", recipe.getAuthorUid());
+                bundle.putString("authorUsername", recipe.getAuthorUsername());
+
+                intent.putExtras(bundle);
+                startActivity(intent);
+
                 Toast.makeText(MainActivity.this, "pos" + position, Toast.LENGTH_SHORT).show();
             }
         });
@@ -90,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
         btn_profile = (ImageButton) findViewById(R.id.ProfileButton);
         btn_createRecipe = (ImageButton) findViewById(R.id.NewRecipeButton);
         mBanFavorites = (ImageButton) findViewById(R.id.FavoritesButton);
+        mBanSearch = (ImageButton) findViewById(R.id.search_button);
         setListeners();
     }
 
@@ -102,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
         btn_profile.setOnClickListener(onClick);
         btn_createRecipe.setOnClickListener(onClick);
         mBanFavorites.setOnClickListener(onClick);
+        mBanSearch.setOnClickListener(onClick);
     }
 
     private class OnClick implements View.OnClickListener {
@@ -110,6 +132,9 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(View v) {
             Intent intent = null;
             switch (v.getId()){
+                case R.id.search_button:
+                    intent = new Intent(MainActivity.this, SearchPageActivity.class);
+                    break;
                 case R.id.ShopCarButton:
                     intent = new Intent(MainActivity.this, ShopCarActivity.class);
                     break;

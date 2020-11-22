@@ -1,18 +1,27 @@
 package com.example.mychef;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,12 +30,14 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class DetailedRecipeActivity extends AppCompatActivity {
 
 
-
+    private Button subscribe;
     private Recipe recipe;
     private User userInfo;
     private TextView userName;
@@ -40,12 +51,12 @@ public class DetailedRecipeActivity extends AppCompatActivity {
     private LinearLayout ingredientLayout;
     private LinearLayout stepLayout;
 
-
-
+    private FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
     private DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
 
 
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,14 +123,14 @@ public class DetailedRecipeActivity extends AppCompatActivity {
             ingredientsLine.setLayoutParams(lp);
             //create name text views for the relative layout
             TextView name = new TextView(this);
-            name.setLayoutParams(new LinearLayout.LayoutParams(180,
+            name.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT));
             name.setText(recipe.getIngredients().get(j));
             name.setTextSize(15);
             name.setTextColor(Color.BLACK);
-            RelativeLayout.LayoutParams lp1 = new RelativeLayout.LayoutParams(160,
+            RelativeLayout.LayoutParams lp1 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
                     RelativeLayout.LayoutParams.WRAP_CONTENT);
-            lp1.setMargins(350,0,0,0);
+            lp1.setMargins(120,0,0,0);
             //create dosage text view for the relative layout
             TextView dosage = new TextView(this);
             dosage.setLayoutParams(new LinearLayout.LayoutParams(180,
@@ -173,12 +184,14 @@ public class DetailedRecipeActivity extends AppCompatActivity {
             stepDes.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT));
             stepDes.setText(recipe.getStepDescriptions().get(j));
+            stepDes.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+            stepDes.setGravity(Gravity.START);
             stepDes.setTextSize(15);
             stepDes.setTextColor(Color.BLACK);
             RelativeLayout.LayoutParams lp3 = new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                     RelativeLayout.LayoutParams.WRAP_CONTENT);
-            lp3.setMargins(70,600,70,0);
-            lp3.addRule(RelativeLayout.CENTER_HORIZONTAL);
+            lp3.setMargins(170,600,190,0);
+//            lp3.addRule(RelativeLayout.CENTER_HORIZONTAL);
 
 
             stepLine.addView(stepName, lp1);
@@ -193,6 +206,30 @@ public class DetailedRecipeActivity extends AppCompatActivity {
         //set the KitchenWares
         kitchenWares = findViewById(R.id.kitchenWare_text);
         kitchenWares.setText(recipe.getKitchenWares());
+
+
+        subscribe = findViewById(R.id.subscribe);
+        subscribe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("User");
+                ref.child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        User userInfo = dataSnapshot.getValue(User.class);
+                        ArrayList<String> following = userInfo.getFollow();
+                        following.add(recipe.getAuthorUid());
+                        ref.child(currentUser.getUid()).child("follow").setValue(following);
+                        Toast.makeText(DetailedRecipeActivity.this, "Follow succeed.", Toast.LENGTH_SHORT).show();
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+            }
+        });
 
 
     }

@@ -82,12 +82,6 @@ public class RegisterActivity extends AppCompatActivity {
                                                     newUser.setPassword(password.getText().toString());
                                                     newUser.setEmail(email.getText().toString());
 
-                                                    //test
-                                                    ArrayList<String> follow = new ArrayList<String>();
-                                                    follow.add("1qJtHDyfqnSmAAGXiUXBrfIDGv93");
-                                                    newUser.setFollow(follow);
-
-
                                                     ref.child(user.getUid()).setValue(newUser);
                                                     Toast.makeText(RegisterActivity.this, "Authentication succeed.", Toast.LENGTH_SHORT).show();
 

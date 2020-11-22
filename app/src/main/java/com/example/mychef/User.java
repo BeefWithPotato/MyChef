@@ -25,8 +25,8 @@ public class User implements Serializable {
         return follow;
     }
 
-    public void setFollow(ArrayList<String> follow) {
-        this.follow = follow;
+    public void addFollow(String uid) {
+        follow.add(uid);
     }
 
     public String getGender() {

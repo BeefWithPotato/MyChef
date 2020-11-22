@@ -10,7 +10,7 @@
         android:id="@+id/Grid_img"
         android:layout_width="410dp"
         android:layout_height="146dp"
-        android:scaleType="fitStart"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

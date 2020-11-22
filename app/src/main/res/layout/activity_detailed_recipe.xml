@@ -185,20 +185,22 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <LinearLayout
-            android:id="@+id/kitchenWares"
+        <TextView
+            android:id="@+id/kitchenWare_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text = "testestest"
+            android:textColor="@color/black"
             android:layout_below="@+id/kitchenware_title"
-            android:orientation="vertical">
+            android:gravity="center"/>
 
-        </LinearLayout>
+
 
         <Button
             android:id="@+id/Like"
             android:layout_width="160dp"
             android:layout_height="40dp"
-            android:layout_below="@+id/kitchenWares"
+            android:layout_below="@+id/kitchenWare_text"
             android:text="Like"
             android:layout_marginLeft="125dp"
             android:layout_marginStart="125dp"

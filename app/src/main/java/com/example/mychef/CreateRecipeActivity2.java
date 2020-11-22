@@ -47,13 +47,12 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
     private LinearLayout lltAddSteps;
     private int stepNum = 2;
     private Button btnAddKitchenware;
-    private LinearLayout lltAddKitchenware;
+    private EditText kitchenware;
     private Recipe recipe;
     private ImageButton firstStepImage;
     private ImageView btn_back;
     private ArrayList<ImageButton> stepImagesBtnArray;
     private ArrayList<EditText> etDescriptionArray;
-    private ArrayList<EditText> etKitchenwareArray;
     private Button publish;
 
     private FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -77,11 +76,9 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
 
         //initiate the edit text arrays
         etDescriptionArray = new ArrayList<EditText>(30);
-        etKitchenwareArray = new ArrayList<EditText>(30);
         EditText etDescription = (EditText) findViewById(R.id.description1);
         etDescriptionArray.add(etDescription);
-        EditText etKitchenware = (EditText) findViewById(R.id.kitchenware1);
-        etKitchenwareArray.add(etKitchenware);
+
 
 
         //initiate recipe class
@@ -89,7 +86,6 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
         recipe.initIngredients();
         recipe.initStepDescriptions();
         recipe.initStepImages();
-        recipe.initKitchenWares();
         //take data from bundle
         Bundle bundle = getIntent().getExtras();
         recipe.setAuthorUid(currentUser.getUid());
@@ -117,10 +113,8 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
                     recipe.addStepDescription(ediText.getText().toString());
                 }
                 //modify recipe kitchenware
-                for(int i = 0; i <etKitchenwareArray.size();i++) {
-                    EditText ediText = etKitchenwareArray.get(i);
-                    recipe.addKitchenWare(ediText.getText().toString());
-                }
+                EditText kitchenwareText = (EditText) findViewById(R.id.kitchenware1);
+                recipe.setKitchenWares(kitchenwareText.getText().toString());
                 //modify tips
                 EditText tipText = (EditText) findViewById(R.id.tipText);
                 recipe.setTips(tipText.getText().toString());
@@ -174,23 +168,6 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
             }
         });
 
-        //add kitchenware button control
-        btnAddKitchenware = (Button) findViewById(R.id.add_new_kitchenware);
-        lltAddKitchenware = (LinearLayout) findViewById(R.id.add_kitchenwareLayout);
-        btnAddKitchenware.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //create a EditText to store text
-                EditText kitchenwareText = new EditText(v.getContext());
-                kitchenwareText.setBackground(ResourcesCompat.getDrawable(v.getResources(), R.drawable.edit_profile_edit_text, null));
-                kitchenwareText.setTextSize(15);
-                RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(470, LinearLayout.LayoutParams.WRAP_CONTENT);
-                lp.setMargins(0,10,0,0);
-                etKitchenwareArray.add(kitchenwareText);
-                lltAddKitchenware.addView(kitchenwareText, lp);
-
-            }
-        });
 
         //add steps button control
         btnAddStep = (Button) findViewById(R.id.add_new_step);

@@ -15,7 +15,7 @@ public class Recipe {
     public ArrayList<String> stepImages;
     private ArrayList<String> stepDescriptions;
     private String tips;
-    private ArrayList<String> kitchenWares;
+    private String kitchenWares;
     private String authorUid;
     private String authorUsername;
 
@@ -91,12 +91,9 @@ public class Recipe {
 
     public void setTips(String tips) { this.tips = tips; }
 
-    public ArrayList<String> getKitchenWares() { return kitchenWares; }
+    public String getKitchenWares() { return kitchenWares; }
 
-    public void initKitchenWares() { this.kitchenWares = new ArrayList<String>(30); }
+    public void setKitchenWares(String kitchenWares) { this.kitchenWares = kitchenWares; }
 
-    public void setKitchenWares(ArrayList<String> kitchenWares) { this.kitchenWares = kitchenWares; }
-
-    public void addKitchenWare(String KitchenWare) { this.kitchenWares.add(KitchenWare); }
 
 }

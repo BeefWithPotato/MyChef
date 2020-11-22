@@ -55,7 +55,6 @@ public class CreateRecipeActivity extends AppCompatActivity {
         recipe.initIngredients();
         recipe.initStepDescriptions();
         recipe.initStepImages();
-        recipe.initKitchenWares();
         ingredientsArray = new ArrayList<EditText>(30);
         //set the ingredients
         etName1 = (EditText) findViewById(R.id.nameText);

@@ -153,43 +153,27 @@
             android:textColor="@color/black"
             android:layout_marginTop="10dp"/>
 
-        <LinearLayout
-            android:id="@+id/add_kitchenwareLayout"
+        <EditText
+            android:id="@+id/kitchenware1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_below="@+id/kitchenware_text"
-            android:gravity="center_horizontal">
-            <EditText
-                android:id="@+id/kitchenware1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="90dp"
-                android:gravity="start"
-                android:background="@drawable/edit_profile_edit_text"
-                android:layout_margin="10dp"
-                android:textColor="#000000"
-                android:textAlignment="viewStart"
-                android:textSize="20sp"
-                android:padding="10dp"
-                android:maxLines="10"/>
-
-        </LinearLayout>
-        <Button
-            android:id="@+id/add_new_kitchenware"
-            android:layout_width="160dp"
-            android:layout_height="40dp"
-            android:layout_below="@+id/add_kitchenwareLayout"
-            android:text="add Kitchenware"
-            android:layout_marginLeft="230dp"
-            android:layout_marginStart="230dp">
-        </Button>
+            android:layout_margin="10dp"
+            android:layout_marginTop="9dp"
+            android:background="@drawable/edit_profile_edit_text"
+            android:gravity="start"
+            android:maxLines="10"
+            android:minHeight="90dp"
+            android:padding="10dp"
+            android:textAlignment="viewStart"
+            android:textColor="#000000"
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/preview"
             android:layout_width="160dp"
             android:layout_height="40dp"
-            android:layout_below="@+id/add_kitchenwareLayout"
+            android:layout_below="@+id/kitchenware1"
             android:text="Preview"
             android:layout_marginLeft="125dp"
             android:layout_marginStart="125dp"
@@ -199,7 +183,7 @@
             android:id="@+id/publish"
             android:layout_width="160dp"
             android:layout_height="40dp"
-            android:layout_below="@+id/add_kitchenwareLayout"
+            android:layout_below="@+id/kitchenware1"
             android:text="publish recipe"
             android:layout_marginLeft="125dp"
             android:layout_marginStart="125dp"

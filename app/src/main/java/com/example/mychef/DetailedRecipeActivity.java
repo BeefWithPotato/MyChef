@@ -35,10 +35,11 @@ public class DetailedRecipeActivity extends AppCompatActivity {
     private TextView recipeName;
     private TextView userStory;
     private TextView tips;
+    private TextView kitchenWares;
 
     private LinearLayout ingredientLayout;
     private LinearLayout stepLayout;
-    private LinearLayout kitchenWareLayout;
+
 
 
     private DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
@@ -54,7 +55,6 @@ public class DetailedRecipeActivity extends AppCompatActivity {
         recipe.initIngredients();
         recipe.initStepDescriptions();
         recipe.initStepImages();
-        recipe.initKitchenWares();
         //take data from bundle
         Bundle bundle = getIntent().getExtras();
         recipe.setRecipeName(bundle.getString("recipeName"));
@@ -64,7 +64,7 @@ public class DetailedRecipeActivity extends AppCompatActivity {
         recipe.setStepImages(bundle.getStringArrayList("stepImages"));
         recipe.setStepDescriptions(bundle.getStringArrayList("stepDescriptions"));
         recipe.setTips(bundle.getString("tips"));
-        recipe.setKitchenWares(bundle.getStringArrayList("kitchenWares"));
+        recipe.setKitchenWares(bundle.getString("kitchenWares"));
         recipe.setAuthorUid(bundle.getString("authorUid"));
         recipe.setAuthorUsername(bundle.getString("authorUsername"));
 
@@ -191,32 +191,8 @@ public class DetailedRecipeActivity extends AppCompatActivity {
         tips.setText(recipe.getTips());
 
         //set the KitchenWares
-        kitchenWareLayout = findViewById(R.id.kitchenWares);
-        if (recipe.getKitchenWares().size() == 0){
-            TextView kitchenWare = new TextView(this);
-            kitchenWare.setText("The author did not provide any kitchenware");
-            kitchenWare.setTextSize(15);
-            kitchenWare.setTextColor(Color.BLACK);
-            RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
-                    RelativeLayout.LayoutParams.WRAP_CONTENT);
-            lp.setMargins(490,40,0,0);
-
-            kitchenWareLayout.addView(kitchenWare, lp);
-
-        }
-        for (int j=0; j < recipe.getKitchenWares().size(); j++){
-
-            //create step text views for the step images
-            TextView kitchenWare = new TextView(this);
-            kitchenWare.setText(recipe.getKitchenWares().get(j));
-            kitchenWare.setTextSize(15);
-            kitchenWare.setTextColor(Color.BLACK);
-            RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
-                    RelativeLayout.LayoutParams.WRAP_CONTENT);
-            lp.setMargins(490,40,0,0);
-
-            kitchenWareLayout.addView(kitchenWare, lp);
-        }
+        kitchenWares = findViewById(R.id.kitchenWare_text);
+        kitchenWares.setText(recipe.getKitchenWares());
 
 
     }

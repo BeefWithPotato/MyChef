@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
                 bundle.putStringArrayList("stepImages", recipe.getStepImages());
                 bundle.putStringArrayList("stepDescriptions", recipe.getStepDescriptions());
                 bundle.putString("tips", recipe.getTips());
-                bundle.putStringArrayList("kitchenWares", recipe.getKitchenWares());
+                bundle.putString("kitchenWares", recipe.getKitchenWares());
                 bundle.putString("authorUid", recipe.getAuthorUid());
                 bundle.putString("authorUsername", recipe.getAuthorUsername());
 

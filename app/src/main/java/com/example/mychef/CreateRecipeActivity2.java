@@ -1,15 +1,19 @@
 package com.example.mychef;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -123,7 +127,7 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
 
                 //upload cover image and get it's url back
                 Uri coverFile = Uri.parse((String)recipe.getCoverImage());
-                StorageReference coverRef = mStorageRef.child("images/" + "RecipeImages/" + currentUser.getUid() + "/coverImage.jpg");
+                StorageReference coverRef = mStorageRef.child("images/" + "RecipeImages/" + currentUser.getUid() + "/" + recipe.getRecipeName() + "/coverImage.jpg");
                 UploadTask uploadTask = coverRef.putFile(coverFile);
                 Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                     @Override
@@ -170,8 +174,6 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
             }
         });
 
-
-
         //add kitchenware button control
         btnAddKitchenware = (Button) findViewById(R.id.add_new_kitchenware);
         lltAddKitchenware = (LinearLayout) findViewById(R.id.add_kitchenwareLayout);
@@ -187,15 +189,14 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
                 etKitchenwareArray.add(kitchenwareText);
                 lltAddKitchenware.addView(kitchenwareText, lp);
 
-
             }
         });
-
 
         //add steps button control
         btnAddStep = (Button) findViewById(R.id.add_new_step);
         lltAddSteps = (LinearLayout) findViewById(R.id.add_stepsLayout);
         btnAddStep.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
             @Override
             public void onClick(View v) {
                 //create a RelativeLayout to store addition step
@@ -204,50 +205,46 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
                         RelativeLayout.LayoutParams.WRAP_CONTENT);
                 stepLine.setLayoutParams(lp);
 
-
                 //create step number
                 TextView stepNumber = new TextView(v.getContext());
                 stepNumber.setLayoutParams(new LinearLayout.LayoutParams(180,
                         LinearLayout.LayoutParams.WRAP_CONTENT));
-                String name = "Step " + String.valueOf(stepNum);
+                String name = "Step " + String.valueOf(stepNum) + ":";
                 stepNumber.setText(name);
                 stepNumber.setTextSize(15);
                 stepNumber.setTextColor(Color.BLACK);
                 RelativeLayout.LayoutParams lp1 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
                         RelativeLayout.LayoutParams.WRAP_CONTENT);
                 lp1.setMargins(90,0,0,0);
+
+
                 //create step image button
                 ImageButton stepImage = new ImageButton(v.getContext());
-                stepImage.setScaleType(ImageView.ScaleType.FIT_XY);
-                stepImage.setBackground(ResourcesCompat.getDrawable(v.getResources(), R.drawable.food_tmp, null));
-                RelativeLayout.LayoutParams lp2 = new RelativeLayout.LayoutParams(800, 533);
-                lp2.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+                stepImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                stepImage.setBackground(ResourcesCompat.getDrawable(v.getResources(), R.drawable.add_image, null));
+
+                RelativeLayout.LayoutParams lp2 = new RelativeLayout.LayoutParams(300, 300);
                 lp2.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE);
                 lp2.setMargins(20, 60, 0, 0);
-                //create step description
-                TextView stepDescription = new TextView(v.getContext());
-                stepDescription.setLayoutParams(new LinearLayout.LayoutParams(180,
-                        LinearLayout.LayoutParams.WRAP_CONTENT));
-                stepDescription.setText("Step description:");
-                stepDescription.setTextSize(15);
-                stepDescription.setTextColor(Color.BLACK);
-                RelativeLayout.LayoutParams lp3 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
-                        RelativeLayout.LayoutParams.WRAP_CONTENT);
-                lp3.setMargins(90,660,0,0);
+
+
                 //create step description EditText
                 EditText descriptionText = new EditText(v.getContext());
+                descriptionText.setMinHeight(600);
+                descriptionText.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+                descriptionText.setGravity(Gravity.START);
+                descriptionText.setHint("Add step details ...");
+                descriptionText.setPadding(20, 20, 20, 20);
                 descriptionText.setBackground(ResourcesCompat.getDrawable(v.getResources(), R.drawable.edit_profile_edit_text, null));
-                descriptionText.setTextSize(15);
-                RelativeLayout.LayoutParams lp4 = new RelativeLayout.LayoutParams(530, LinearLayout.LayoutParams.WRAP_CONTENT);
-                lp4.setMargins(430,660,0,0);
-                etDescriptionArray.add(descriptionText);
+                descriptionText.setTextSize(20);
+                RelativeLayout.LayoutParams lp4 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+                lp4.setMargins(20,400,20,20);
 
+                etDescriptionArray.add(descriptionText);
 
                 stepLine.addView(stepNumber, lp1);
                 stepLine.addView(stepImage, lp2);
-                stepLine.addView(stepDescription, lp3);
                 stepLine.addView(descriptionText, lp4);
-
 
                 lltAddSteps.addView(stepLine);
                 stepNum += 1;
@@ -264,8 +261,6 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
                         startActivityForResult(Intent.createChooser(intent, "Select Picture"), code);
                     }
                 });
-
-
 
             }
         });
@@ -335,9 +330,6 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
         });
 
     }
-
-
-
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

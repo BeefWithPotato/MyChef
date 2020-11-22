@@ -86,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
         mBanSubscribe = (Button) findViewById(R.id.Subscribe_button);
         mBanRecommend = (Button) findViewById(R.id.Recommend_button);
         mBanCategory = (Button) findViewById(R.id.Category_button);
-        mBanHome = (ImageButton) findViewById(R.id.Home_Button);
         mBanShopCar = (ImageButton) findViewById(R.id.ShopCarButton);
         btn_profile = (ImageButton) findViewById(R.id.ProfileButton);
         btn_createRecipe = (ImageButton) findViewById(R.id.NewRecipeButton);
@@ -99,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
         mBanSubscribe.setOnClickListener(onClick);
         mBanRecommend.setOnClickListener(onClick);
         mBanCategory.setOnClickListener(onClick);
-        mBanHome.setOnClickListener(onClick);
         mBanShopCar.setOnClickListener(onClick);
         btn_profile.setOnClickListener(onClick);
         btn_createRecipe.setOnClickListener(onClick);

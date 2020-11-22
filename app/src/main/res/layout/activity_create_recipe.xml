@@ -43,77 +43,103 @@
 
         </androidx.appcompat.widget.Toolbar>
 
-        <ImageButton
-            android:id="@+id/cover_image"
-            android:layout_width="300dp"
-            android:layout_height="200dp"
-            android:layout_below="@+id/toolbar"
-            android:layout_marginLeft="55dp"
-            android:scaleType="fitXY"
-            android:background="@color/black"/>
-
-
-        <TextView
-            android:id="@+id/recipe_name"
-            android:layout_width="95dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/cover_image"
-            android:layout_gravity="center"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="10dp"
-            android:text="Recipe name:"
-            android:textAllCaps="false"
-            android:textColor="#000000"
-            android:textSize="15sp" />
-
-        <EditText
-            android:id="@+id/recipe_name_text"
-            android:layout_width="95dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/cover_image"
-            android:layout_toRightOf="@+id/recipe_name"
-            android:background="@drawable/edit_profile_edit_text"
-            android:layout_marginTop="10dp"
-            android:textAllCaps="false"
-            android:textColor="#000000"
-            android:textSize="15sp" />
-
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/recipe_name"
-            android:layout_marginLeft="90dp"
+            android:text="Add a Cover Image here !"
+            android:textColor="#000000"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="60dp"
+            android:textSize="15sp"
+            android:textStyle="bold"/>
+
+
+        <ImageButton
+            android:id="@+id/cover_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/toolbar"
+            android:layout_marginTop="50dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/add_image"/>
+
+        <ImageView
+            android:id="@+id/cover_image2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="90dp"
+            android:layout_marginBottom="10dp"
+            android:scaleType="centerCrop"
+            android:layout_centerHorizontal="true"/>
+
+<!--        <TextView-->
+<!--            android:id="@+id/recipe_name"-->
+<!--            android:layout_width="95dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@+id/cover_image"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_marginLeft="100dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:text="Recipe name:"-->
+<!--            android:textAllCaps="false"-->
+<!--            android:textColor="#000000"-->
+<!--            android:textSize="15sp" />-->
+
+        <EditText
+            android:id="@+id/recipe_name_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="30dp"
+            android:layout_below="@+id/cover_image2"
+            android:background="@drawable/edit_profile_edit_text"
             android:layout_marginTop="10dp"
-            android:text="The story behind this delicacy:"
             android:textAllCaps="false"
             android:textColor="#000000"
-            android:textSize="15sp" />
+            android:textSize="20sp"
+            android:hint="Enter a Title"
+            android:maxLines="2"
+            android:padding="10dp"
+            android:layout_margin="10dp"/>
+
+
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@+id/recipe_name"-->
+<!--            android:layout_marginLeft="90dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:text="The story behind this delicacy:"-->
+<!--            android:textAllCaps="false"-->
+<!--            android:textColor="#000000"-->
+<!--            android:textSize="15sp" />-->
 
         <EditText
             android:id="@+id/user_story"
-            android:layout_width="206dp"
-            android:layout_height="125dp"
-            android:layout_below="@+id/recipe_name"
-            android:layout_marginLeft="90dp"
-            android:layout_marginTop="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="200dp"
+            android:layout_below="@+id/recipe_name_text"
+            android:layout_margin="10dp"
             android:background="@drawable/edit_profile_edit_text"
             android:gravity="start"
             android:maxLines="10"
+            android:hint="Add description here ..."
+            android:padding="10dp"
             android:textAlignment="viewStart"
-            android:textSize="15sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/ingredients"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/user_story"
-            android:layout_marginLeft="70dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             android:text="Ingredients:"
             android:textAllCaps="false"
             android:textColor="#000000"
-            android:textSize="15sp" />
+            android:textSize="20sp"
+            android:textStyle="bold"/>
 
 
         <TextView
@@ -121,7 +147,7 @@
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/ingredients"
-            android:layout_marginLeft="70dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             android:text="1.Name:"
             android:textAllCaps="false"
@@ -130,15 +156,18 @@
 
         <EditText
             android:id="@+id/nameText"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="20dp"
             android:layout_below="@+id/ingredients"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="5dp"
             android:layout_toRightOf="@+id/name1"
             android:background="@drawable/edit_profile_edit_text"
             android:gravity="start"
-            android:maxLines="10"
+            android:maxLines="1"
+            android:maxLength="18"
+            android:paddingTop="2.5dp"
+            android:paddingLeft="2dp"
             android:textAlignment="viewStart"
             android:textSize="15sp" />
 
@@ -155,16 +184,19 @@
 
         <EditText
             android:id="@+id/dosage1"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
+            android:layout_width="120dp"
+            android:layout_height="20dp"
             android:layout_below="@+id/ingredients"
-            android:layout_marginLeft="125dp"
+            android:layout_marginLeft="180dp"
             android:layout_marginTop="10dp"
             android:layout_toRightOf="@+id/name1"
             android:background="@drawable/edit_profile_edit_text"
             android:gravity="start"
-            android:maxLines="10"
+            android:maxLines="1"
+            android:maxLength="22"
             android:textAlignment="viewStart"
+            android:paddingTop="2.5dp"
+            android:paddingLeft="2dp"
             android:textSize="15sp" />
 
         <TextView
@@ -172,7 +204,7 @@
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/ingredients"
-            android:layout_marginLeft="70dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="55dp"
             android:text="2.Name:"
             android:textAllCaps="false"
@@ -180,8 +212,8 @@
             android:textSize="15sp" />
 
         <EditText
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="20dp"
             android:layout_below="@+id/ingredients"
             android:id="@+id/nameText2"
             android:layout_marginTop="55dp"
@@ -189,13 +221,16 @@
             android:layout_toRightOf="@+id/name1"
             android:background="@drawable/edit_profile_edit_text"
             android:gravity="start"
-            android:maxLines="10"
+            android:maxLines="1"
+            android:maxLength="18"
             android:textAlignment="viewStart"
+            android:paddingTop="2.5dp"
+            android:paddingLeft="2dp"
             android:textSize="15sp" />
 
         <TextView
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
             android:layout_below="@+id/ingredients"
             android:layout_marginLeft="200dp"
             android:layout_marginTop="55dp"
@@ -206,15 +241,18 @@
 
         <EditText
             android:id="@+id/dosage2"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
+            android:layout_width="120dp"
+            android:layout_height="20dp"
             android:layout_below="@+id/ingredients"
-            android:layout_marginLeft="125dp"
+            android:layout_marginLeft="180dp"
             android:layout_marginTop="55dp"
-            android:layout_toRightOf="@+id/name1"
+            android:layout_toRightOf="@+id/name2"
             android:background="@drawable/edit_profile_edit_text"
             android:gravity="start"
-            android:maxLines="10"
+            android:maxLines="2"
+            android:maxLength="20"
+            android:paddingTop="2dp"
+            android:paddingLeft="2dp"
             android:textAlignment="viewStart"
             android:textSize="15sp" />
 

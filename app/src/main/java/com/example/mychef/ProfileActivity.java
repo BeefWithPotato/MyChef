@@ -140,7 +140,6 @@ public class ProfileActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {}
         });
 
-//        profile_lv.setAdapter(new ProfileListAdapterTest(ProfileActivity.this, recipes));
 
         profile_lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

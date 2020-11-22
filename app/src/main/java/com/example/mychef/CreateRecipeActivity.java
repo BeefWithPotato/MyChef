@@ -29,7 +29,7 @@ public class CreateRecipeActivity extends AppCompatActivity {
 
     private Button btnAddRecipe;
     private Button btnNext;
-    private ImageView btn_back;
+    private ImageView btn_back, cover;
     private ImageButton btnChangeCover;
     private LinearLayout lltAddIngredients;
     private int ingredientNumber = 3;
@@ -136,10 +136,8 @@ public class CreateRecipeActivity extends AppCompatActivity {
                 LinearLayout ingredientLine = new LinearLayout(v.getContext());
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                         100);
-                lp.setMargins(195, 40, 0, 0);
+                lp.setMargins(55, 20, 0, 0);
                 ingredientLine.setLayoutParams(lp);
-
-
 
                 //create textView
                 TextView ingredientName = new TextView(v.getContext());
@@ -151,15 +149,16 @@ public class CreateRecipeActivity extends AppCompatActivity {
                 ingredientName.setTextColor(Color.BLACK);
                 //create EditText
                 EditText nameText = new EditText(v.getContext());
-                nameText.setLayoutParams(new LinearLayout.LayoutParams(150,
+                nameText.setLayoutParams(new LinearLayout.LayoutParams(280,
                         55));
                 nameText.setBackground(ResourcesCompat.getDrawable(v.getResources(), R.drawable.edit_profile_edit_text, null));
                 nameText.setTextSize(15);
                 nameText.setPadding(10,0,0,0);
+                nameText.setText("aaaa");
                 ingredientsArray.add(nameText);
                 //create dosage textView
                 TextView dosage = new TextView(v.getContext());
-                dosage.setLayoutParams(new LinearLayout.LayoutParams(190,
+                dosage.setLayoutParams(new LinearLayout.LayoutParams(205,
                         LinearLayout.LayoutParams.WRAP_CONTENT));
                 dosage.setText("Dosage:");
                 dosage.setTextSize(15);
@@ -167,11 +166,11 @@ public class CreateRecipeActivity extends AppCompatActivity {
                 dosage.setPadding(40,0,0,0);
                 //create dosage EditText
                 EditText dosageText = new EditText(v.getContext());
-                dosageText.setLayoutParams(new LinearLayout.LayoutParams(150,
+                dosageText.setLayoutParams(new LinearLayout.LayoutParams(320,
                         55));
                 dosageText.setBackground(ResourcesCompat.getDrawable(v.getResources(), R.drawable.edit_profile_edit_text, null));
                 dosageText.setTextSize(15);
-                dosageText.setPadding(0,0,0,0);
+                dosageText.setPadding(10,0,0,0);
                 ingredientsArray.add(dosageText);
 
 
@@ -197,7 +196,8 @@ public class CreateRecipeActivity extends AppCompatActivity {
         //if user choose an image complete
         if (requestCode == PICK_COVER) {
             //update bg ImageView
-            btnChangeCover.setImageURI(data.getData());
+            cover = findViewById(R.id.cover_image2);
+            cover.setImageURI(data.getData());
             recipe.setCoverImage(data.getData().toString());
 
         }

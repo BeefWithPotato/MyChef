@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton btn_profile;
     private ImageButton btn_createRecipe;
     private ImageButton mBanFavorites;
+    private ImageButton mBanSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
         btn_profile = (ImageButton) findViewById(R.id.ProfileButton);
         btn_createRecipe = (ImageButton) findViewById(R.id.NewRecipeButton);
         mBanFavorites = (ImageButton) findViewById(R.id.FavoritesButton);
+        mBanSearch = (ImageButton) findViewById(R.id.search_button);
         setListeners();
     }
 
@@ -104,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
         btn_profile.setOnClickListener(onClick);
         btn_createRecipe.setOnClickListener(onClick);
         mBanFavorites.setOnClickListener(onClick);
+        mBanSearch.setOnClickListener(onClick);
     }
 
     private class OnClick implements View.OnClickListener {
@@ -112,6 +115,9 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(View v) {
             Intent intent = null;
             switch (v.getId()){
+                case R.id.search_button:
+                    intent = new Intent(MainActivity.this, SearchPageActivity.class);
+                    break;
                 case R.id.ShopCarButton:
                     intent = new Intent(MainActivity.this, ShopCarActivity.class);
                     break;

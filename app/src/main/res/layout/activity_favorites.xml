@@ -16,7 +16,8 @@
         android:layout_marginBottom="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/profile" />
+        app:srcCompat="@drawable/profile"
+        android:layout_marginRight="16dp" />
 
     <ImageButton
         android:id="@+id/Home_Button"
@@ -26,7 +27,8 @@
         android:layout_marginBottom="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/home" />
+        app:srcCompat="@drawable/home"
+        android:layout_marginLeft="20dp" />
 
     <ImageButton
         android:id="@+id/FavoritesButton"
@@ -36,7 +38,8 @@
         android:layout_marginBottom="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/ProfileButton"
-        app:srcCompat="@drawable/favorites_fill" />
+        app:srcCompat="@drawable/favorites_fill"
+        android:layout_marginRight="16dp" />
 
     <View
         android:id="@+id/divider2"
@@ -72,7 +75,8 @@
         android:layout_marginBottom="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/Home_Button"
-        app:srcCompat="@drawable/shop_car" />
+        app:srcCompat="@drawable/shop_car"
+        android:layout_marginLeft="20dp" />
 
     <TextView
         android:id="@+id/Home_textView"
@@ -126,21 +130,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:text="My Favorites"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/Favorites_LV"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_bar"
+        android:layout_marginLeft="32dp" />
 
     <ListView
         android:id="@+id/Favorites_LV"
         android:layout_width="330dp"
-        android:layout_height="600dp"
+        android:layout_height="580dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="110dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/divider2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <SearchView
+        android:id="@+id/search_bar"
+        android:layout_width="330dp"
+        android:layout_height="wrap_content"
+        android:queryHint="Search my favorites"
+        android:iconifiedByDefault="false"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

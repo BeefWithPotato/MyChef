@@ -93,18 +93,18 @@
             android:background="@drawable/btn_register"
             android:layout_gravity="center_horizontal"/>
 
-        <Button
-            android:id="@+id/btn_forget"
-            android:layout_width="300dp"
-            android:layout_height="40dp"
-            android:layout_below="@id/btn_register"
-            android:layout_marginTop="10dp"
-            android:text="Forget your password?"
-            android:textAllCaps="false"
-            android:textColor="@drawable/textbtn_color"
-            android:textSize="16sp"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/btn_no_stroke"/>
+<!--        <Button-->
+<!--            android:id="@+id/btn_forget"-->
+<!--            android:layout_width="300dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:layout_below="@id/btn_register"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:text="Forget your password?"-->
+<!--            android:textAllCaps="false"-->
+<!--            android:textColor="@drawable/textbtn_color"-->
+<!--            android:textSize="16sp"-->
+<!--            android:layout_gravity="center_horizontal"-->
+<!--            android:background="@drawable/btn_no_stroke"/>-->
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/google_signin"

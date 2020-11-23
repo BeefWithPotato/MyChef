@@ -95,13 +95,13 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        btn_forget = (Button) findViewById(R.id.btn_forget);
-        btn_forget.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(LoginActivity.this, "Forget Button Pressed!", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        btn_forget = (Button) findViewById(R.id.btn_forget);
+//        btn_forget.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(LoginActivity.this, "Forget Button Pressed!", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
 
         // Configure sign-in to request the user's ID, email address, and basic

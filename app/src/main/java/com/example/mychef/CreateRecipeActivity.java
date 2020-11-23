@@ -153,7 +153,6 @@ public class CreateRecipeActivity extends AppCompatActivity {
                 nameText.setBackground(ResourcesCompat.getDrawable(v.getResources(), R.drawable.edit_profile_edit_text, null));
                 nameText.setTextSize(15);
                 nameText.setPadding(10,0,0,0);
-                nameText.setText("aaaa");
                 ingredientsArray.add(nameText);
                 //create dosage textView
                 TextView dosage = new TextView(v.getContext());

@@ -26,7 +26,7 @@ public class EditBioActivity extends AppCompatActivity {
 
     private ImageView btn_back;
     private Button save;
-    private EditText username;
+    private EditText bio;
     private TextView wc;
     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -44,10 +44,13 @@ public class EditBioActivity extends AppCompatActivity {
             }
         });
 
-        username = findViewById(R.id.edit_username);
+        bio = findViewById(R.id.edit_bio);
+        Bundle bundle = getIntent().getExtras();
+        bio.setText(bundle.getString("bio"));
+
         wc = findViewById(R.id.wc_bio);
         Integer maxNum = 70;
-        username.addTextChangedListener(new TextWatcher() {
+        bio.addTextChangedListener(new TextWatcher() {
 
             private CharSequence wordNum;
             private int selectionStart;
@@ -63,17 +66,16 @@ public class EditBioActivity extends AppCompatActivity {
             }
 
             @Override
+            // reference: https://www.cnblogs.com/zhujiabin/p/5280170.html
             public void afterTextChanged(Editable s) {
-
                 wc.setText("" + (maxNum - s.length()) +"/" + maxNum);
-                selectionStart = username.getSelectionStart();
-                selectionEnd = username.getSelectionEnd();
-                //判断大于最大值
+                selectionStart = bio.getSelectionStart();
+                selectionEnd = bio.getSelectionEnd();
                 if (wordNum.length() > maxNum) {
                     s.delete(selectionStart - 1, selectionEnd);
                     int tempSelection = selectionEnd;
-                    username.setText(s);
-                    username.setSelection(tempSelection);
+                    bio.setText(s);
+                    bio.setSelection(tempSelection);
                     Toast toast = Toast.makeText(EditBioActivity.this, Html.fromHtml("<font color='#FF0000' ><b>" + "Maximum 70 words!" + "</b></font>"), Toast.LENGTH_SHORT);
                     toast.show();
                 }
@@ -89,8 +91,8 @@ public class EditBioActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         User userInfo = dataSnapshot.getValue(User.class);
-                        if (username.getText().toString() != null) {
-                            ref.child(currentUser.getUid()).child("bio").setValue(username.getText().toString());
+                        if (bio.getText().toString() != null) {
+                            ref.child(currentUser.getUid()).child("bio").setValue(bio.getText().toString());
                             Toast.makeText(EditBioActivity.this, "Change succeed.", Toast.LENGTH_SHORT).show();
 
                             Intent intent = new Intent(EditBioActivity.this, DetailProfileActivity.class);

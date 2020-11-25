@@ -38,6 +38,8 @@ public class EditAgeActivity extends AppCompatActivity {
             }
         });
         age = findViewById(R.id.edit_age);
+        Bundle bundle = getIntent().getExtras();
+        age.setText(bundle.getString("age"));
 
         save = findViewById(R.id.age_save);
         save.setOnClickListener(new View.OnClickListener() {

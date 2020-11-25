@@ -38,6 +38,9 @@ public class EditUsernameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_username);
 
+
+
+
         btn_back = findViewById(R.id.edit_username_back);
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,7 +49,11 @@ public class EditUsernameActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         username = findViewById(R.id.edit_username);
+        Bundle bundle = getIntent().getExtras();
+        username.setText(bundle.getString("username"));
+
         wc = findViewById(R.id.wc_username);
         //word max
         Integer maxNum = 20;
@@ -66,14 +73,13 @@ public class EditUsernameActivity extends AppCompatActivity {
             }
 
             @Override
+            // reference: https://www.cnblogs.com/zhujiabin/p/5280170.html
             public void afterTextChanged(Editable s) {
 
                 wc.setText("" + (maxNum - s.length()) +"/" + maxNum);
                 selectionStart = username.getSelectionStart();
                 selectionEnd = username.getSelectionEnd();
-                //判断大于最大值
                 if (wordNum.length() > maxNum) {
-                    //删除多余输入的字（不会显示出来）
                     s.delete(selectionStart - 1, selectionEnd);
                     int tempSelection = selectionEnd;
                     username.setText(s);

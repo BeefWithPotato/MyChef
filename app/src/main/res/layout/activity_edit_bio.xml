@@ -44,7 +44,7 @@
     </androidx.appcompat.widget.Toolbar>
 
     <EditText
-        android:id="@+id/edit_username"
+        android:id="@+id/edit_bio"
         android:layout_width="380dp"
         android:layout_height="130dp"
         android:hint="Enter your Bio here"

@@ -41,7 +41,7 @@ public class DetailedRecipeActivity extends AppCompatActivity {
     private Recipe recipe;
     private User userInfo;
     private TextView userName;
-    private ImageView cover;
+    private ImageView cover, avatar;
     private CircleImageView userIcon;
     private TextView recipeName;
     private TextView userStory;
@@ -70,9 +70,6 @@ public class DetailedRecipeActivity extends AppCompatActivity {
             }
         });
 
-
-
-
         //initiate recipe class
         recipe = new Recipe();
         recipe.initIngredients();
@@ -90,6 +87,20 @@ public class DetailedRecipeActivity extends AppCompatActivity {
         recipe.setKitchenWares(bundle.getString("kitchenWares"));
         recipe.setAuthorUid(bundle.getString("authorUid"));
         recipe.setAuthorUsername(bundle.getString("authorUsername"));
+
+        //user detail page
+        avatar = findViewById(R.id.profile_image);
+        avatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DetailedRecipeActivity.this, UserDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("uid", recipe.getAuthorUid());
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
 
         //set the cover image
         cover = findViewById(R.id.cover_image);

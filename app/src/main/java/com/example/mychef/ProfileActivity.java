@@ -84,7 +84,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
 
-        //get current user object from Firebase
+        // get current user object from Firebase
         ref.child("User").child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -161,8 +161,6 @@ public class ProfileActivity extends AppCompatActivity {
 
                 intent.putExtras(bundle);
                 startActivity(intent);
-
-                Toast.makeText(ProfileActivity.this, "pos" + position, Toast.LENGTH_SHORT).show();
             }
         });
 

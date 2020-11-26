@@ -54,8 +54,6 @@ public class DetailedRecipeActivity extends AppCompatActivity {
     private FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
     private DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
 
-
-
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -230,7 +228,7 @@ public class DetailedRecipeActivity extends AppCompatActivity {
         kitchenWares = findViewById(R.id.kitchenWare_text);
         kitchenWares.setText(recipe.getKitchenWares());
 
-
+        //  follow user
         subscribe = findViewById(R.id.subscribe);
         subscribe.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -241,9 +239,14 @@ public class DetailedRecipeActivity extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         User userInfo = dataSnapshot.getValue(User.class);
                         ArrayList<String> following = userInfo.getFollow();
-                        following.add(recipe.getAuthorUid());
-                        ref.child(currentUser.getUid()).child("follow").setValue(following);
-                        Toast.makeText(DetailedRecipeActivity.this, "Follow succeed.", Toast.LENGTH_SHORT).show();
+                        if (following.contains(recipe.getAuthorUid())) {
+                            following.add(recipe.getAuthorUid());
+                            ref.child(currentUser.getUid()).child("follow").setValue(following);
+                            Toast.makeText(DetailedRecipeActivity.this, "Follow succeed.", Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            Toast.makeText(DetailedRecipeActivity.this, "You already follow this user!.", Toast.LENGTH_SHORT).show();
+                        }
                     }
                     @Override
                     public void onCancelled(DatabaseError databaseError) {

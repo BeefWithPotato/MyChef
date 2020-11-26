@@ -38,7 +38,7 @@ public class SubscribePageActivity extends AppCompatActivity {
     private FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
     private StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
 
-
+    private ImageButton mBanSearch;
     private Button mBanSubscribe;
     private Button mBanRecommend;
     private Button mBanCategory;
@@ -119,6 +119,7 @@ public class SubscribePageActivity extends AppCompatActivity {
         btn_profile = (ImageButton) findViewById(R.id.ProfileButton);
         btn_createRecipe = (ImageButton) findViewById(R.id.NewRecipeButton);
         mBanFavorites = (ImageButton) findViewById(R.id.FavoritesButton);
+        mBanSearch = (ImageButton) findViewById(R.id.search_button);
         setListeners();
     }
 
@@ -131,6 +132,7 @@ public class SubscribePageActivity extends AppCompatActivity {
         btn_profile.setOnClickListener(onClick);
         btn_createRecipe.setOnClickListener(onClick);
         mBanFavorites.setOnClickListener(onClick);
+        mBanSearch.setOnClickListener(onClick);
     }
 
     private class OnClick implements View.OnClickListener {
@@ -139,6 +141,9 @@ public class SubscribePageActivity extends AppCompatActivity {
         public void onClick(View v) {
             Intent intent = null;
             switch (v.getId()){
+                case R.id.search_button:
+                    intent = new Intent(SubscribePageActivity.this, SearchPageActivity.class);
+                    break;
                 case R.id.ShopCarButton:
                     intent = new Intent(SubscribePageActivity.this, ShopCarActivity.class);
                     break;
@@ -147,9 +152,6 @@ public class SubscribePageActivity extends AppCompatActivity {
                     break;
                 case R.id.Recommend_button:
                     intent = new Intent(SubscribePageActivity.this, MainActivity.class);
-                    break;
-                case R.id.Subscribe_button:
-                    intent = new Intent(SubscribePageActivity.this, SubscribePageActivity.class);
                     break;
                 case R.id.NewRecipeButton:
                     RotateAnimation r = new RotateAnimation(0.0f, 60.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);

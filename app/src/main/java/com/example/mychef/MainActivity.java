@@ -28,6 +28,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -73,8 +74,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });
-
-//        profile_lv.setAdapter(new ProfileListAdapterTest(ProfileActivity.this, recipes));
 
         mGv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -136,20 +135,18 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = null;
             switch (v.getId()){
                 case R.id.search_button:
-                    intent = new Intent(MainActivity.this, ConstructionActivity.class);
+                    intent = new Intent(MainActivity.this, SearchPageActivity.class);
                     break;
                 case R.id.ShopCarButton:
                     intent = new Intent(MainActivity.this, ShopCarActivity.class);
                     break;
                 case R.id.Category_button:
-                    intent = new Intent(MainActivity.this, ConstructionActivity.class);
+                    intent = new Intent(MainActivity.this, CategoryPageActivity.class);
                     break;
                 case R.id.Recommend_button:
                     intent = new Intent(MainActivity.this, MainActivity.class);
                     break;
                 case R.id.Subscribe_button:
-//                    GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(MainActivity.this);
-//                    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                     if(acct == null && currentUser == null){
                         intent = new Intent(MainActivity.this, LoginActivity.class);
                     }
@@ -158,8 +155,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                     break;
                 case R.id.ProfileButton:
-//                    GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(MainActivity.this);
-//                    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                     if(acct == null && currentUser == null){
                         intent = new Intent(MainActivity.this, LoginActivity.class);
                     }
@@ -172,8 +167,6 @@ public class MainActivity extends AppCompatActivity {
                     r.setDuration((long) 2*500);
                     r.setRepeatCount(0);
 
-//                    GoogleSignInAccount currAccount = GoogleSignIn.getLastSignedInAccount(MainActivity.this);
-//                    FirebaseUser current = FirebaseAuth.getInstance().getCurrentUser();
                     if(acct == null && currentUser == null){
                         intent = new Intent(MainActivity.this, LoginActivity.class);
                     }

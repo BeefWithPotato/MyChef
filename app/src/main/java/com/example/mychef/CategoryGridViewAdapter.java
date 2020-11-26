@@ -10,19 +10,22 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
+
 public class CategoryGridViewAdapter extends BaseAdapter {
 
     private Context mContext;
     private LayoutInflater mLayoutInflater;
-
-    public CategoryGridViewAdapter(Context context){
+    private ArrayList<CategoryPageActivity.Category> categories;
+    public CategoryGridViewAdapter(Context context, ArrayList<CategoryPageActivity.Category> categories){
         this.mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
+        this.categories = categories;
     }
 
     @Override
     public int getCount() {
-        return 10;
+        return categories.size();
     }
 
     @Override
@@ -52,8 +55,8 @@ public class CategoryGridViewAdapter extends BaseAdapter {
         } else{
             holder = (CategoryGridViewAdapter.ViewHolder) convertView.getTag();
         }
-        holder.textView.setText("BBQ");
-        Glide.with(mContext).load("https://images.pexels.com/photos/1105325/bbq-meet-eating-diner-1105325.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260").into(holder.imageView);
+        holder.textView.setText(categories.get(position).name);
+        Glide.with(mContext).load(categories.get(position).url).into(holder.imageView);
         return convertView;
     }
 }

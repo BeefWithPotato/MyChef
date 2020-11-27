@@ -8,7 +8,7 @@
 
     <ImageView
         android:id="@+id/Grid_img"
-        android:layout_width="410dp"
+        android:layout_width="wrap_content"
         android:layout_height="146dp"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,8 +22,32 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="9dp"
+        android:textColor="@color/black"
         android:text="Name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Grid_img" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile_image"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/bg_grey"
+        app:civ_border_color="#fff"
+        app:civ_border_width="2dp"
+        app:layout_constraintStart_toStartOf="@+id/Grid_img"
+        app:layout_constraintTop_toBottomOf="@+id/Title" />
+
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:text="User Name"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/profile_image"
+        app:layout_constraintStart_toEndOf="@+id/profile_image"
+        app:layout_constraintTop_toTopOf="@+id/profile_image" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

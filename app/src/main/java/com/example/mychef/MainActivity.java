@@ -78,6 +78,8 @@ public class MainActivity extends AppCompatActivity {
         mGv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+
                 //put recipe class in bundle
                 Recipe recipe = recipes.get(position);
                 Intent intent = new Intent(MainActivity.this, DetailedRecipeActivity.class);
@@ -93,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
                 bundle.putString("kitchenWares", recipe.getKitchenWares());
                 bundle.putString("authorUid", recipe.getAuthorUid());
                 bundle.putString("authorUsername", recipe.getAuthorUsername());
+                bundle.putInt("likes", recipe.getLikes());
 
                 intent.putExtras(bundle);
                 startActivity(intent);

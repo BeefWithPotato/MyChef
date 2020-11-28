@@ -51,6 +51,35 @@
             android:layout_toEndOf="@+id/profile_image"
             />
 
+        <TextView
+            android:id="@+id/likes"
+            android:layout_below="@+id/cover_image"
+            android:layout_toRightOf="@+id/profile_image"
+            android:layout_height="40dp"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="-55dp"
+            android:layout_marginTop="65dp"
+            android:text="000000"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_toEndOf="@+id/profile_image"
+            />
+
+        <ImageButton
+            android:id="@+id/likes_button"
+            android:layout_below="@+id/cover_image"
+            android:layout_toRightOf="@+id/profile_image"
+            android:layout_height="30dp"
+            android:layout_width="30dp"
+            android:layout_marginLeft="-90dp"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/favorites_fill"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_toEndOf="@+id/profile_image" />
+
+
+
 
         <Button
             android:id="@+id/subscribe"
@@ -197,15 +226,6 @@
 
 
 
-        <Button
-            android:id="@+id/Like"
-            android:layout_width="160dp"
-            android:layout_height="40dp"
-            android:layout_below="@+id/kitchenWare_text"
-            android:text="Like"
-            android:layout_marginLeft="125dp"
-            android:layout_marginStart="125dp"
-            android:layout_marginTop="50dp"/>
 
 
     </RelativeLayout>

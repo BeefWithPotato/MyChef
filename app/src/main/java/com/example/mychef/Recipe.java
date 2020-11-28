@@ -18,6 +18,13 @@ public class Recipe {
     private String kitchenWares;
     private String authorUid;
     private String authorUsername;
+    private int likes;
+
+    public int getLikes() { return likes; }
+
+    public void addLike() { this.likes += 1; }
+
+    public void setLikes(int likes) { this.likes = likes; }
 
     public String getAuthorUsername() {
         return authorUsername;

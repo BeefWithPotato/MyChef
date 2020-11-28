@@ -86,6 +86,7 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
         recipe.initIngredients();
         recipe.initStepDescriptions();
         recipe.initStepImages();
+        recipe.setLikes(0);
         //take data from bundle
         Bundle bundle = getIntent().getExtras();
         recipe.setAuthorUid(currentUser.getUid());

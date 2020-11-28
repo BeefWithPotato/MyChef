@@ -47,9 +47,10 @@ public class DetailedRecipeActivity extends AppCompatActivity {
     private TextView userStory;
     private TextView tips;
     private TextView kitchenWares;
-    private Button like;
+    private ImageButton likeButton;
     private LinearLayout ingredientLayout;
     private LinearLayout stepLayout;
+    private TextView likeNumber;
 
     private FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
     private DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
@@ -60,13 +61,6 @@ public class DetailedRecipeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed_recipe);
 
-        like = findViewById(R.id.Like);
-        like.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(DetailedRecipeActivity.this, "Like button is under construction", Toast.LENGTH_SHORT).show();
-            }
-        });
 
         //initiate recipe class
         recipe = new Recipe();
@@ -85,6 +79,8 @@ public class DetailedRecipeActivity extends AppCompatActivity {
         recipe.setKitchenWares(bundle.getString("kitchenWares"));
         recipe.setAuthorUid(bundle.getString("authorUid"));
         recipe.setAuthorUsername(bundle.getString("authorUsername"));
+        recipe.setLikes(bundle.getInt("likes"));
+
 
         //user detail page
         avatar = findViewById(R.id.profile_image);
@@ -96,6 +92,25 @@ public class DetailedRecipeActivity extends AppCompatActivity {
                 bundle.putString("uid", recipe.getAuthorUid());
                 intent.putExtras(bundle);
                 startActivity(intent);
+            }
+        });
+
+        likeNumber = (TextView) findViewById(R.id.likes);
+        String number = Integer.toString(recipe.getLikes());
+        likeNumber.setText(number);
+
+        likeButton =  (ImageButton) findViewById(R.id.likes_button);
+        likeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int newLikeNumber = recipe.getLikes() + 1;
+                //update database
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Recipe");
+                String refName = recipe.getAuthorUid() + recipe.getRecipeName();
+                ref.child(recipe.getAuthorUid()).child(refName).child("likes").setValue(newLikeNumber);
+                //update layout
+                String newLike = Integer.toString(newLikeNumber);
+                likeNumber.setText(newLike);
             }
         });
 

@@ -6,6 +6,7 @@ import androidx.core.content.res.ResourcesCompat;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -108,9 +109,11 @@ public class DetailedRecipeActivity extends AppCompatActivity {
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Recipe");
                 String refName = recipe.getAuthorUid() + recipe.getRecipeName();
                 ref.child(recipe.getAuthorUid()).child(refName).child("likes").setValue(newLikeNumber);
+
                 //update layout
                 String newLike = Integer.toString(newLikeNumber);
                 likeNumber.setText(newLike);
+                likeButton.setBackground(getResources().getDrawable(R.drawable.like_red));
             }
         });
 

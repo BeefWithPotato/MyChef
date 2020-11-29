@@ -23,9 +23,9 @@ public class HomeGridViewAdapter extends BaseAdapter{
     private Context mContext;
     private LayoutInflater mLayoutInflater;
     private User userInfo;
-    private Recipe recipe;
     private DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
     ArrayList<Recipe> recipes;
+
     public HomeGridViewAdapter(Context context, ArrayList<Recipe> recipes){
         this.mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
@@ -50,6 +50,7 @@ public class HomeGridViewAdapter extends BaseAdapter{
     static class ViewHolder{
         public ImageView imageView, profile_icon;
         public TextView textView, userName;
+        public TextView likeNumber;
     }
 
     @Override
@@ -62,6 +63,7 @@ public class HomeGridViewAdapter extends BaseAdapter{
             holder.textView = (TextView)convertView.findViewById(R.id.Title);
             holder.profile_icon = (ImageView) convertView.findViewById(R.id.profile_image);
             holder.userName = (TextView) convertView.findViewById(R.id.username);
+            holder.likeNumber = (TextView) convertView.findViewById(R.id.likeNum);
             convertView.setTag(holder);
         } else{
             holder = (ViewHolder) convertView.getTag();
@@ -69,6 +71,8 @@ public class HomeGridViewAdapter extends BaseAdapter{
         holder.textView.setText(recipes.get(position).getRecipeName());
         Glide.with(holder.imageView.getContext()).load(recipes.get(position).getCoverImage()).into(holder.imageView);
 
+        String number = Integer.toString(recipes.get(position).getLikes());
+        holder.likeNumber.setText(number);
 
         ViewHolder finalHolder = holder;
         ref.child("User").child(recipes.get(position).getAuthorUid()).addListenerForSingleValueEvent(new ValueEventListener() {

@@ -55,7 +55,7 @@ public class PreviewActivity extends AppCompatActivity {
     private TextView userStory;
     private TextView tips;
     private TextView kitchenWares;
-    private ImageButton likeButton;
+    private ImageButton likeButton, back;
     private LinearLayout ingredientLayout;
     private LinearLayout stepLayout;
     private ScrollView sv;
@@ -96,7 +96,14 @@ public class PreviewActivity extends AppCompatActivity {
         recipe.setPeople(bundle.getString("people"));
         ArrayList<String> likedRecipes = bundle.getStringArrayList("likedRecipes");
 
-
+        //back
+        back = findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         //back to top
         back_to_top = findViewById(R.id.back_to_top);

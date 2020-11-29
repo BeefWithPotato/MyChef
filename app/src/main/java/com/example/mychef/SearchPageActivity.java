@@ -115,13 +115,13 @@ public class SearchPageActivity extends AppCompatActivity {
                         if (dataSnapshot.getChildren() != null) {
                             for (DataSnapshot ds : dataSnapshot.getChildren()) {
                                 for (DataSnapshot recipeSnapshot : ds.getChildren()) {
-                                    if(recipeSnapshot.getKey().contains("1qJtHDyfqnSmAAGXiUXBrfIDGv93test!!!!!!!!!!!!!!!")) {
-                                        Recipe recipe = recipeSnapshot.getValue(Recipe.class);
-                                        String category = recipe.getCategory();
-                                        if (category.toLowerCase().contains(search_by_category.toLowerCase())) {
-                                            recipes.add(recipe);
-                                        }
+
+                                    Recipe recipe = recipeSnapshot.getValue(Recipe.class);
+                                    String category = recipe.getCategory();
+                                    if (category.toLowerCase().contains(search_by_category.toLowerCase())) {
+                                        recipes.add(recipe);
                                     }
+
                                 }
                             }
                             if (recipes.size() != 0) {

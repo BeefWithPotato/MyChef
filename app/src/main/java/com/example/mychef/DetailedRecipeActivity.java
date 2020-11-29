@@ -17,10 +17,12 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -46,6 +48,7 @@ public class DetailedRecipeActivity extends AppCompatActivity {
     private TextView userName;
     private ImageView cover, avatar;
     private CircleImageView userIcon;
+    private FloatingActionButton back_to_top;
     private TextView recipeName;
     private TextView userStory;
     private TextView tips;
@@ -53,6 +56,7 @@ public class DetailedRecipeActivity extends AppCompatActivity {
     private ImageButton likeButton;
     private LinearLayout ingredientLayout;
     private LinearLayout stepLayout;
+    private ScrollView sv;
     private TextView likeNumber;
     private boolean liked = false;
     private Recipe recipeForLike;
@@ -101,7 +105,15 @@ public class DetailedRecipeActivity extends AppCompatActivity {
             }
         });
 
-
+        //back to top
+        back_to_top = findViewById(R.id.back_to_top);
+        sv = findViewById(R.id.recipe_sv);
+        back_to_top.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sv.smoothScrollTo(0, 0);
+            }
+        });
 
         //user detail page
         avatar = findViewById(R.id.profile_image);

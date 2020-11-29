@@ -131,6 +131,68 @@ public class MainActivity extends AppCompatActivity {
         setListeners();
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        recipes = new ArrayList<Recipe>();
+        ref.child("Recipe").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.getChildren() != null){
+                    for (DataSnapshot ds: dataSnapshot.getChildren()) {
+                        for (DataSnapshot recipeSnapshot: ds.getChildren()) {
+                            Recipe recipe = recipeSnapshot.getValue(Recipe.class);
+                            recipes.add(recipe);
+                        }
+                    }
+                    Log.i("get recipe size:", ":" + recipes.size());
+                    mGv.setAdapter(new HomeGridViewAdapter(MainActivity.this, recipes));
+                }
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+
+        mGv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Recipe recipe = recipes.get(position);
+                String refName = recipe.getAuthorUid() + recipe.getRecipeName();
+                ref.child("Recipe").child(recipe.getAuthorUid()).child(refName).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        newRecipe = dataSnapshot.getValue(Recipe.class);
+                        //put recipe class in bundle
+
+                        Intent intent = new Intent(MainActivity.this, DetailedRecipeActivity.class);
+                        Bundle bundle = new Bundle();
+
+                        bundle.putString("recipeName", newRecipe.getRecipeName());
+                        bundle.putString("coverImage", newRecipe.getCoverImage());
+                        bundle.putString("story", newRecipe.getStory());
+                        bundle.putStringArrayList("ingredients", newRecipe.getIngredients());
+                        bundle.putStringArrayList("stepImages", newRecipe.getStepImages());
+                        bundle.putStringArrayList("stepDescriptions", newRecipe.getStepDescriptions());
+                        bundle.putString("tips", newRecipe.getTips());
+                        bundle.putString("kitchenWares", newRecipe.getKitchenWares());
+                        bundle.putString("authorUid", newRecipe.getAuthorUid());
+                        bundle.putString("authorUsername", newRecipe.getAuthorUsername());
+                        bundle.putInt("likes", newRecipe.getLikes());
+
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+
+
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {}
+                });
+            }
+        });
+    }
+
     private void setListeners(){
         OnClick onClick = new OnClick();
         mBanSubscribe.setOnClickListener(onClick);

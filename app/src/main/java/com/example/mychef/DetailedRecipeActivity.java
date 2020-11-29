@@ -1,6 +1,7 @@
 
 package com.example.mychef;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
@@ -306,11 +307,30 @@ public class DetailedRecipeActivity extends AppCompatActivity {
         kitchenWares.setText(recipe.getKitchenWares());
 
         //  follow user
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("User");
+        ref.child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+             @Override
+             public void onDataChange(DataSnapshot snapshot) {
+                 User userInfo = snapshot.getValue(User.class);
+                 ArrayList<String> following = userInfo.getFollow();
+
+                 if(following.contains(recipe.getAuthorUid())) {
+                     subscribe.setBackgroundColor(Color.parseColor("#ad2102"));
+                 }
+             }
+
+             @Override
+             public void onCancelled(@NonNull DatabaseError error) {
+
+             }
+        });
+
         subscribe = findViewById(R.id.subscribe);
         subscribe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                subscribe.setBackgroundColor(Color.parseColor("#ad2102"));
+//                subscribe.setBackgroundColor(Color.parseColor("#ad2102"));
+
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("User");
                 ref.child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -326,10 +346,14 @@ public class DetailedRecipeActivity extends AppCompatActivity {
                                 following.add(recipe.getAuthorUid());
                                 ref.child(currentUser.getUid()).child("follow").setValue(following);
                                 Toast.makeText(DetailedRecipeActivity.this, "Follow succeed.", Toast.LENGTH_SHORT).show();
+                                subscribe.setBackgroundColor(Color.parseColor("#ad2102"));
                             }
                         }
                         else{
                             Toast.makeText(DetailedRecipeActivity.this, "You already follow this user!.", Toast.LENGTH_LONG).show();
+                            following.remove(recipe.getAuthorUid());
+                            ref.child(currentUser.getUid()).child("follow").setValue(following);
+                            subscribe.setBackgroundColor(Color.parseColor("#bfbfbf"));
                         }
                     }
                     @Override

@@ -104,6 +104,7 @@
             android:layout_marginTop="55dp"
             android:layout_toRightOf="@+id/profile_image"
             android:text="Follow"
+            android:background="#bfbfbf"
             android:textAllCaps="false"/>
 
         <TextView

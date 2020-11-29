@@ -106,7 +106,7 @@ public class SubscribePageActivity extends AppCompatActivity {
                 intent.putExtras(bundle);
                 startActivity(intent);
 
-                Toast.makeText(SubscribePageActivity.this, "pos" + position, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(SubscribePageActivity.this, "pos" + position, Toast.LENGTH_SHORT).show();
             }
         });
 

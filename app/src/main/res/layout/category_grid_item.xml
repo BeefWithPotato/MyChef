@@ -7,8 +7,8 @@
 
     <ImageView
         android:id="@+id/Grid_img"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_marginTop="4dp"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"

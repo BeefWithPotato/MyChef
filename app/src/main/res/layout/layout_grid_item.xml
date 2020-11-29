@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/Grid_img"
-        android:layout_width="wrap_content"
-        android:layout_height="146dp"
+        android:layout_width="250dp"
+        android:layout_height="200dp"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -24,6 +24,7 @@
         android:layout_marginTop="9dp"
         android:text="Name"
         android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/Grid_img"
         app:layout_constraintTop_toBottomOf="@+id/Grid_img" />
 
@@ -48,5 +49,28 @@
         app:layout_constraintBottom_toBottomOf="@+id/profile_image"
         app:layout_constraintStart_toEndOf="@+id/profile_image"
         app:layout_constraintTop_toTopOf="@+id/profile_image" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/likeNum"
+        app:layout_constraintEnd_toStartOf="@+id/likeNum"
+        app:layout_constraintTop_toTopOf="@+id/likeNum"
+        app:srcCompat="@drawable/like" />
+
+    <TextView
+        android:id="@+id/likeNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:text="000"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/username"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/username" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

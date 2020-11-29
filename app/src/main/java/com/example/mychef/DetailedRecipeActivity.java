@@ -228,53 +228,58 @@ public class DetailedRecipeActivity extends AppCompatActivity {
 
         //set the stepImage and stepDescriptions
         stepLayout = findViewById(R.id.steps_layout);
-        for (int j=0; j < recipe.getStepImages().size(); j++){
-            //create a new layout to store ingredients
-            RelativeLayout stepLine = new RelativeLayout(this);
-            RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
-                    RelativeLayout.LayoutParams.WRAP_CONTENT);
-            lp.setMargins(0,50,0,0);
-            stepLine.setLayoutParams(lp);
-            //create step text views for the step images
-            TextView stepName = new TextView(this);
-            stepName.setLayoutParams(new LinearLayout.LayoutParams(180,
-                    LinearLayout.LayoutParams.WRAP_CONTENT));
-            String stepTitle = "Step" + String.valueOf(j+1);
-            stepName.setText(stepTitle);
-            stepName.setTextSize(16);
-            stepName.setTextColor(Color.BLACK);
-            RelativeLayout.LayoutParams lp1 = new RelativeLayout.LayoutParams(160,
-                    RelativeLayout.LayoutParams.WRAP_CONTENT);
-            lp1.setMargins(0,0,0,0);
-            lp1.addRule(RelativeLayout.CENTER_HORIZONTAL);
-            //create step image for the stepLine
-            ImageView stepImage = new ImageButton(this);
-            stepImage.setScaleType(ImageView.ScaleType.FIT_XY);
-            Glide.with(this).load(recipe.getStepImage(j)).into(stepImage);
-            RelativeLayout.LayoutParams lp2 = new RelativeLayout.LayoutParams(800, 533);
-            lp2.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-            lp2.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE);
-            lp2.setMargins(0, 60, 0, 0);
-            //create step description for the stepLine
-            TextView stepDes = new TextView(this);
-            stepDes.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT));
-            stepDes.setText(recipe.getStepDescriptions().get(j));
-            stepDes.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
-            stepDes.setGravity(Gravity.START);
-            stepDes.setTextSize(15);
-            stepDes.setTextColor(Color.BLACK);
-            RelativeLayout.LayoutParams lp3 = new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
-                    RelativeLayout.LayoutParams.WRAP_CONTENT);
-            lp3.setMargins(170,600,190,0);
+        if (recipe.getStepImages() != null){
+            for (int j=0; j < recipe.getStepImages().size(); j++){
+                //create a new layout to store ingredients
+                RelativeLayout stepLine = new RelativeLayout(this);
+                RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
+                        RelativeLayout.LayoutParams.WRAP_CONTENT);
+                lp.setMargins(0,50,0,0);
+                stepLine.setLayoutParams(lp);
+                //create step text views for the step images
+                TextView stepName = new TextView(this);
+                stepName.setLayoutParams(new LinearLayout.LayoutParams(180,
+                        LinearLayout.LayoutParams.WRAP_CONTENT));
+                String stepTitle = "Step" + String.valueOf(j+1);
+                stepName.setText(stepTitle);
+                stepName.setTextSize(16);
+                stepName.setTextColor(Color.BLACK);
+                RelativeLayout.LayoutParams lp1 = new RelativeLayout.LayoutParams(160,
+                        RelativeLayout.LayoutParams.WRAP_CONTENT);
+                lp1.setMargins(0,0,0,0);
+                lp1.addRule(RelativeLayout.CENTER_HORIZONTAL);
+                //create step image for the stepLine
+                ImageView stepImage = new ImageButton(this);
+                stepImage.setScaleType(ImageView.ScaleType.FIT_XY);
+                Glide.with(this).load(recipe.getStepImage(j)).into(stepImage);
+                RelativeLayout.LayoutParams lp2 = new RelativeLayout.LayoutParams(800, 533);
+                lp2.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+                lp2.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE);
+                lp2.setMargins(0, 60, 0, 0);
+                //create step description for the stepLine
+                TextView stepDes = new TextView(this);
+                stepDes.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT));
+                stepDes.setText(recipe.getStepDescriptions().get(j));
+                stepDes.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+                stepDes.setGravity(Gravity.START);
+                stepDes.setTextSize(15);
+                stepDes.setTextColor(Color.BLACK);
+                RelativeLayout.LayoutParams lp3 = new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                        RelativeLayout.LayoutParams.WRAP_CONTENT);
+                lp3.setMargins(170,600,190,0);
 //            lp3.addRule(RelativeLayout.CENTER_HORIZONTAL);
 
 
-            stepLine.addView(stepName, lp1);
-            stepLine.addView(stepImage, lp2);
-            stepLine.addView(stepDes, lp3);
-            stepLayout.addView(stepLine);
+                stepLine.addView(stepName, lp1);
+                stepLine.addView(stepImage, lp2);
+                stepLine.addView(stepDes, lp3);
+                stepLayout.addView(stepLine);
+            }
         }
+
+
+
         //add user tips
         tips = findViewById(R.id.tips);
         tips.setText(recipe.getTips());

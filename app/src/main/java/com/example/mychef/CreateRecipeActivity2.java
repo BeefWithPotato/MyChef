@@ -245,7 +245,35 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
                             //upload download url to Firebase
                             String downloadUri = task.getResult().toString();
                             recipe.setCoverImage(downloadUri);
-                            uploadStepImage(recipe, 0);
+                            if (recipe.countImages() == 0){
+                                FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Recipe");
+                                ref.child(user.getUid()).child(user.getUid() + recipe.getRecipeName()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        User userInfo = dataSnapshot.getValue(User.class);
+                                        if (userInfo == null) {
+                                            ref.child(user.getUid()).child(user.getUid() + recipe.getRecipeName()).setValue(recipe);
+                                            Toast.makeText(CreateRecipeActivity2.this, "Recipe upload succeed.", Toast.LENGTH_SHORT).show();
+                                            Intent intent = new Intent(CreateRecipeActivity2.this, MainActivity.class);
+                                            startActivity(intent);
+                                        }
+                                        else {
+                                            // Signed in successfully, show authenticated UI.
+                                            Toast.makeText(CreateRecipeActivity2.this, "Duplicate Recipe title.", Toast.LENGTH_SHORT).show();
+                                            Intent intent = new Intent(CreateRecipeActivity2.this, CreateRecipeActivity.class);
+                                            startActivity(intent);
+                                        }
+                                    }
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+                            }else{
+                                uploadStepImage(recipe, 0);
+                            }
                         } else {
                             Toast.makeText(CreateRecipeActivity2.this, "Cover Image Upload failed.", Toast.LENGTH_LONG).show();
                         }
@@ -331,7 +359,7 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
                 lltAddSteps.addView(stepLine);
                 stepNum += 1;
 
-                //make listeners for the image button
+                //set listeners for the image button
                 stepImagesBtnArray.add(stepImage);
                 stepImage.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -340,7 +368,12 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
                         intent.setType("image/*");
                         intent.setAction(Intent.ACTION_GET_CONTENT);
                         int code = stepImagesBtnArray.indexOf(stepImage);
-                        startActivityForResult(Intent.createChooser(intent, "Select Picture"), code);
+                        if(code > recipe.countImages()){
+                            Toast.makeText(CreateRecipeActivity2.this, "please modify the previous steps !", Toast.LENGTH_LONG).show();
+                        }else{
+                            startActivityForResult(Intent.createChooser(intent, "Select Picture"), code);
+                        }
+
                     }
                 });
 
@@ -402,8 +435,6 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
                             }
                         });
 
-
-
                     }
                 } else {
                     Toast.makeText(CreateRecipeActivity2.this, "Cover Image Upload failed.", Toast.LENGTH_LONG).show();
@@ -426,8 +457,6 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
                     recipe.changeImage(requestCode, data.getData().toString());
                     ImageButton imageBtn = stepImagesBtnArray.get(requestCode);
                     imageBtn.setImageURI(data.getData());
-                }else{
-                    Toast.makeText(CreateRecipeActivity2.this, "modify previous steps first please!", Toast.LENGTH_LONG).show();
                 }
             }
         }

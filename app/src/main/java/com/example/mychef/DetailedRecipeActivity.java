@@ -288,6 +288,7 @@ public class DetailedRecipeActivity extends AppCompatActivity {
         subscribe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                subscribe.setBackgroundColor(Color.parseColor("#ad2102"));
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("User");
                 ref.child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override

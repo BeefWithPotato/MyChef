@@ -57,6 +57,7 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
     private ArrayList<EditText> etDescriptionArray;
     private ArrayList<RelativeLayout> StepLineArray;
     private Button publish;
+    private Button preview;
     private CheckBox boxBBQ;
     private CheckBox boxBraising;
     private CheckBox boxBaking;
@@ -200,6 +201,46 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
             }
         });
 
+
+        //handle the preview button
+        preview = (Button) findViewById(R.id.preview);
+        preview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //modify recipe description
+                for(int i = 0; i <etDescriptionArray.size();i++) {
+                    EditText ediText = etDescriptionArray.get(i);
+                    recipe.addStepDescription(ediText.getText().toString());
+                }
+                //modify recipe kitchenware
+                EditText kitchenwareText = (EditText) findViewById(R.id.kitchenware1);
+                recipe.setKitchenWares(kitchenwareText.getText().toString());
+                //modify tips
+                EditText tipText = (EditText) findViewById(R.id.tipText);
+                recipe.setTips(tipText.getText().toString());
+
+                Intent intent = new Intent(CreateRecipeActivity2.this, PreviewActivity.class);
+                Bundle bundle = new Bundle();
+
+                bundle.putString("recipeName", recipe.getRecipeName());
+                bundle.putString("coverImage", recipe.getCoverImage());
+                bundle.putString("story", recipe.getStory());
+                bundle.putStringArrayList("ingredients", recipe.getIngredients());
+                bundle.putStringArrayList("stepImages", recipe.getStepImages());
+                bundle.putStringArrayList("stepDescriptions", recipe.getStepDescriptions());
+                bundle.putString("tips", recipe.getTips());
+                bundle.putString("kitchenWares", recipe.getKitchenWares());
+                bundle.putString("authorUid", recipe.getAuthorUid());
+                bundle.putString("authorUsername", recipe.getAuthorUsername());
+                bundle.putInt("likes", recipe.getLikes());
+                bundle.putString("cookingTime", recipe.getTime());
+                bundle.putString("people", recipe.getPeople());
+                intent.putExtras(bundle);
+                startActivity(intent);
+
+            }
+        });
 
 
 

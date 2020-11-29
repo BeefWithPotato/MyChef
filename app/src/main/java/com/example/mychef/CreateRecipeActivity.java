@@ -166,7 +166,7 @@ public class CreateRecipeActivity extends AppCompatActivity {
                         55));
                 nameText.setBackground(ResourcesCompat.getDrawable(v.getResources(), R.drawable.edit_profile_edit_text, null));
                 nameText.setTextSize(15);
-                nameText.setPadding(10,0,0,0);
+                nameText.setPadding(0,0,0,0);
                 ingredientsArray.add(nameText);
                 //create dosage textView
                 TextView dosage = new TextView(v.getContext());
@@ -182,7 +182,7 @@ public class CreateRecipeActivity extends AppCompatActivity {
                         55));
                 dosageText.setBackground(ResourcesCompat.getDrawable(v.getResources(), R.drawable.edit_profile_edit_text, null));
                 dosageText.setTextSize(15);
-                dosageText.setPadding(10,0,0,0);
+                dosageText.setPadding(0,0,0,0);
                 ingredientsArray.add(dosageText);
 
 

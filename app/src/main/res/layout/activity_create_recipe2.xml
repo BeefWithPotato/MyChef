@@ -261,6 +261,18 @@
 <!--        </Button>-->
 
         <Button
+            android:id="@+id/preview"
+            android:layout_width="160dp"
+            android:layout_height="40dp"
+            android:layout_below="@+id/BBQ"
+            android:text="Preview"
+            android:layout_marginLeft="125dp"
+            android:layout_marginStart="125dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginBottom="18dp">
+        </Button>
+
+        <Button
             android:id="@+id/publish"
             android:layout_width="160dp"
             android:layout_height="40dp"
@@ -268,9 +280,11 @@
             android:text="publish recipe"
             android:layout_marginLeft="125dp"
             android:layout_marginStart="125dp"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="115dp"
             android:layout_marginBottom="18dp">
         </Button>
+
+
 
     </RelativeLayout>
 </ScrollView>

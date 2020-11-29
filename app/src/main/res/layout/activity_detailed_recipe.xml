@@ -10,12 +10,6 @@
         android:id="@+id/big_titles"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <ImageButton
-            android:id="@+id/back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/back"/>
-
 
         <ImageView
             android:id="@+id/cover_image"
@@ -23,6 +17,13 @@
             android:layout_height="250dp"
             android:background="@drawable/profile_bg"
             android:scaleType="fitXY" />
+
+        <ImageButton
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/back"/>
 
         <de.hdodenhof.circleimageview.CircleImageView
             xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -83,16 +84,16 @@
             android:textStyle="bold"
             android:layout_toEndOf="@+id/profile_image" />
 
-        <Button
-            android:id="@+id/recipe_delete"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="305dp"
-            android:layout_marginLeft="-150dp"
-            android:background="@drawable/ic_baseline_delete_forever_24"
-            android:layout_toEndOf="@+id/profile_image"
-            android:layout_toRightOf="@+id/profile_image"
-            android:visibility="invisible"/>
+<!--        <Button-->
+<!--            android:id="@+id/recipe_delete"-->
+<!--            android:layout_width="35dp"-->
+<!--            android:layout_height="35dp"-->
+<!--            android:layout_marginTop="305dp"-->
+<!--            android:layout_marginLeft="-150dp"-->
+<!--            android:background="@drawable/ic_baseline_delete_forever_24"-->
+<!--            android:layout_toEndOf="@+id/kitchenWare_text"-->
+<!--            android:layout_toRightOf="@+id/kitchenWare_text"-->
+<!--            android:visibility="invisible"/>-->
 
 
         <Button
@@ -106,6 +107,20 @@
             android:text="Follow"
             android:background="#bfbfbf"
             android:textAllCaps="false"/>
+
+        <Button
+            android:id="@+id/recipe_delete"
+            android:layout_width="90dp"
+            android:layout_height="35dp"
+            android:text="Delete"
+            android:textColor="#ffffff"
+            android:background="#FF0033"
+            android:drawableLeft="@drawable/ic_baseline_delete_forever_24"
+            android:layout_below="@+id/cover_image"
+            android:layout_marginLeft="-150dp"
+            android:layout_marginTop="55dp"
+            android:layout_toRightOf="@+id/profile_image"
+            android:visibility="visible"/>
 
         <TextView
             android:id="@+id/divider"

@@ -6,7 +6,6 @@ import androidx.core.content.res.ResourcesCompat;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -104,7 +103,6 @@ public class DetailedRecipeActivity extends AppCompatActivity {
 
         ref.child("User").child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-<<<<<<< HEAD
             public void onDataChange(DataSnapshot dataSnapshot) {
                 userInfo = dataSnapshot.getValue(User.class);
 
@@ -134,26 +132,10 @@ public class DetailedRecipeActivity extends AppCompatActivity {
                     }
                 });
 
-=======
-            public void onClick(View v) {
-                int newLikeNumber = recipe.getLikes() + 1;
-                //update database
-                DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Recipe");
-                String refName = recipe.getAuthorUid() + recipe.getRecipeName();
-                ref.child(recipe.getAuthorUid()).child(refName).child("likes").setValue(newLikeNumber);
-
-                //update layout
-                String newLike = Integer.toString(newLikeNumber);
-                likeNumber.setText(newLike);
-                likeButton.setBackground(getResources().getDrawable(R.drawable.like_red));
->>>>>>> 3689a2746979c48d1ac8de24939b6655f40bbb76
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });
-
-
-
 
 
         //set the cover image

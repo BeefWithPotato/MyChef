@@ -24,6 +24,7 @@
         android:layout_marginTop="9dp"
         android:text="Name"
         android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/Grid_img"
         app:layout_constraintTop_toBottomOf="@+id/Grid_img" />
 

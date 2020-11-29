@@ -56,8 +56,8 @@
 
         <ImageButton
             android:id="@+id/cover_image"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_below="@+id/toolbar"
             android:layout_marginTop="50dp"
             android:layout_centerHorizontal="true"

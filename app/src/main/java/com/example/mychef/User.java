@@ -20,6 +20,11 @@ public class User implements Serializable {
     private String gender;
     private String age;
     private ArrayList<String> follow = new ArrayList<String>();
+    private ArrayList<String> likedRecipes = new ArrayList<String>();
+
+    public ArrayList<String> getLikedRecipes(){ return this.likedRecipes; }
+
+    public void addLikes(String recipeName) { this.likedRecipes.add(recipeName); }
 
     public ArrayList<String> getFollow() {
         return follow;

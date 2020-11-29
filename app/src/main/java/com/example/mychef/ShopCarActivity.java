@@ -24,19 +24,12 @@ public class ShopCarActivity extends AppCompatActivity {
 
         //Button control
         mBanBack = (ImageButton) findViewById(R.id.Back_Button);
+        mBanBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
-    private void setListeners(){
-        OnClick onClick = new OnClick();
-        mBanBack.setOnClickListener(onClick);
-    }
-
-    private class OnClick implements View.OnClickListener {
-
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent(ShopCarActivity.this, MainActivity.class);
-            startActivity(intent);
-        }
-    }
 }

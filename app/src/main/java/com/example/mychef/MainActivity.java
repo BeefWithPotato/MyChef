@@ -104,6 +104,8 @@ public class MainActivity extends AppCompatActivity {
                         bundle.putString("authorUid", newRecipe.getAuthorUid());
                         bundle.putString("authorUsername", newRecipe.getAuthorUsername());
                         bundle.putInt("likes", newRecipe.getLikes());
+                        bundle.putString("cookingTime", newRecipe.getTime());
+                        bundle.putString("people", newRecipe.getPeople());
 
                         intent.putExtras(bundle);
                         startActivity(intent);

@@ -14,14 +14,14 @@ public class Recipe {
     private ArrayList<String> ingredients;
     public ArrayList<String> stepImages;
     private ArrayList<String> stepDescriptions;
-    private String tips;
-    private String kitchenWares;
-    private String authorUid;
+    private String tips="";
+    private String kitchenWares="";
+    private String authorUid="";
     private String authorUsername;
-    private String category;
+    private String category="";
     private int likes;
-    private String time;
-    private String people;
+    private String time="";
+    private String people="";
 
     public void setPeople(String number){ this.people = number; }
 

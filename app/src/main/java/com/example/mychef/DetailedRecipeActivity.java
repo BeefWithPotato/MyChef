@@ -90,7 +90,10 @@ public class DetailedRecipeActivity extends AppCompatActivity {
         recipe.setAuthorUid(bundle.getString("authorUid"));
         recipe.setAuthorUsername(bundle.getString("authorUsername"));
         recipe.setLikes(bundle.getInt("likes"));
+        recipe.setTime(bundle.getString("cookingTime"));
+        recipe.setPeople(bundle.getString("people"));
         ArrayList<String> likedRecipes = bundle.getStringArrayList("likedRecipes");
+
 
         //delete button
         delete = findViewById(R.id.recipe_delete);
@@ -197,11 +200,15 @@ public class DetailedRecipeActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {}
         });
 
-        //set recipe name and story
+        //set recipe name and story and time and diners
         recipeName = findViewById(R.id.recipe_name);
         recipeName.setText(recipe.getRecipeName());
         userStory = findViewById(R.id.user_story);
         userStory.setText(recipe.getStory());
+        TextView cookingTime = findViewById(R.id.cooking_time);
+        cookingTime.setText(recipe.getTime());
+        TextView people = findViewById(R.id.people);
+        people.setText(recipe.getPeople());
 
         //set the ingredients
         ingredientLayout = findViewById(R.id.ingredients_layout);
@@ -350,7 +357,7 @@ public class DetailedRecipeActivity extends AppCompatActivity {
                             }
                         }
                         else{
-                            Toast.makeText(DetailedRecipeActivity.this, "You already follow this user!.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(DetailedRecipeActivity.this, "Unfollowed", Toast.LENGTH_LONG).show();
                             following.remove(recipe.getAuthorUid());
                             ref.child(currentUser.getUid()).child("follow").setValue(following);
                             subscribe.setBackgroundColor(Color.parseColor("#bfbfbf"));

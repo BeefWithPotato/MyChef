@@ -18,10 +18,7 @@
             android:id="@+id/cover_image"
             android:layout_width="match_parent"
             android:layout_height="250dp"
-<<<<<<< HEAD
-=======
             android:background="@color/black"
->>>>>>> 3689a2746979c48d1ac8de24939b6655f40bbb76
             android:scaleType="fitXY" />
 
         <de.hdodenhof.circleimageview.CircleImageView

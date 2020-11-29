@@ -55,6 +55,7 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
     private ImageView btn_back;
     private ArrayList<ImageButton> stepImagesBtnArray;
     private ArrayList<EditText> etDescriptionArray;
+    private ArrayList<RelativeLayout> StepLineArray;
     private Button publish;
     private CheckBox boxBBQ;
     private CheckBox boxBraising;
@@ -62,6 +63,7 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
     private CheckBox boxStirFrying;
     private CheckBox boxSoup;
     private CheckBox boxSteaming;
+    private Button btnDeleteStep;
 
 
     private FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -304,7 +306,10 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
         });
 
 
+
+
         //add steps button control
+        StepLineArray = new ArrayList<RelativeLayout>(30);
         btnAddStep = (Button) findViewById(R.id.add_new_step);
         lltAddSteps = (LinearLayout) findViewById(R.id.add_stepsLayout);
         btnAddStep.setOnClickListener(new View.OnClickListener() {
@@ -359,6 +364,7 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
                 stepLine.addView(descriptionText, lp4);
 
                 lltAddSteps.addView(stepLine);
+                StepLineArray.add(stepLine);
                 stepNum += 1;
 
                 //set listeners for the image button
@@ -378,6 +384,20 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
 
                     }
                 });
+
+            }
+        });
+
+        //delete steps button control
+        btnDeleteStep = (Button) findViewById(R.id.delete_step);
+        btnDeleteStep.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (StepLineArray.size() >= 1){
+                    lltAddSteps.removeView(StepLineArray.get(StepLineArray.size()-1));
+                    StepLineArray.remove(StepLineArray.get(StepLineArray.size()-1));
+                    stepNum -= 1;
+                }
 
             }
         });

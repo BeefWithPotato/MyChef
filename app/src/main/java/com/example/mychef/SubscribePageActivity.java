@@ -105,8 +105,6 @@ public class SubscribePageActivity extends AppCompatActivity {
                 bundle.putInt("likes", recipe.getLikes());
                 intent.putExtras(bundle);
                 startActivity(intent);
-
-//                Toast.makeText(SubscribePageActivity.this, "pos" + position, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -150,7 +148,7 @@ public class SubscribePageActivity extends AppCompatActivity {
                     intent = new Intent(SubscribePageActivity.this, ShopCarActivity.class);
                     break;
                 case R.id.Category_button:
-                    intent = new Intent(SubscribePageActivity.this, ConstructionActivity.class);
+                    intent = new Intent(SubscribePageActivity.this, CategoryPageActivity.class);
                     break;
                 case R.id.Recommend_button:
                     intent = new Intent(SubscribePageActivity.this, MainActivity.class);

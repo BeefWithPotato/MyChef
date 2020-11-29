@@ -41,7 +41,8 @@ public class SearchPageActivity extends AppCompatActivity {
     private DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
     private FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
     private StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
-
+//    CategoryPageActivity.Category search_by_category = new CategoryPageActivity.Category();
+    String search_by_category;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,58 +66,59 @@ public class SearchPageActivity extends AppCompatActivity {
                 no_result.setVisibility(View.INVISIBLE);
                 recipes = new ArrayList<Recipe>();
                 target = sv.getQuery().toString();
-
                 //search through all the recipes in the database
                 ref.child("Recipe").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        if(dataSnapshot.getChildren() != null){
-                            for (DataSnapshot ds: dataSnapshot.getChildren()) {
-                                for (DataSnapshot recipeSnapshot: ds.getChildren()) {
+                        if (dataSnapshot.getChildren() != null) {
+                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                for (DataSnapshot recipeSnapshot : ds.getChildren()) {
                                     Recipe recipe = recipeSnapshot.getValue(Recipe.class);
                                     String title = recipe.getRecipeName();
-                                    if(title.toLowerCase().contains(target.toLowerCase())){
+
+                                    if (title.toLowerCase().contains(target.toLowerCase())) {
                                         recipes.add(recipe);
                                     }
                                 }
                             }
-                            if(recipes.size() != 0){
+                            if (recipes.size() != 0) {
                                 mGv.setAdapter(new HomeGridViewAdapter(SearchPageActivity.this, recipes));
-                            }
-                            else{
+                            } else {
                                 no_result.setVisibility(View.VISIBLE);
                             }
                         }
                     }
+
                     @Override
-                    public void onCancelled(DatabaseError databaseError) {}
-                });
-
-                mGv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                        //put recipe class in bundle
-                        Recipe recipe = recipes.get(position);
-                        Intent intent = new Intent(SearchPageActivity.this, DetailedRecipeActivity.class);
-                        Bundle bundle = new Bundle();
-
-                        bundle.putString("recipeName", recipe.getRecipeName());
-                        bundle.putString("coverImage", recipe.getCoverImage());
-                        bundle.putString("story", recipe.getStory());
-                        bundle.putStringArrayList("ingredients", recipe.getIngredients());
-                        bundle.putStringArrayList("stepImages", recipe.getStepImages());
-                        bundle.putStringArrayList("stepDescriptions", recipe.getStepDescriptions());
-                        bundle.putString("tips", recipe.getTips());
-                        bundle.putString("kitchenWares", recipe.getKitchenWares());
-                        bundle.putString("authorUid", recipe.getAuthorUid());
-                        bundle.putString("authorUsername", recipe.getAuthorUsername());
-
-                        intent.putExtras(bundle);
-                        startActivity(intent);
+                    public void onCancelled(DatabaseError databaseError) {
                     }
                 });
+
+//                mGv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                    @Override
+//                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//
+//                        //put recipe class in bundle
+//                        Recipe recipe = recipes.get(position);
+//                        Intent intent = new Intent(SearchPageActivity.this, DetailedRecipeActivity.class);
+//                        Bundle bundle = new Bundle();
+//
+//                        bundle.putString("recipeName", recipe.getRecipeName());
+//                        bundle.putString("coverImage", recipe.getCoverImage());
+//                        bundle.putString("story", recipe.getStory());
+//                        bundle.putStringArrayList("ingredients", recipe.getIngredients());
+//                        bundle.putStringArrayList("stepImages", recipe.getStepImages());
+//                        bundle.putStringArrayList("stepDescriptions", recipe.getStepDescriptions());
+//                        bundle.putString("tips", recipe.getTips());
+//                        bundle.putString("kitchenWares", recipe.getKitchenWares());
+//                        bundle.putString("authorUid", recipe.getAuthorUid());
+//                        bundle.putString("authorUsername", recipe.getAuthorUsername());
+//
+//                        intent.putExtras(bundle);
+//                        startActivity(intent);
+//                    }
+//                });
 
                 return true;
             }
@@ -126,5 +128,69 @@ public class SearchPageActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        Bundle bundle = getIntent().getExtras();
+        recipes = new ArrayList<Recipe>();
+        if(bundle != null){
+            search_by_category = bundle.getString("category");
+                ref.child("Recipe").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        if (dataSnapshot.getChildren() != null) {
+                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                for (DataSnapshot recipeSnapshot : ds.getChildren()) {
+                                    if(recipeSnapshot.getKey().contains("1qJtHDyfqnSmAAGXiUXBrfIDGv93test!!!!!!!!!!!!!!!")) {
+                                        Recipe recipe = recipeSnapshot.getValue(Recipe.class);
+                                        String category = recipe.getCategory();
+                                        if (category.toLowerCase().contains(search_by_category.toLowerCase())) {
+                                            recipes.add(recipe);
+                                        }
+                                    }
+                                }
+                            }
+                            if (recipes.size() != 0) {
+                                mGv.setAdapter(new HomeGridViewAdapter(SearchPageActivity.this, recipes));
+                            } else {
+                                no_result.setVisibility(View.VISIBLE);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+
+        }
+
+
+
+        mGv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                //put recipe class in bundle
+                Recipe recipe = recipes.get(position);
+                Intent intent = new Intent(SearchPageActivity.this, DetailedRecipeActivity.class);
+                Bundle bundle = new Bundle();
+
+                bundle.putString("recipeName", recipe.getRecipeName());
+                bundle.putString("coverImage", recipe.getCoverImage());
+                bundle.putString("story", recipe.getStory());
+                bundle.putStringArrayList("ingredients", recipe.getIngredients());
+                bundle.putStringArrayList("stepImages", recipe.getStepImages());
+                bundle.putStringArrayList("stepDescriptions", recipe.getStepDescriptions());
+                bundle.putString("tips", recipe.getTips());
+                bundle.putString("kitchenWares", recipe.getKitchenWares());
+                bundle.putString("authorUid", recipe.getAuthorUid());
+                bundle.putString("authorUsername", recipe.getAuthorUsername());
+
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
+
     }
 }

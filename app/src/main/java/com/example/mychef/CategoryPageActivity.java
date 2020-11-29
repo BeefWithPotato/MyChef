@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -73,6 +74,19 @@ public class CategoryPageActivity extends AppCompatActivity {
         mGv = (GridView) findViewById(R.id.home_gv);
         mGv.setAdapter(new CategoryGridViewAdapter(CategoryPageActivity.this, categories));
 
+        mGv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Category category = categories.get(position);
+                Intent intent = new Intent(CategoryPageActivity.this, SearchPageActivity.class);
+                Bundle bundle = new Bundle();
+
+                bundle.putString("category", category.name);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
         //Button control
         mBanSubscribe = (Button) findViewById(R.id.Subscribe_button);
         mBanRecommend = (Button) findViewById(R.id.Recommend_button);
@@ -129,9 +143,7 @@ public class CategoryPageActivity extends AppCompatActivity {
                     RotateAnimation r = new RotateAnimation(0.0f, 60.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                     r.setDuration((long) 2*500);
                     r.setRepeatCount(0);
-//
-//                    GoogleSignInAccount currAccount = GoogleSignIn.getLastSignedInAccount(CategoryPageActivity.this);
-//                    FirebaseUser current = FirebaseAuth.getInstance().getCurrentUser();
+
                     if(currAccount == null && current == null){
                         intent = new Intent(CategoryPageActivity.this, LoginActivity.class);
                     }
@@ -140,8 +152,6 @@ public class CategoryPageActivity extends AppCompatActivity {
                     }
                     break;
                 case R.id.ProfileButton:
-//                    GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(CategoryPageActivity.this);
-//                    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                     if(currAccount == null && current == null){
                         intent = new Intent(CategoryPageActivity.this, LoginActivity.class);
                     }
@@ -162,7 +172,7 @@ public class CategoryPageActivity extends AppCompatActivity {
         }
     }
 
-    public class Category{
+    public static class Category{
         public String name;
         public String url;
     }

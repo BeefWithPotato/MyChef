@@ -158,7 +158,7 @@ public class CreateRecipeActivity extends AppCompatActivity {
                 TextView dosage = new TextView(v.getContext());
                 dosage.setLayoutParams(new LinearLayout.LayoutParams(205,
                         LinearLayout.LayoutParams.WRAP_CONTENT));
-                dosage.setText("Dosage:");
+                dosage.setText("Amount:");
                 dosage.setTextSize(15);
                 dosage.setTextColor(Color.BLACK);
                 dosage.setPadding(40,0,0,0);

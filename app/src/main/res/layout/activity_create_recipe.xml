@@ -101,6 +101,38 @@
             android:padding="10dp"
             android:layout_margin="10dp"/>
 
+        <EditText
+            android:id="@+id/cook_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="30dp"
+            android:layout_below="@+id/recipe_name_text"
+            android:background="@drawable/edit_profile_edit_text"
+            android:layout_marginTop="10dp"
+            android:textAllCaps="false"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:hint="Enter cooking time"
+            android:maxLines="2"
+            android:padding="10dp"
+            android:layout_margin="10dp"/>
+
+        <EditText
+            android:id="@+id/people"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="30dp"
+            android:layout_below="@+id/cook_time"
+            android:background="@drawable/edit_profile_edit_text"
+            android:layout_marginTop="10dp"
+            android:textAllCaps="false"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:hint="Enter the number of diners"
+            android:maxLines="2"
+            android:padding="10dp"
+            android:layout_margin="10dp"/>
+
 
 <!--        <TextView-->
 <!--            android:layout_width="match_parent"-->
@@ -118,7 +150,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="200dp"
-            android:layout_below="@+id/recipe_name_text"
+            android:layout_below="@+id/people"
             android:layout_margin="10dp"
             android:background="@drawable/edit_profile_edit_text"
             android:gravity="start"
@@ -177,7 +209,7 @@
             android:layout_below="@+id/ingredients"
             android:layout_marginLeft="200dp"
             android:layout_marginTop="10dp"
-            android:text="Dosage:"
+            android:text="Amount:"
             android:textAllCaps="false"
             android:textColor="#000000"
             android:textSize="15sp" />
@@ -234,7 +266,7 @@
             android:layout_below="@+id/ingredients"
             android:layout_marginLeft="200dp"
             android:layout_marginTop="55dp"
-            android:text="Dosage:"
+            android:text="Amount:"
             android:textAllCaps="false"
             android:textColor="#000000"
             android:textSize="15sp" />

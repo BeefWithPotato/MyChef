@@ -18,7 +18,22 @@ public class Recipe {
     private String kitchenWares;
     private String authorUid;
     private String authorUsername;
+    private String category;
     private int likes;
+    private String time;
+    private String people;
+
+    public void setPeople(String number){ this.people = number; }
+
+    public String getPeople(){return this.people;}
+
+    public void setTime(String time){ this.time = time; }
+
+    public String getTime(){ return this.time; }
+
+    public void setCategory(String category){ this.category = category; }
+
+    public String getCategory(){ return this.category; }
 
     public int getLikes() { return likes; }
 

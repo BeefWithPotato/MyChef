@@ -16,6 +16,8 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -54,6 +56,13 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
     private ArrayList<ImageButton> stepImagesBtnArray;
     private ArrayList<EditText> etDescriptionArray;
     private Button publish;
+    private CheckBox boxBBQ;
+    private CheckBox boxBraising;
+    private CheckBox boxBaking;
+    private CheckBox boxStirFrying;
+    private CheckBox boxSoup;
+    private CheckBox boxSteaming;
+
 
     private FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
     private StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
@@ -94,6 +103,101 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
         recipe.setRecipeName(bundle.getString("recipeName"));
         recipe.setStory(bundle.getString("story"));
         recipe.setIngredients(bundle.getStringArrayList("ingredients"));
+
+        //handle checkbox
+        boxBBQ = (CheckBox)findViewById(R.id.BBQ);
+        boxBBQ.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,
+                                         boolean isChecked) {
+                if(isChecked){
+                    boxBraising.setChecked(false);
+                    boxBaking.setChecked(false);
+                    boxStirFrying.setChecked(false);
+                    boxSoup.setChecked(false);
+                    boxSteaming.setChecked(false);
+                    recipe.setCategory("BBQ");
+                }
+            }
+        });
+        boxBraising = (CheckBox)findViewById(R.id.Braising);
+        boxBraising.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,
+                                         boolean isChecked) {
+                if(isChecked){
+                    boxBBQ.setChecked(false);
+                    boxBaking.setChecked(false);
+                    boxStirFrying.setChecked(false);
+                    boxSoup.setChecked(false);
+                    boxSteaming.setChecked(false);
+                    recipe.setCategory("Braising");
+                }
+            }
+        });
+        boxBaking = (CheckBox)findViewById(R.id.Baking);
+        boxBaking.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,
+                                         boolean isChecked) {
+                if(isChecked){
+                    boxBraising.setChecked(false);
+                    boxBBQ.setChecked(false);
+                    boxStirFrying.setChecked(false);
+                    boxSoup.setChecked(false);
+                    boxSteaming.setChecked(false);
+                    recipe.setCategory("Baking");
+                }
+            }
+        });
+        boxStirFrying = (CheckBox)findViewById(R.id.Stir_frying);
+        boxStirFrying.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,
+                                         boolean isChecked) {
+                if(isChecked){
+                    boxBraising.setChecked(false);
+                    boxBaking.setChecked(false);
+                    boxBBQ.setChecked(false);
+                    boxSoup.setChecked(false);
+                    boxSteaming.setChecked(false);
+                    recipe.setCategory("Stir-Frying");
+                }
+            }
+        });
+        boxSoup = (CheckBox)findViewById(R.id.Soup);
+        boxSoup.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,
+                                         boolean isChecked) {
+                if(isChecked){
+                    boxBraising.setChecked(false);
+                    boxBaking.setChecked(false);
+                    boxStirFrying.setChecked(false);
+                    boxBBQ.setChecked(false);
+                    boxSteaming.setChecked(false);
+                    recipe.setCategory("Soup");
+                }
+            }
+        });
+        boxSteaming = (CheckBox)findViewById(R.id.Steaming);
+        boxSteaming.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,
+                                         boolean isChecked) {
+                if(isChecked){
+                    boxBraising.setChecked(false);
+                    boxBaking.setChecked(false);
+                    boxStirFrying.setChecked(false);
+                    boxSoup.setChecked(false);
+                    boxBBQ.setChecked(false);
+                    recipe.setCategory("Steaming");
+                }
+            }
+        });
+
+
+
 
         //handle the publish button, first modify the user class's description and kitchenware.
         publish = (Button) findViewById(R.id.publish);

@@ -97,17 +97,19 @@ public class DetailedRecipeActivity extends AppCompatActivity {
 
         //delete button
         delete = findViewById(R.id.recipe_delete);
-        if(currentUser.getUid().contains(recipe.getAuthorUid())){
-            delete.setVisibility(View.VISIBLE);
-        }
-        delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ref.child("Recipe").child(currentUser.getUid()).child(currentUser.getUid() + recipe.getRecipeName()).removeValue();
-                Toast.makeText(DetailedRecipeActivity.this, "Delete succeed.", Toast.LENGTH_SHORT).show();
-                finish();
+        if(currentUser != null) {
+            if (currentUser.getUid().contains(recipe.getAuthorUid())) {
+                delete.setVisibility(View.VISIBLE);
             }
-        });
+            delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ref.child("Recipe").child(currentUser.getUid()).child(currentUser.getUid() + recipe.getRecipeName()).removeValue();
+                    Toast.makeText(DetailedRecipeActivity.this, "Delete succeed.", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+            });
+        }
 
         //back to top
         back_to_top = findViewById(R.id.back_to_top);
@@ -134,42 +136,45 @@ public class DetailedRecipeActivity extends AppCompatActivity {
 
 
         //set the like button
+        if(currentUser != null) {
+            ref.child("User").child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    userInfo = dataSnapshot.getValue(User.class);
 
-        ref.child("User").child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                userInfo = dataSnapshot.getValue(User.class);
+                    likeNumber = (TextView) findViewById(R.id.likes);
+                    String number = Integer.toString(recipe.getLikes());
+                    likeNumber.setText(number);
 
-                likeNumber = (TextView) findViewById(R.id.likes);
-                String number = Integer.toString(recipe.getLikes());
-                likeNumber.setText(number);
-
-                likeButton =  (ImageButton) findViewById(R.id.likes_button);
-                //check if this user have liked this recipe before
-                String recipeID = recipe.getAuthorUid() + recipe.getRecipeName();
-                ArrayList<String> likedRecipes = userInfo.getLikedRecipes();
-                for (int j = 0; j<likedRecipes.size(); j++){
-                    if (recipeID.equals(likedRecipes.get(j))){
-                        liked = true;
+                    likeButton = (ImageButton) findViewById(R.id.likes_button);
+                    //check if this user have liked this recipe before
+                    String recipeID = recipe.getAuthorUid() + recipe.getRecipeName();
+                    ArrayList<String> likedRecipes = userInfo.getLikedRecipes();
+                    for (int j = 0; j < likedRecipes.size(); j++) {
+                        if (recipeID.equals(likedRecipes.get(j))) {
+                            liked = true;
+                        }
                     }
-                }
-                if (!liked) {
-                    likeButton.setBackground(ResourcesCompat.getDrawable(likeButton.getResources(), R.drawable.like, null));
-                }else if(liked){
-                    likeButton.setBackground(ResourcesCompat.getDrawable(likeButton.getResources(), R.drawable.like_red, null));
-                }
-                likeButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String recipeN = recipe.getAuthorUid() + recipe.getRecipeName();
-                        getRecipe(recipe.getAuthorUid(), recipeN, likedRecipes);
+                    if (!liked) {
+                        likeButton.setBackground(ResourcesCompat.getDrawable(likeButton.getResources(), R.drawable.like, null));
+                    } else if (liked) {
+                        likeButton.setBackground(ResourcesCompat.getDrawable(likeButton.getResources(), R.drawable.like_red, null));
                     }
-                });
+                    likeButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String recipeN = recipe.getAuthorUid() + recipe.getRecipeName();
+                            getRecipe(recipe.getAuthorUid(), recipeN, likedRecipes);
+                        }
+                    });
 
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {}
-        });
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+        }
 
 
         //set the cover image
@@ -315,60 +320,64 @@ public class DetailedRecipeActivity extends AppCompatActivity {
 
         //  follow user
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("User");
-        ref.child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-             @Override
-             public void onDataChange(DataSnapshot snapshot) {
-                 User userInfo = snapshot.getValue(User.class);
-                 ArrayList<String> following = userInfo.getFollow();
+        if(currentUser != null) {
+            ref.child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    User userInfo = snapshot.getValue(User.class);
+                    ArrayList<String> following = userInfo.getFollow();
 
-                 if(following.contains(recipe.getAuthorUid())) {
-                     subscribe.setBackgroundColor(Color.parseColor("#ad2102"));
-                 }
-             }
+                    if (following.contains(recipe.getAuthorUid())) {
+                        subscribe.setBackgroundColor(Color.parseColor("#ad2102"));
+                    }
+                }
 
-             @Override
-             public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-             }
-        });
-
+                }
+            });
+        }
         subscribe = findViewById(R.id.subscribe);
         subscribe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                subscribe.setBackgroundColor(Color.parseColor("#ad2102"));
+                if(currentUser != null){
+                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("User");
+                    ref.child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            User userInfo = dataSnapshot.getValue(User.class);
+                            ArrayList<String> following = userInfo.getFollow();
 
-                DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("User");
-                ref.child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        User userInfo = dataSnapshot.getValue(User.class);
-                        ArrayList<String> following = userInfo.getFollow();
-
-                        if(!following.contains(recipe.getAuthorUid())) {
-                            if(recipe.getAuthorUid().contains(currentUser.getUid())){
-                                Toast.makeText(DetailedRecipeActivity.this, "You cannot follow yourself!.", Toast.LENGTH_LONG).show();
+                            if(!following.contains(recipe.getAuthorUid())) {
+                                if(recipe.getAuthorUid().contains(currentUser.getUid())){
+                                    Toast.makeText(DetailedRecipeActivity.this, "You cannot follow yourself!.", Toast.LENGTH_LONG).show();
+                                }
+                                else {
+                                    following.add(recipe.getAuthorUid());
+                                    ref.child(currentUser.getUid()).child("follow").setValue(following);
+                                    Toast.makeText(DetailedRecipeActivity.this, "Follow succeed.", Toast.LENGTH_SHORT).show();
+                                    subscribe.setBackgroundColor(Color.parseColor("#ad2102"));
+                                }
                             }
-                            else {
-                                following.add(recipe.getAuthorUid());
+                            else{
+                                Toast.makeText(DetailedRecipeActivity.this, "Unfollowed", Toast.LENGTH_LONG).show();
+                                following.remove(recipe.getAuthorUid());
                                 ref.child(currentUser.getUid()).child("follow").setValue(following);
-                                Toast.makeText(DetailedRecipeActivity.this, "Follow succeed.", Toast.LENGTH_SHORT).show();
-                                subscribe.setBackgroundColor(Color.parseColor("#ad2102"));
+                                subscribe.setBackgroundColor(Color.parseColor("#bfbfbf"));
                             }
                         }
-                        else{
-                            Toast.makeText(DetailedRecipeActivity.this, "Unfollowed", Toast.LENGTH_LONG).show();
-                            following.remove(recipe.getAuthorUid());
-                            ref.child(currentUser.getUid()).child("follow").setValue(following);
-                            subscribe.setBackgroundColor(Color.parseColor("#bfbfbf"));
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
                         }
-                    }
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-
+                    });
+                }
+                else{
+                    Intent intent = new Intent(DetailedRecipeActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 

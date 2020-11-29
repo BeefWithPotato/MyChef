@@ -98,6 +98,42 @@ public class DetailProfileActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        ref.child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                userInfo = dataSnapshot.getValue(User.class);
+
+                username.setText(userInfo.getUsername());
+                email.setText(userInfo.getEmail());
+                //if user has set a bg image, then get and set it
+
+                if(userInfo.getAge() != null){
+                    age.setText(userInfo.getAge());
+                }
+
+                if(userInfo.getGender() != null){
+                    gender.setText(userInfo.getGender());
+                }
+
+                if(userInfo.getBio() != null){
+                    bio.setText(userInfo.getBio());
+                }
+                if(userInfo.getUserIcon() != null){
+                    Glide.with(DetailProfileActivity.this).load(userInfo.getUserIcon()).into(avatar);
+                }
+                if(userInfo.getProfileBg() != null){
+                    Glide.with(DetailProfileActivity.this).load(userInfo.getProfileBg()).into(bg_image);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+    }
+
     private void setListeners(){
         OnClick onClick = new OnClick();
         row_username.setOnClickListener(onClick);
@@ -118,8 +154,6 @@ public class DetailProfileActivity extends AppCompatActivity {
             Bundle bundle = null;
             switch (v.getId()) {
                 case R.id.detail_profile_back:
-//                    intent = new Intent(DetailProfileActivity.this, ProfileActivity.class);
-//                    startActivity(intent);
                     finish();
                     break;
                 case R.id.username_relative_layout:

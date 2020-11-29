@@ -33,7 +33,7 @@ import java.util.ArrayList;
 
 public class SearchPageActivity extends AppCompatActivity {
 
-    private TextView cancel;
+    private TextView cancel, no_result;
     private SearchView sv;
     private GridView mGv;
     ArrayList<Recipe> recipes;
@@ -57,10 +57,12 @@ public class SearchPageActivity extends AppCompatActivity {
         });
 
         mGv = (GridView) findViewById(R.id.search_gv);
+        no_result = findViewById(R.id.no_result);
         sv = findViewById(R.id.search_bar);
         sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                no_result.setVisibility(View.INVISIBLE);
                 recipes = new ArrayList<Recipe>();
                 target = sv.getQuery().toString();
 
@@ -68,6 +70,7 @@ public class SearchPageActivity extends AppCompatActivity {
                 ref.child("Recipe").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+
                         if(dataSnapshot.getChildren() != null){
                             for (DataSnapshot ds: dataSnapshot.getChildren()) {
                                 for (DataSnapshot recipeSnapshot: ds.getChildren()) {
@@ -78,7 +81,12 @@ public class SearchPageActivity extends AppCompatActivity {
                                     }
                                 }
                             }
-                            mGv.setAdapter(new HomeGridViewAdapter(SearchPageActivity.this, recipes));
+                            if(recipes.size() != 0){
+                                mGv.setAdapter(new HomeGridViewAdapter(SearchPageActivity.this, recipes));
+                            }
+                            else{
+                                no_result.setVisibility(View.VISIBLE);
+                            }
                         }
                     }
                     @Override

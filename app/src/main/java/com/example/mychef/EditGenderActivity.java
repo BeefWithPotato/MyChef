@@ -34,8 +34,9 @@ public class EditGenderActivity extends AppCompatActivity {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(EditGenderActivity.this, DetailProfileActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(EditGenderActivity.this, DetailProfileActivity.class);
+//                startActivity(intent);
+                finish();
             }
         });
 

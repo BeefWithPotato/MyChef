@@ -26,7 +26,7 @@ public class CategoryPageActivity extends AppCompatActivity {
     ArrayList<Category> categories = new ArrayList<Category>();
     private Button mBanSubscribe;
     private Button mBanRecommend;
-    private Button mBanCategory;
+    private Button mBanCategory, explore;
     private ImageButton mBanHome;
     private ImageButton mBanShopCar;
     private ImageButton btn_profile, btn_createRecipe, mBanFavorites;
@@ -83,6 +83,7 @@ public class CategoryPageActivity extends AppCompatActivity {
         btn_createRecipe = (ImageButton) findViewById(R.id.NewRecipeButton);
         mBanFavorites = (ImageButton) findViewById(R.id.FavoritesButton);
         mBanSearch = (ImageButton) findViewById(R.id.search_button);
+        explore = (Button) findViewById(R.id.Recommend_button);
         setListeners();
     }
 
@@ -96,6 +97,7 @@ public class CategoryPageActivity extends AppCompatActivity {
         btn_createRecipe.setOnClickListener(onClick);
         mBanFavorites.setOnClickListener(onClick);
         mBanSearch.setOnClickListener(onClick);
+        explore.setOnClickListener(onClick);
     }
 
     private class OnClick implements View.OnClickListener {
@@ -106,6 +108,9 @@ public class CategoryPageActivity extends AppCompatActivity {
             GoogleSignInAccount currAccount = GoogleSignIn.getLastSignedInAccount(CategoryPageActivity.this);
             FirebaseUser current = FirebaseAuth.getInstance().getCurrentUser();
             switch (v.getId()){
+                case R.id.Recommend_button:
+                    intent = new Intent(CategoryPageActivity.this, MainActivity.class);
+                    break;
                 case R.id.Subscribe_button:
                     if(currAccount == null && current == null){
                         intent = new Intent(CategoryPageActivity.this, LoginActivity.class);

@@ -118,8 +118,9 @@ public class DetailProfileActivity extends AppCompatActivity {
             Bundle bundle = null;
             switch (v.getId()) {
                 case R.id.detail_profile_back:
-                    intent = new Intent(DetailProfileActivity.this, ProfileActivity.class);
-                    startActivity(intent);
+//                    intent = new Intent(DetailProfileActivity.this, ProfileActivity.class);
+//                    startActivity(intent);
+                    finish();
                     break;
                 case R.id.username_relative_layout:
                     intent = new Intent(DetailProfileActivity.this, EditUsernameActivity.class);

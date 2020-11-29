@@ -69,7 +69,6 @@ public class HomeGridViewAdapter extends BaseAdapter{
         holder.textView.setText(recipes.get(position).getRecipeName());
         Glide.with(holder.imageView.getContext()).load(recipes.get(position).getCoverImage()).into(holder.imageView);
 
-
         ViewHolder finalHolder = holder;
         ref.child("User").child(recipes.get(position).getAuthorUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

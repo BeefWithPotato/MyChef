@@ -13,7 +13,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
-        android:queryHint="Search my favorites"
+        android:queryHint="Explore some recipes"
         android:iconifiedByDefault="false"
         android:layout_marginTop="10dp"
         android:background="#DDDDDD"/>
@@ -29,6 +29,18 @@
         android:layout_marginTop="22dp"
         android:paddingLeft="10dp"
         android:layout_toRightOf="@id/search_bar"/>
+
+    <TextView
+        android:id="@+id/no_result"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="No relevant result found, try another key word."
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="200dp"
+        android:textSize="16sp"
+        android:drawablePadding="10dp"
+        android:drawableTop="@drawable/search_no_result"
+        android:visibility="invisible"/>
 
     <GridView
         android:id="@+id/search_gv"

@@ -33,8 +33,9 @@ public class EditAgeActivity extends AppCompatActivity {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(EditAgeActivity.this, DetailProfileActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(EditAgeActivity.this, DetailProfileActivity.class);
+//                startActivity(intent);
+                finish();
             }
         });
         age = findViewById(R.id.edit_age);

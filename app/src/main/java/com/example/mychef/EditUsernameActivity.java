@@ -38,15 +38,13 @@ public class EditUsernameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_username);
 
-
-
-
         btn_back = findViewById(R.id.edit_username_back);
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(EditUsernameActivity.this, DetailProfileActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(EditUsernameActivity.this, DetailProfileActivity.class);
+//                startActivity(intent);
+                finish();
             }
         });
 

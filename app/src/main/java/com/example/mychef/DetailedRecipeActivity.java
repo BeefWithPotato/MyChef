@@ -98,7 +98,6 @@ public class DetailedRecipeActivity extends AppCompatActivity {
             }
         });
 
-
         //set the like button
 
         ref.child("User").child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -136,7 +135,6 @@ public class DetailedRecipeActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });
-
 
         //set the cover image
         cover = findViewById(R.id.cover_image);

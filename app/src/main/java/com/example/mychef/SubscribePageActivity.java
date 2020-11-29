@@ -139,6 +139,8 @@ public class SubscribePageActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
+            GoogleSignInAccount currAccount = GoogleSignIn.getLastSignedInAccount(SubscribePageActivity.this);
+            FirebaseUser current = FirebaseAuth.getInstance().getCurrentUser();
             Intent intent = null;
             switch (v.getId()){
                 case R.id.search_button:
@@ -158,8 +160,6 @@ public class SubscribePageActivity extends AppCompatActivity {
                     r.setDuration((long) 2*500);
                     r.setRepeatCount(0);
 
-                    GoogleSignInAccount currAccount = GoogleSignIn.getLastSignedInAccount(SubscribePageActivity.this);
-                    FirebaseUser current = FirebaseAuth.getInstance().getCurrentUser();
                     if(currAccount == null && current == null){
                         intent = new Intent(SubscribePageActivity.this, LoginActivity.class);
                     }
@@ -170,7 +170,7 @@ public class SubscribePageActivity extends AppCompatActivity {
                 case R.id.ProfileButton:
                     GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(SubscribePageActivity.this);
                     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                    if(acct == null && currentUser == null){
+                    if(currAccount == null && current == null){
                         intent = new Intent(SubscribePageActivity.this, LoginActivity.class);
                     }
                     else {
@@ -178,7 +178,12 @@ public class SubscribePageActivity extends AppCompatActivity {
                     }
                     break;
                 case R.id.FavoritesButton:
-                    intent = new Intent(SubscribePageActivity.this, ConstructionActivity.class);
+                    if(currAccount == null && current == null){
+                        intent = new Intent(SubscribePageActivity.this, LoginActivity.class);
+                    }
+                    else {
+                        intent = new Intent(SubscribePageActivity.this, FavoritesActivity.class);
+                    }
                     break;
 
             }

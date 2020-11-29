@@ -7,7 +7,6 @@
     tools:context=".FavoritesActivity">
 
 
-
     <ImageButton
         android:id="@+id/ProfileButton"
         android:layout_width="wrap_content"
@@ -127,24 +126,23 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:text="My Favorites"
-        android:textSize="24sp"
+        android:textSize="25sp"
+        android:textColor="#000000"
+        android:gravity="center_horizontal"
         app:layout_constraintBottom_toTopOf="@+id/Favorites_LV"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_bar"
-        android:layout_marginLeft="32dp" />
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <ListView
         android:id="@+id/Favorites_LV"
-        android:layout_width="330dp"
-        android:layout_height="580dp"
+        android:layout_width="match_parent"
+        android:layout_height="540dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="110dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/divider2"
@@ -152,15 +150,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <SearchView
-        android:id="@+id/search_bar"
-        android:layout_width="330dp"
-        android:layout_height="wrap_content"
-        android:queryHint="Search my favorites"
-        android:iconifiedByDefault="false"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

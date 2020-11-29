@@ -4,41 +4,78 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="10dp">
 
     <ImageView
-        android:id="@+id/Recipe_imageView"
-        android:layout_width="144dp"
-        android:layout_height="102dp"
+        android:id="@+id/Grid_img"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/food_tmp" />
 
     <TextView
-        android:id="@+id/Subtitle_View"
+        android:id="@+id/Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:text="A Subtitle"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:text="Name"
         android:textColor="@color/black"
-        android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/Recipe_imageView"
-        tools:layout_editor_absoluteY="16dp" />
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/Grid_img"
+        app:layout_constraintTop_toBottomOf="@+id/Grid_img" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile_image"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/bg_grey"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        app:civ_border_color="#fff"
+        app:civ_border_width="2dp"
+        app:layout_constraintStart_toStartOf="@+id/Grid_img"
+        app:layout_constraintTop_toBottomOf="@+id/Title" />
 
     <TextView
-        android:id="@+id/Author_View"
+        android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="XXXX"
-        app:layout_constraintStart_toEndOf="@+id/textView6"
-        app:layout_constraintTop_toBottomOf="@+id/Subtitle_View" />
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:text="User Name"
+        android:textSize="15sp"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="@+id/profile_image"
+        app:layout_constraintStart_toEndOf="@+id/profile_image"
+        app:layout_constraintTop_toTopOf="@+id/profile_image" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginRight="45dp"
+        app:layout_constraintBottom_toBottomOf="@+id/likeNum"
+        app:layout_constraintEnd_toStartOf="@+id/likeNum"
+        app:layout_constraintTop_toTopOf="@+id/likeNum"
+        app:srcCompat="@drawable/like" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/likeNum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="Author: "
-        app:layout_constraintStart_toStartOf="@+id/Subtitle_View"
-        app:layout_constraintTop_toBottomOf="@+id/Subtitle_View" />
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="4dp"
+        android:text="000"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/username"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/username" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

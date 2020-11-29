@@ -50,6 +50,7 @@ public class SubscribeGridViewAdapter extends BaseAdapter {
     static class ViewHolder{
         public ImageView imageView, profile_icon;
         public TextView textView, userName;
+        public TextView likeNumber;
     }
 
     @Override
@@ -62,12 +63,15 @@ public class SubscribeGridViewAdapter extends BaseAdapter {
             holder.textView = (TextView)convertView.findViewById(R.id.Title);
             holder.profile_icon = (ImageView) convertView.findViewById(R.id.profile_image);
             holder.userName = (TextView) convertView.findViewById(R.id.username);
+            holder.likeNumber = (TextView) convertView.findViewById(R.id.likeNum);
             convertView.setTag(holder);
         } else{
             holder = (SubscribeGridViewAdapter.ViewHolder) convertView.getTag();
         }
         holder.textView.setText(recipes.get(position).getRecipeName());
         Glide.with(holder.imageView.getContext()).load(recipes.get(position).getCoverImage()).into(holder.imageView);
+        String number = Integer.toString(recipes.get(position).getLikes());
+        holder.likeNumber.setText(number);
 
         ViewHolder finalHolder = holder;
         ref.child("User").child(recipes.get(position).getAuthorUid()).addListenerForSingleValueEvent(new ValueEventListener() {

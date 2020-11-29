@@ -150,7 +150,12 @@ public class CategoryPageActivity extends AppCompatActivity {
                     }
                     break;
                 case R.id.FavoritesButton:
-                    intent = new Intent(CategoryPageActivity.this, FavoritesActivity.class);
+                    if(currAccount == null && current == null){
+                        intent = new Intent(CategoryPageActivity.this, LoginActivity.class);
+                    }
+                    else {
+                        intent = new Intent(CategoryPageActivity.this, FavoritesActivity.class);
+                    }
                     break;
             }
             startActivity(intent);

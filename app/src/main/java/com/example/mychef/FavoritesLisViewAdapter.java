@@ -8,14 +8,17 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class FavoritesLisViewAdapter extends BaseAdapter {
 
     private Context mContext;
     private LayoutInflater mLayoutInflater;
-
-    public FavoritesLisViewAdapter(Context context){
+    private ArrayList<Recipe> recipes;
+    public FavoritesLisViewAdapter(Context context, ArrayList<Recipe> recipes){
         this.mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
+        this.recipes = recipes;
     }
 
     @Override
@@ -44,9 +47,9 @@ public class FavoritesLisViewAdapter extends BaseAdapter {
         if (convertView == null){
             convertView = mLayoutInflater.inflate(R.layout.favorites_list_item, null);
             holder = new ViewHolder();
-            holder.imageView = (ImageView) convertView.findViewById(R.id.Recipe_imageView);
-            holder.TitleText = (TextView) convertView.findViewById(R.id.Subtitle_View);
-            holder.authorText = (TextView) convertView.findViewById(R.id.Author_View);
+            holder.imageView = (ImageView) convertView.findViewById(R.id.Grid_img);
+            holder.TitleText = (TextView) convertView.findViewById(R.id.Title);
+            holder.authorText = (TextView) convertView.findViewById(R.id.username);
             convertView.setTag(holder);
         } else{
             holder = (ViewHolder) convertView.getTag();

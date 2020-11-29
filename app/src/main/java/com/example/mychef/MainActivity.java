@@ -192,7 +192,12 @@ public class MainActivity extends AppCompatActivity {
                     }
                     break;
                 case R.id.FavoritesButton:
-                    intent = new Intent(MainActivity.this, ConstructionActivity.class);
+                    if(acct == null && currentUser == null){
+                        intent = new Intent(MainActivity.this, LoginActivity.class);
+                    }
+                    else {
+                        intent = new Intent(MainActivity.this, FavoritesActivity.class);
+                    }
                     break;
             }
             startActivity(intent);

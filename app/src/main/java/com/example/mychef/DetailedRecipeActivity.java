@@ -278,13 +278,19 @@ public class DetailedRecipeActivity extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         User userInfo = dataSnapshot.getValue(User.class);
                         ArrayList<String> following = userInfo.getFollow();
-                        if (following.contains(recipe.getAuthorUid())) {
-                            following.add(recipe.getAuthorUid());
-                            ref.child(currentUser.getUid()).child("follow").setValue(following);
-                            Toast.makeText(DetailedRecipeActivity.this, "Follow succeed.", Toast.LENGTH_SHORT).show();
+
+                        if(!following.contains(recipe.getAuthorUid())) {
+                            if(recipe.getAuthorUid().contains(currentUser.getUid())){
+                                Toast.makeText(DetailedRecipeActivity.this, "You cannot follow yourself!.", Toast.LENGTH_LONG).show();
+                            }
+                            else {
+                                following.add(recipe.getAuthorUid());
+                                ref.child(currentUser.getUid()).child("follow").setValue(following);
+                                Toast.makeText(DetailedRecipeActivity.this, "Follow succeed.", Toast.LENGTH_SHORT).show();
+                            }
                         }
                         else{
-                            Toast.makeText(DetailedRecipeActivity.this, "You already follow this user!.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(DetailedRecipeActivity.this, "You already follow this user!.", Toast.LENGTH_LONG).show();
                         }
                     }
                     @Override

@@ -70,6 +70,7 @@ public class SubscribeGridViewAdapter extends BaseAdapter {
         }
         holder.textView.setText(recipes.get(position).getRecipeName());
         Glide.with(holder.imageView.getContext()).load(recipes.get(position).getCoverImage()).into(holder.imageView);
+
         String number = Integer.toString(recipes.get(position).getLikes());
         holder.likeNumber.setText(number);
 

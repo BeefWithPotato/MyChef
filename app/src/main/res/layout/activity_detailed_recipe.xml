@@ -81,8 +81,6 @@
             android:layout_toEndOf="@+id/profile_image" />
 
 
-
-
         <Button
             android:id="@+id/subscribe"
             android:layout_width="100dp"

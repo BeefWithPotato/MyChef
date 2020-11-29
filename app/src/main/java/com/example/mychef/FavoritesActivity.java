@@ -1,9 +1,11 @@
 package com.example.mychef;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
@@ -21,6 +23,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -45,30 +48,43 @@ public class FavoritesActivity extends AppCompatActivity {
         mLv2 = (ListView) findViewById(R.id.Favorites_LV);
 
         //get current user object from Firebase
+
         ref.child("User").child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User userInfo = dataSnapshot.getValue(User.class);
-                if(userInfo.getFollow().size() != 0){
-                    likes = userInfo.getFollow();
+                if(userInfo.getLikedRecipes().size() != 0){
+                    likes = userInfo.getLikedRecipes();
 
                     // add data
-                    for(int i = 0; i < likes.size(); i++){
-                        ref.child("Recipe").child(likes.get(i)).addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                if(dataSnapshot.getChildren() != null){
-                                    for (DataSnapshot recipeSnapshot: dataSnapshot.getChildren()) {
-                                        Recipe recipe = recipeSnapshot.getValue(Recipe.class);
-                                        recipes.add(recipe);
+                    ref.child("Recipe").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot ds: dataSnapshot.getChildren()) {
+                                ref.child("Recipe").child(ds.getKey()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        for (DataSnapshot recipeSnapshot: ds.getChildren()) {
+                                            Log.i("recipeSnapshot", ":" + recipeSnapshot.getKey());
+                                            for(int i = 0; i < likes.size(); i++) {
+                                                if (recipeSnapshot.getKey().contains(likes.get(i))) {
+                                                    Log.i("liked recipe:", ":" + likes.get(i));
+                                                    Recipe recipe = recipeSnapshot.getValue(Recipe.class);
+                                                    recipes.add(recipe);
+                                                    Log.i("Favourite recipe size:", ":" + recipes.size());
+                                                    mLv2.setAdapter(new FavoritesLisViewAdapter(FavoritesActivity.this, recipes));
+                                                }
+                                            }
+                                        }
                                     }
-                                    mLv2.setAdapter(new FavoritesLisViewAdapter(FavoritesActivity.this, recipes));
-                                }
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {}
+                                });
                             }
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {}
-                        });
-                    }
+                        }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {}
+                    });
                 }
             }
             @Override
@@ -94,15 +110,13 @@ public class FavoritesActivity extends AppCompatActivity {
                 bundle.putString("kitchenWares", recipe.getKitchenWares());
                 bundle.putString("authorUid", recipe.getAuthorUid());
                 bundle.putString("authorUsername", recipe.getAuthorUsername());
-
+                bundle.putInt("likes", recipe.getLikes());
                 intent.putExtras(bundle);
                 startActivity(intent);
 
 //                Toast.makeText(SubscribePageActivity.this, "pos" + position, Toast.LENGTH_SHORT).show();
             }
         });
-
-
 
 
         //Button control

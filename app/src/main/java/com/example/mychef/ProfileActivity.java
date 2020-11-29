@@ -158,7 +158,7 @@ public class ProfileActivity extends AppCompatActivity {
                 bundle.putString("kitchenWares", recipe.getKitchenWares());
                 bundle.putString("authorUid", recipe.getAuthorUid());
                 bundle.putString("authorUsername", recipe.getAuthorUsername());
-
+                bundle.putInt("likes", recipe.getLikes());
                 intent.putExtras(bundle);
                 startActivity(intent);
             }

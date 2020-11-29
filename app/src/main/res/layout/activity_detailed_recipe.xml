@@ -7,8 +7,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <ImageView
-            android:id="@+id/edit_username_back"
+        <ImageButton
+            android:id="@+id/back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/back"/>
@@ -18,8 +18,7 @@
             android:id="@+id/cover_image"
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            android:scaleType="fitXY"
-            android:background="@color/black" />
+            android:scaleType="fitXY" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             xmlns:app="http://schemas.android.com/apk/res-auto"

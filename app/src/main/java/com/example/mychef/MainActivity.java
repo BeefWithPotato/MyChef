@@ -15,6 +15,7 @@ import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
 
     private GridView mGv;
     ArrayList<Recipe> recipes = new ArrayList<Recipe>();
+    private Recipe newRecipe;
+    private User currentUserInfo;
     private DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
     private FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
     private StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
@@ -78,29 +81,40 @@ public class MainActivity extends AppCompatActivity {
         mGv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-
-                //put recipe class in bundle
                 Recipe recipe = recipes.get(position);
-                Intent intent = new Intent(MainActivity.this, DetailedRecipeActivity.class);
-                Bundle bundle = new Bundle();
+                String refName = recipe.getAuthorUid() + recipe.getRecipeName();
+                ref.child("Recipe").child(recipe.getAuthorUid()).child(refName).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
 
-                bundle.putString("recipeName", recipe.getRecipeName());
-                bundle.putString("coverImage", recipe.getCoverImage());
-                bundle.putString("story", recipe.getStory());
-                bundle.putStringArrayList("ingredients", recipe.getIngredients());
-                bundle.putStringArrayList("stepImages", recipe.getStepImages());
-                bundle.putStringArrayList("stepDescriptions", recipe.getStepDescriptions());
-                bundle.putString("tips", recipe.getTips());
-                bundle.putString("kitchenWares", recipe.getKitchenWares());
-                bundle.putString("authorUid", recipe.getAuthorUid());
-                bundle.putString("authorUsername", recipe.getAuthorUsername());
-                bundle.putInt("likes", recipe.getLikes());
+                        newRecipe = dataSnapshot.getValue(Recipe.class);
+                        //put recipe class in bundle
 
-                intent.putExtras(bundle);
-                startActivity(intent);
+                        Intent intent = new Intent(MainActivity.this, DetailedRecipeActivity.class);
+                        Bundle bundle = new Bundle();
 
-                Toast.makeText(MainActivity.this, "pos" + position, Toast.LENGTH_SHORT).show();
+                        bundle.putString("recipeName", newRecipe.getRecipeName());
+                        bundle.putString("coverImage", newRecipe.getCoverImage());
+                        bundle.putString("story", newRecipe.getStory());
+                        bundle.putStringArrayList("ingredients", newRecipe.getIngredients());
+                        bundle.putStringArrayList("stepImages", newRecipe.getStepImages());
+                        bundle.putStringArrayList("stepDescriptions", newRecipe.getStepDescriptions());
+                        bundle.putString("tips", newRecipe.getTips());
+                        bundle.putString("kitchenWares", newRecipe.getKitchenWares());
+                        bundle.putString("authorUid", newRecipe.getAuthorUid());
+                        bundle.putString("authorUsername", newRecipe.getAuthorUsername());
+                        bundle.putInt("likes", newRecipe.getLikes());
+
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+
+
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {}
+                });
+
+
             }
         });
 
@@ -184,4 +198,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
     }
+
+
 }

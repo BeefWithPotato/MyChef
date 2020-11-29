@@ -51,6 +51,8 @@ public class DetailedRecipeActivity extends AppCompatActivity {
     private LinearLayout ingredientLayout;
     private LinearLayout stepLayout;
     private TextView likeNumber;
+    private boolean liked = false;
+    private Recipe recipeForLike;
 
     private FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
     private DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
@@ -80,6 +82,7 @@ public class DetailedRecipeActivity extends AppCompatActivity {
         recipe.setAuthorUid(bundle.getString("authorUid"));
         recipe.setAuthorUsername(bundle.getString("authorUsername"));
         recipe.setLikes(bundle.getInt("likes"));
+        ArrayList<String> likedRecipes = bundle.getStringArrayList("likedRecipes");
 
 
         //user detail page
@@ -95,24 +98,47 @@ public class DetailedRecipeActivity extends AppCompatActivity {
             }
         });
 
-        likeNumber = (TextView) findViewById(R.id.likes);
-        String number = Integer.toString(recipe.getLikes());
-        likeNumber.setText(number);
 
-        likeButton =  (ImageButton) findViewById(R.id.likes_button);
-        likeButton.setOnClickListener(new View.OnClickListener() {
+        //set the like button
+
+        ref.child("User").child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onClick(View v) {
-                int newLikeNumber = recipe.getLikes() + 1;
-                //update database
-                DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Recipe");
-                String refName = recipe.getAuthorUid() + recipe.getRecipeName();
-                ref.child(recipe.getAuthorUid()).child(refName).child("likes").setValue(newLikeNumber);
-                //update layout
-                String newLike = Integer.toString(newLikeNumber);
-                likeNumber.setText(newLike);
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                userInfo = dataSnapshot.getValue(User.class);
+
+                likeNumber = (TextView) findViewById(R.id.likes);
+                String number = Integer.toString(recipe.getLikes());
+                likeNumber.setText(number);
+
+                likeButton =  (ImageButton) findViewById(R.id.likes_button);
+                //check if this user have liked this recipe before
+                String recipeID = recipe.getAuthorUid() + recipe.getRecipeName();
+                ArrayList<String> likedRecipes = userInfo.getLikedRecipes();
+                for (int j = 0; j<likedRecipes.size(); j++){
+                    if (recipeID.equals(likedRecipes.get(j))){
+                        liked = true;
+                    }
+                }
+                if (!liked) {
+                    likeButton.setBackground(ResourcesCompat.getDrawable(likeButton.getResources(), R.drawable.like, null));
+                }else if(liked){
+                    likeButton.setBackground(ResourcesCompat.getDrawable(likeButton.getResources(), R.drawable.like_red, null));
+                }
+                likeButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String recipeN = recipe.getAuthorUid() + recipe.getRecipeName();
+                        getRecipe(recipe.getAuthorUid(), recipeN, likedRecipes);
+                    }
+                });
+
             }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
         });
+
+
+
 
 
         //set the cover image
@@ -126,6 +152,7 @@ public class DetailedRecipeActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 userInfo = dataSnapshot.getValue(User.class);
+
                 //get username
                 userName.setText(userInfo.getUsername());
 
@@ -272,6 +299,55 @@ public class DetailedRecipeActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+    public void getRecipe(String user, String recipeName, ArrayList<String> likedRecipes){
+        ref.child("Recipe").child(user).child(recipeName).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                recipeForLike = dataSnapshot.getValue(Recipe.class);
+                if(!liked){
+                    int newLikeNumber = recipeForLike.getLikes() + 1;
+                    //update database
+                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Recipe");
+                    String refName = recipe.getAuthorUid() + recipe.getRecipeName();
+                    ref.child(recipe.getAuthorUid()).child(refName).child("likes").setValue(newLikeNumber);
+
+                    //update user database
+                    likedRecipes.add(refName);
+                    DatabaseReference UserRef = FirebaseDatabase.getInstance().getReference().child("User");
+                    UserRef.child(currentUser.getUid()).child("likedRecipes").setValue(likedRecipes);
+
+                    //update layout
+                    String newLike = Integer.toString(newLikeNumber);
+                    likeNumber.setText(newLike);
+                    likeButton.setBackground(ResourcesCompat.getDrawable(likeButton.getResources(), R.drawable.like_red, null));
+                    liked = true;
+                }else if(liked){
+                    String recipeN = recipe.getAuthorUid() + recipe.getRecipeName();
+                    int newLikeNumber = recipeForLike.getLikes() - 1;
+                    //update database
+                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Recipe");
+                    String refName = recipe.getAuthorUid() + recipe.getRecipeName();
+                    ref.child(recipe.getAuthorUid()).child(refName).child("likes").setValue(newLikeNumber);
+
+                    //update user database
+                    likedRecipes.remove(refName);
+                    DatabaseReference UserRef = FirebaseDatabase.getInstance().getReference().child("User");
+                    UserRef.child(currentUser.getUid()).child("likedRecipes").setValue(likedRecipes);
+
+                    //update layout
+                    String newLike = Integer.toString(newLikeNumber);
+                    likeNumber.setText(newLike);
+                    likeButton.setBackground(ResourcesCompat.getDrawable(likeButton.getResources(), R.drawable.like, null));
+                    liked = false;
+                }
+
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
 
     }
 }

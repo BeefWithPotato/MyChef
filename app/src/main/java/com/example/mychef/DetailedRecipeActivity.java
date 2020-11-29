@@ -38,7 +38,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class DetailedRecipeActivity extends AppCompatActivity {
 
 
-    private Button subscribe;
+    private Button subscribe, delete;
     private Recipe recipe;
     private User userInfo;
     private TextView userName;
@@ -84,6 +84,21 @@ public class DetailedRecipeActivity extends AppCompatActivity {
         recipe.setAuthorUsername(bundle.getString("authorUsername"));
         recipe.setLikes(bundle.getInt("likes"));
         ArrayList<String> likedRecipes = bundle.getStringArrayList("likedRecipes");
+
+        //delete button
+        delete = findViewById(R.id.recipe_delete);
+        if(currentUser.getUid().contains(recipe.getAuthorUid())){
+            delete.setVisibility(View.VISIBLE);
+        }
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ref.child("Recipe").child(currentUser.getUid()).child(currentUser.getUid() + recipe.getRecipeName()).removeValue();
+                Toast.makeText(DetailedRecipeActivity.this, "Delete succeed.", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        });
+
 
 
         //user detail page

@@ -96,12 +96,10 @@ public class EditBioActivity extends AppCompatActivity {
                             ref.child(currentUser.getUid()).child("bio").setValue(bio.getText().toString());
                             Toast.makeText(EditBioActivity.this, "Change succeed.", Toast.LENGTH_SHORT).show();
 
-                            Intent intent = new Intent(EditBioActivity.this, DetailProfileActivity.class);
-                            startActivity(intent);
+                            finish();
                         }
                         else {
-                            Intent intent = new Intent(EditBioActivity.this, DetailProfileActivity.class);
-                            startActivity(intent);
+                            finish();
                         }
                     }
                     @Override

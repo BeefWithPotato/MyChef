@@ -63,12 +63,10 @@ public class EditGenderActivity extends AppCompatActivity {
                             ref.child(currentUser.getUid()).child("gender").setValue(gender);
                             Toast.makeText(EditGenderActivity.this, "Change succeed.", Toast.LENGTH_SHORT).show();
 
-                            Intent intent = new Intent(EditGenderActivity.this, DetailProfileActivity.class);
-                            startActivity(intent);
+                            finish();
                         }
                         else {
-                            Intent intent = new Intent(EditGenderActivity.this, DetailProfileActivity.class);
-                            startActivity(intent);
+                            finish();
                         }
                     }
                     @Override

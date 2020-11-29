@@ -101,12 +101,10 @@ public class EditUsernameActivity extends AppCompatActivity {
                             ref.child(currentUser.getUid()).child("username").setValue(username.getText().toString());
                             Toast.makeText(EditUsernameActivity.this, "Change succeed.", Toast.LENGTH_SHORT).show();
 
-                            Intent intent = new Intent(EditUsernameActivity.this, DetailProfileActivity.class);
-                            startActivity(intent);
+                            finish();
                         }
                         else {
-                            Intent intent = new Intent(EditUsernameActivity.this, DetailProfileActivity.class);
-                            startActivity(intent);
+                            finish();
                         }
                     }
                     @Override

@@ -95,31 +95,6 @@ public class SearchPageActivity extends AppCompatActivity {
                     }
                 });
 
-//                mGv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                    @Override
-//                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//
-//                        //put recipe class in bundle
-//                        Recipe recipe = recipes.get(position);
-//                        Intent intent = new Intent(SearchPageActivity.this, DetailedRecipeActivity.class);
-//                        Bundle bundle = new Bundle();
-//
-//                        bundle.putString("recipeName", recipe.getRecipeName());
-//                        bundle.putString("coverImage", recipe.getCoverImage());
-//                        bundle.putString("story", recipe.getStory());
-//                        bundle.putStringArrayList("ingredients", recipe.getIngredients());
-//                        bundle.putStringArrayList("stepImages", recipe.getStepImages());
-//                        bundle.putStringArrayList("stepDescriptions", recipe.getStepDescriptions());
-//                        bundle.putString("tips", recipe.getTips());
-//                        bundle.putString("kitchenWares", recipe.getKitchenWares());
-//                        bundle.putString("authorUid", recipe.getAuthorUid());
-//                        bundle.putString("authorUsername", recipe.getAuthorUsername());
-//
-//                        intent.putExtras(bundle);
-//                        startActivity(intent);
-//                    }
-//                });
-
                 return true;
             }
 
@@ -185,7 +160,7 @@ public class SearchPageActivity extends AppCompatActivity {
                 bundle.putString("kitchenWares", recipe.getKitchenWares());
                 bundle.putString("authorUid", recipe.getAuthorUid());
                 bundle.putString("authorUsername", recipe.getAuthorUsername());
-
+                bundle.putInt("likes", recipe.getLikes());
                 intent.putExtras(bundle);
                 startActivity(intent);
             }

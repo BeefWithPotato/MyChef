@@ -55,12 +55,10 @@ public class EditAgeActivity extends AppCompatActivity {
                             ref.child(currentUser.getUid()).child("age").setValue(age.getText().toString());
                             Toast.makeText(EditAgeActivity.this, "Change succeed.", Toast.LENGTH_SHORT).show();
 
-                            Intent intent = new Intent(EditAgeActivity.this, DetailProfileActivity.class);
-                            startActivity(intent);
+                            finish();
                         }
                         else {
-                            Intent intent = new Intent(EditAgeActivity.this, DetailProfileActivity.class);
-                            startActivity(intent);
+                            finish();
                         }
                     }
                     @Override

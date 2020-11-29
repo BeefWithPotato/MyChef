@@ -31,6 +31,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -276,6 +278,9 @@ public class DetailedRecipeActivity extends AppCompatActivity {
                 stepLine.addView(stepDes, lp3);
                 stepLayout.addView(stepLine);
             }
+        }else{
+            TextView stepTitle = (TextView) findViewById(R.id.steps_title);
+            stepTitle.setText("");
         }
 
 

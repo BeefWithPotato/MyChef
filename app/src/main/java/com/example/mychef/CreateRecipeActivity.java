@@ -100,6 +100,12 @@ public class CreateRecipeActivity extends AppCompatActivity {
                 //set recipe name
                 etRecipeName = (EditText) findViewById(R.id.recipe_name_text);
                 recipe.setRecipeName(etRecipeName.getText().toString());
+                //set cooking time
+                EditText etCookingTime = (EditText) findViewById(R.id.cook_time);
+                recipe.setTime(etCookingTime.getText().toString());
+                //set diners
+                EditText etDinners = (EditText) findViewById(R.id.people);
+                recipe.setPeople(etDinners.getText().toString());
                 //set the story
                 etStory = (EditText) findViewById(R.id.user_story);
                 recipe.setStory(etStory.getText().toString());
@@ -109,14 +115,22 @@ public class CreateRecipeActivity extends AppCompatActivity {
                     recipe.addIngredient(ediText.getText().toString());
                 }
 
-                Intent intent = new Intent(CreateRecipeActivity.this, CreateRecipeActivity2.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("coverImage", recipe.getCoverImage());
-                bundle.putStringArrayList("ingredients", recipe.getIngredients());
-                bundle.putString("recipeName", recipe.getRecipeName());
-                bundle.putString("story", recipe.getStory());
-                intent.putExtras(bundle);
-                startActivity(intent);
+                if (recipe.getCoverImage().equals("")){
+                    Toast.makeText(CreateRecipeActivity.this, "Please select a cover image.", Toast.LENGTH_LONG).show();
+                }else{
+                    Intent intent = new Intent(CreateRecipeActivity.this, CreateRecipeActivity2.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("coverImage", recipe.getCoverImage());
+                    bundle.putStringArrayList("ingredients", recipe.getIngredients());
+                    bundle.putString("recipeName", recipe.getRecipeName());
+                    bundle.putString("story", recipe.getStory());
+                    bundle.putString("cookingTime", recipe.getTime());
+                    bundle.putString("diners", recipe.getPeople());
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }
+
+
             }
         });
 

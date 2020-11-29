@@ -103,6 +103,8 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
         recipe.setRecipeName(bundle.getString("recipeName"));
         recipe.setStory(bundle.getString("story"));
         recipe.setIngredients(bundle.getStringArrayList("ingredients"));
+        recipe.setTime(bundle.getString("cookingTime"));
+        recipe.setPeople(bundle.getString("diners"));
 
         //handle checkbox
         boxBBQ = (CheckBox)findViewById(R.id.BBQ);

@@ -8,9 +8,9 @@ import java.util.ArrayList;
 public class Recipe {
 
 
-    private String recipeName;
-    private String coverImage;
-    public String story;
+    private String recipeName="";
+    private String coverImage = "";
+    public String story="";
     private ArrayList<String> ingredients;
     public ArrayList<String> stepImages;
     private ArrayList<String> stepDescriptions;

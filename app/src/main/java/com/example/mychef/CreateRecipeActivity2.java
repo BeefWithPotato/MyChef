@@ -81,8 +81,7 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CreateRecipeActivity2.this, CreateRecipeActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
 

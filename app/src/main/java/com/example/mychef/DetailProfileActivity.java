@@ -28,6 +28,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
 
 public class DetailProfileActivity extends AppCompatActivity {
@@ -241,38 +242,43 @@ public class DetailProfileActivity extends AppCompatActivity {
 
         }
         else if(requestCode == PICK_ICON){
-            //update profile icon ImageView
-            avatar.setImageURI(data.getData());
-            Uri file = data.getData();
-            // Upload profile icon to Firebase
-            //construct the position url where you want to store
-            StorageReference iconRef = mStorageRef.child("images/" + "profiles/" + currentUser.getUid() + "/profileIcon.jpg");
+            try {
+                //update profile icon ImageView
+                avatar.setImageURI(data.getData());
+                Uri file = data.getData();
+                // Upload profile icon to Firebase
+                //construct the position url where you want to store
+                StorageReference iconRef = mStorageRef.child("images/" + "profiles/" + currentUser.getUid() + "/profileIcon.jpg");
 
-            UploadTask uploadTask = iconRef.putFile(file);
-            Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                @Override
-                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                    if (!task.isSuccessful()) {
-                        throw task.getException();
+                UploadTask uploadTask = iconRef.putFile(file);
+                Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                    @Override
+                    public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                        if (!task.isSuccessful()) {
+                            throw task.getException();
+                        }
+
+                        // Continue with the task to get the download URL
+                        return iconRef.getDownloadUrl();
                     }
+                }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+                        if (task.isSuccessful()) {
+                            //upload download url to Firebase
+                            String downloadUri = task.getResult().toString();
+                            ref.child(currentUser.getUid()).child("userIcon").setValue(downloadUri);
 
-                    // Continue with the task to get the download URL
-                    return iconRef.getDownloadUrl();
-                }
-            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                @Override
-                public void onComplete(@NonNull Task<Uri> task) {
-                    if (task.isSuccessful()) {
-                        //upload download url to Firebase
-                        String downloadUri = task.getResult().toString();
-                        ref.child(currentUser.getUid()).child("userIcon").setValue(downloadUri);
-
-                        Toast.makeText(DetailProfileActivity.this, "Icon Upload Succeed.", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(DetailProfileActivity.this, "Icon Upload failed.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(DetailProfileActivity.this, "Icon Upload Succeed.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(DetailProfileActivity.this, "Icon Upload failed.", Toast.LENGTH_LONG).show();
+                        }
                     }
-                }
-            });
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         }
     }
 

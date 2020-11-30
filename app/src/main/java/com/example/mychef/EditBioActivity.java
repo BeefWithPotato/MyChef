@@ -47,7 +47,9 @@ public class EditBioActivity extends AppCompatActivity {
 
         bio = findViewById(R.id.edit_bio);
         Bundle bundle = getIntent().getExtras();
-        bio.setText(bundle.getString("bio"));
+        if(bundle != null) {
+            bio.setText(bundle.getString("bio"));
+        }
 
         wc = findViewById(R.id.wc_bio);
         Integer maxNum = 70;

@@ -184,6 +184,11 @@ public class DetailedRecipeActivity extends AppCompatActivity {
                 }
             });
         }
+        else{
+            likeNumber = (TextView) findViewById(R.id.likes);
+            String number = Integer.toString(recipe.getLikes());
+            likeNumber.setText(number);
+        }
 
 
         //set the cover image

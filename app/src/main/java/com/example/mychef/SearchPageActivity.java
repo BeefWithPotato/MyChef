@@ -65,6 +65,7 @@ public class SearchPageActivity extends AppCompatActivity {
             public boolean onQueryTextSubmit(String query) {
                 no_result.setVisibility(View.INVISIBLE);
                 recipes = new ArrayList<Recipe>();
+                mGv.setAdapter(new HomeGridViewAdapter(SearchPageActivity.this, recipes));
                 target = sv.getQuery().toString();
                 //search through all the recipes in the database
                 ref.child("Recipe").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -82,10 +83,11 @@ public class SearchPageActivity extends AppCompatActivity {
                                     }
                                 }
                             }
-                            if (recipes.size() != 0) {
-                                mGv.setAdapter(new HomeGridViewAdapter(SearchPageActivity.this, recipes));
-                            } else {
+                            if(recipes.size() == 0){
                                 no_result.setVisibility(View.VISIBLE);
+                            }
+                            else {
+                                mGv.setAdapter(new HomeGridViewAdapter(SearchPageActivity.this, recipes));
                             }
                         }
                     }

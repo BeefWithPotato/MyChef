@@ -195,7 +195,6 @@
             android:layout_marginRight="40dp"
             android:gravity="start"
             android:textAlignment="viewStart"
-            android:text="Cooking time:"
             android:textColor="@color/black" />
         <TextView
             android:id="@+id/people"
@@ -207,7 +206,6 @@
             android:layout_marginRight="40dp"
             android:gravity="start"
             android:textAlignment="viewStart"
-            android:text="Number of diners:"
             android:textColor="@color/black" />
 
         <TextView

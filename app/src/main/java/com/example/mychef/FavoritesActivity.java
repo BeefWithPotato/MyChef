@@ -116,7 +116,6 @@ public class FavoritesActivity extends AppCompatActivity {
                 intent.putExtras(bundle);
                 startActivity(intent);
 
-//                Toast.makeText(SubscribePageActivity.this, "pos" + position, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -127,6 +126,80 @@ public class FavoritesActivity extends AppCompatActivity {
         btn_profile = (ImageButton) findViewById(R.id.ProfileButton);
         btn_createRecipe = (ImageButton) findViewById(R.id.NewRecipeButton);
         setListeners();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        ref.child("User").child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User userInfo = dataSnapshot.getValue(User.class);
+                if(userInfo.getLikedRecipes().size() != 0){
+                    likes = userInfo.getLikedRecipes();
+
+                    // add data
+                    ref.child("Recipe").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot ds: dataSnapshot.getChildren()) {
+                                ref.child("Recipe").child(ds.getKey()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        for (DataSnapshot recipeSnapshot: ds.getChildren()) {
+                                            Log.i("recipeSnapshot", ":" + recipeSnapshot.getKey());
+                                            for(int i = 0; i < likes.size(); i++) {
+                                                if (recipeSnapshot.getKey().contains(likes.get(i))) {
+                                                    Log.i("liked recipe:", ":" + likes.get(i));
+                                                    Recipe recipe = recipeSnapshot.getValue(Recipe.class);
+                                                    recipes.add(recipe);
+                                                    Log.i("Favourite recipe size:", ":" + recipes.size());
+                                                    mLv2.setAdapter(new FavoritesLisViewAdapter(FavoritesActivity.this, recipes));
+                                                }
+                                            }
+                                        }
+                                    }
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {}
+                                });
+                            }
+                        }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {}
+                    });
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+
+        mLv2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                //put recipe class in bundle
+                Recipe recipe = recipes.get(position);
+                Intent intent = new Intent(FavoritesActivity.this, DetailedRecipeActivity.class);
+                Bundle bundle = new Bundle();
+
+                bundle.putString("recipeName", recipe.getRecipeName());
+                bundle.putString("coverImage", recipe.getCoverImage());
+                bundle.putString("story", recipe.getStory());
+                bundle.putStringArrayList("ingredients", recipe.getIngredients());
+                bundle.putStringArrayList("stepImages", recipe.getStepImages());
+                bundle.putStringArrayList("stepDescriptions", recipe.getStepDescriptions());
+                bundle.putString("tips", recipe.getTips());
+                bundle.putString("kitchenWares", recipe.getKitchenWares());
+                bundle.putString("authorUid", recipe.getAuthorUid());
+                bundle.putString("authorUsername", recipe.getAuthorUsername());
+                bundle.putInt("likes", recipe.getLikes());
+                bundle.putString("cookingTime", recipe.getTime());
+                bundle.putString("people", recipe.getPeople());
+                intent.putExtras(bundle);
+                startActivity(intent);
+
+            }
+        });
     }
 
     private void setListeners(){

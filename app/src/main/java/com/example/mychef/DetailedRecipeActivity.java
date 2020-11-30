@@ -58,7 +58,7 @@ public class DetailedRecipeActivity extends AppCompatActivity {
     private LinearLayout ingredientLayout;
     private LinearLayout stepLayout;
     private ScrollView sv;
-    private TextView likeNumber;
+    private TextView likeNumber, cookingTime, people;
     private boolean liked = false;
     private Recipe recipeForLike;
 
@@ -224,9 +224,9 @@ public class DetailedRecipeActivity extends AppCompatActivity {
         recipeName.setText(recipe.getRecipeName());
         userStory = findViewById(R.id.user_story);
         userStory.setText(recipe.getStory());
-        TextView cookingTime = findViewById(R.id.cooking_time);
+        cookingTime = findViewById(R.id.cooking_time);
         cookingTime.setText(recipe.getTime());
-        TextView people = findViewById(R.id.people);
+        people = findViewById(R.id.people);
         people.setText(recipe.getPeople());
 
         //set the ingredients

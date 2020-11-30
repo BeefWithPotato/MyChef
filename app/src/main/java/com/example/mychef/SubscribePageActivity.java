@@ -103,6 +103,8 @@ public class SubscribePageActivity extends AppCompatActivity {
                 bundle.putString("authorUid", recipe.getAuthorUid());
                 bundle.putString("authorUsername", recipe.getAuthorUsername());
                 bundle.putInt("likes", recipe.getLikes());
+                bundle.putString("cookingTime", recipe.getTime());
+                bundle.putString("people", recipe.getPeople());
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
